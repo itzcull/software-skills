@@ -24,10 +24,27 @@ Skills are not libraries or frameworks. They are structured reference documents 
 
 ## Installation
 
-Copy the skills into your Claude Code skills directory:
+### Plugin marketplace (recommended)
 
 ```bash
-# Clone the repository
+/plugin marketplace add itzcull/software-skills
+/plugin install software-skills@software-skills
+/reload-plugins
+```
+
+You can also browse and install from the `/plugin` Discover tab.
+
+### Local testing
+
+If you've cloned the repo and want to test changes locally:
+
+```bash
+claude --plugin-dir ./software-skills
+```
+
+### Manual
+
+```bash
 git clone https://github.com/itzcull/software-skills.git
 
 # Copy all skills
@@ -37,7 +54,7 @@ cp -r software-skills/skills/* ~/.claude/skills/
 ln -sf "$(pwd)/software-skills/skills/"* ~/.claude/skills/
 ```
 
-Skills are available immediately -- Claude Code loads them on demand based on the task context.
+Skills are loaded on demand by Claude Code based on the task context.
 
 ## Skill Structure
 
