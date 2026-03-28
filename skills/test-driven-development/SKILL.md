@@ -15,7 +15,7 @@ Provide everything needed to practice strict Test-Driven Development: orchestrat
 
 - Implementing features using strict TDD
 - Running a full RED-GREEN-REFACTOR cycle through separate context windows
-- Breaking a feature into discrete behavior slices
+- Breaking a feature into discrete units of behavior
 - Pairing on test-driven discovery to collaboratively design interfaces through tests
 - Enforcing phase boundaries between test writing, implementation, and refactoring
 - Creating a clearer audit trail for TDD compliance
@@ -24,7 +24,7 @@ Provide everything needed to practice strict Test-Driven Development: orchestrat
 
 - TDD is non-negotiable: no production code without a failing test first
 - Tests encode intent, not implementation
-- One behavior slice per cycle
+- One unit of behavior per cycle
 - Each phase stops as soon as its exit criteria are met
 - No phase may smuggle in work that belongs to another phase
 - If a phase cannot proceed safely without guessing, escalate instead of assuming
@@ -33,7 +33,7 @@ Provide everything needed to practice strict Test-Driven Development: orchestrat
 
 - A behavior is a domain-expressed `Given / When / Then` state transition with an observable outcome
 - A unit of behavior is the smallest atomic behavior that is still meaningful to a stakeholder or domain expert
-- A behavior slice is the implementation target for one RED-GREEN-REFACTOR cycle and should normally map to one unit of behavior
+- A behavior slice is a planning term for the implementation target of one RED-GREEN-REFACTOR cycle and should normally map to exactly one unit of behavior
 - A valid `Then` outcome must be observable in at least one of these ways:
   - return value
   - observable state change
@@ -75,11 +75,11 @@ A behavior is usually small enough for one TDD cycle when:
 
 ## Cycle Orchestration
 
-Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts. The orchestrator decides the next behavior slice, invokes the right phase in order, validates each handoff, and ensures the work stays test-first and behavior-preserving.
+Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts. The orchestrator decides the next unit of behavior, invokes the right phase in order, validates each handoff, and ensures the work stays test-first and behavior-preserving.
 
 ### Orchestration Model
 
-- One behavior slice per cycle
+- One unit of behavior per cycle
 - Spawn phases sequentially: RED -> GREEN -> REFACTOR
 - Do not overlap phases or run them in parallel
 - Require a valid handoff before starting the next phase
@@ -88,7 +88,7 @@ Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts. T
 ### Process
 
 1. Select the next smallest unit of behavior with a clear observable outcome.
-2. Spawn a RED context with only the behavior slice and relevant local context.
+2. Spawn a RED context with only that unit of behavior and relevant local context.
 3. Validate the RED handoff against `references/phase-handoffs.md`.
 4. Spawn a GREEN context using the RED handoff as the primary input.
 5. Validate the GREEN handoff against the same contract.
@@ -97,7 +97,7 @@ Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts. T
    - completed cycle with `no refactor needed`, or
    - completed cycle with verified refactoring, or
    - escalated cycle requiring user input
-8. Decide whether the next behavior slice should start immediately or wait for a commit boundary.
+8. Decide whether the next unit of behavior should start immediately or wait for a commit boundary.
 
 ### Handoff Validation
 
@@ -125,7 +125,7 @@ Reject or rework the handoff if:
 
 ### Exit Criteria
 
-- The full RED-GREEN-REFACTOR cycle is complete for one behavior slice
+- The full RED-GREEN-REFACTOR cycle is complete for one unit of behavior
 - The handoff chain is preserved from phase to phase
 - Any ambiguity or blocked work is surfaced explicitly
 - The result is ready for commit or the next cycle
@@ -134,7 +134,7 @@ Reject or rework the handoff if:
 
 Return a compact cycle report with:
 
-- The behavior slice completed
+- The unit of behavior completed
 - The three phase outcomes
 - Key commands used in each phase
 - Whether refactoring was applied or skipped
@@ -142,7 +142,7 @@ Return a compact cycle report with:
 
 ## RED Phase
 
-Execute only the RED phase for one behavior slice. Define the next unit of behavior as a test, run it, confirm it fails for the expected reason, and stop before any production implementation.
+Execute only the RED phase for one unit of behavior. Define that unit of behavior as a test, run it, confirm it fails for the expected reason, and stop before any production implementation.
 
 ### RED Process
 
@@ -169,7 +169,7 @@ Execute only the RED phase for one behavior slice. Define the next unit of behav
 
 ## GREEN Phase
 
-Execute only the GREEN phase for one behavior slice. Consume a RED handoff, implement the smallest change that makes the failing test pass, verify the result, and stop before opportunistic cleanup.
+Execute only the GREEN phase for one unit of behavior. Consume a RED handoff, implement the smallest change that makes the failing test pass, verify the result, and stop before opportunistic cleanup.
 
 ### GREEN Process
 
@@ -197,7 +197,7 @@ Execute only the GREEN phase for one behavior slice. Consume a RED handoff, impl
 
 ## REFACTOR Phase
 
-Execute only the REFACTOR phase for one behavior slice. Consume a GREEN handoff, assess the code explicitly, improve internals only when that adds value, and verify behavior remains unchanged.
+Execute only the REFACTOR phase for one unit of behavior. Consume a GREEN handoff, assess the code explicitly, improve internals only when that adds value, and verify behavior remains unchanged.
 
 ### REFACTOR Process
 
@@ -230,7 +230,7 @@ Assess these explicitly:
 - Refactoring assessment is explicit
 - Any applied refactor preserves behavior and keeps checks green
 - Or a clear `no refactor needed` outcome is documented
-- The resulting state is ready for commit or the next behavior slice
+- The resulting state is ready for commit or the next unit of behavior
 
 ### REFACTOR Constraints
 
@@ -283,6 +283,23 @@ When suggesting candidates, rank by value to the core problem:
 
 Value priority decides what to do next. The behavior model decides whether the candidate is specific enough for one cycle.
 
+### Test Review Rubric
+
+Use this quick rubric to spot tests that drift into implementation detail:
+
+- `Domain phrasing` -- does the test name read like a business rule or user-visible promise?
+- `Single trigger` -- does the `When` step trigger one behavior rather than a script of actions?
+- `Observable proof` -- does `Then` verify a return value, state change, or outgoing external interaction?
+- `Boundary discipline` -- are doubles used to control incoming dependencies or verify outgoing effects, not internal chatter?
+- `Refactor resilience` -- would the test still pass if internals were reorganized without changing behavior?
+
+Treat these as warning signs of implementation-detail tests:
+
+- assertions about private methods or internal helper calls
+- assertions about call counts on stubs that only provide inputs
+- test names that mention mappers, loops, branches, or algorithm steps instead of domain outcomes
+- multi-step scenarios that hide multiple behaviors in one example
+
 ### Test Data Patterns
 
 Use factory functions with optional overrides:
@@ -308,7 +325,7 @@ Tests reveal interface requirements. When proposing a test, explicitly discuss:
 
 Stop and ask when:
 
-- The next behavior slice is not clear enough to write one focused test
+- The next unit of behavior is not clear enough to write one focused test
 - A phase handoff is invalid or incomplete after reasonable correction
 - GREEN would require broad API design decisions beyond the slice
 - REFACTOR reveals larger pre-existing design issues outside current scope
@@ -336,3 +353,4 @@ Stop and ask when:
 
 - [Phase Handoffs](references/phase-handoffs.md) -- handoff contracts between TDD phases
 - [Units of Behavior](references/units-of-behavior.md) -- formal behavior definitions, checklists, and examples for picking the next slice
+- [Reviewing Behavior Tests](references/reviewing-behavior-tests.md) -- reviewer rubric for distinguishing domain behavior tests from implementation-detail tests

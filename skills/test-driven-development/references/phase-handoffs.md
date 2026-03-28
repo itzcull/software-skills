@@ -4,7 +4,7 @@ This reference defines the contract between spawned TDD phase contexts. Each pha
 
 ## Operating Model
 
-- One behavior slice per cycle
+- One unit of behavior per cycle
 - One spawned context per phase: RED, then GREEN, then REFACTOR
 - Phases run sequentially, not in parallel
 - Each phase may read broader context, but it must only change what its phase allows
@@ -58,7 +58,7 @@ Next prompt:
 
 Allowed:
 
-- Add or adjust exactly one test for the next behavioral increment
+- Add or adjust exactly one test for the next unit of behavior
 - Add or adjust test data factories if demanded by that test
 - Run focused tests to prove the new test fails for the right reason
 

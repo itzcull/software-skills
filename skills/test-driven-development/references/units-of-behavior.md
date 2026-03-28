@@ -7,7 +7,7 @@ This reference defines what a behavior is, what counts as a unit of behavior, an
 - A behavior is a domain-expressed `Given / When / Then` state transition with an observable outcome.
 - A unit of behavior is the smallest atomic behavior that is still meaningful in domain terms.
 - A unit of code is a function, class, or module. A unit of behavior is the smallest domain promise worth specifying.
-- A behavior slice is the implementation target for one RED-GREEN-REFACTOR cycle and should normally map to one unit of behavior.
+- A behavior slice is a planning term for the implementation target of one RED-GREEN-REFACTOR cycle and should normally map to exactly one unit of behavior.
 
 ## Behavior Structure
 
