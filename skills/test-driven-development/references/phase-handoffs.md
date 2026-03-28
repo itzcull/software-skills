@@ -24,7 +24,11 @@ This reference defines the contract between spawned TDD phase contexts. Each pha
 ## TDD Phase Handoff
 
 Phase: <red | green | refactor>
-Behavior: <single observable behavior>
+Behavior: <single unit of behavior in domain terms>
+Given: <relevant precondition>
+When: <single trigger>
+Then: <observable outcome>
+Observable outcome type: <return value | state change | outgoing external interaction>
 Test level: <unit | integration | e2e>
 
 Scope:
@@ -69,6 +73,7 @@ Exit criteria:
 - One new behavior is expressed in a test
 - The test fails for the expected behavioral reason
 - Previously passing tests in scope still pass, or any broader failures are explained
+- The behavior is explicit as `Given / When / Then`
 
 ### GREEN
 
@@ -132,6 +137,7 @@ Use these checks:
 Stop and escalate when:
 
 - The next behavior is ambiguous
+- The behavior cannot be stated clearly as `Given / When / Then`
 - The failing test implies multiple valid public APIs
 - A green implementation appears to require unrelated behavior
 - Refactoring would spill outside the agreed slice

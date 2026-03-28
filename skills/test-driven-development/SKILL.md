@@ -29,6 +29,50 @@ Provide everything needed to practice strict Test-Driven Development: orchestrat
 - No phase may smuggle in work that belongs to another phase
 - If a phase cannot proceed safely without guessing, escalate instead of assuming
 
+## Behavior Model
+
+- A behavior is a domain-expressed `Given / When / Then` state transition with an observable outcome
+- A unit of behavior is the smallest atomic behavior that is still meaningful to a stakeholder or domain expert
+- A behavior slice is the implementation target for one RED-GREEN-REFACTOR cycle and should normally map to one unit of behavior
+- A valid `Then` outcome must be observable in at least one of these ways:
+  - return value
+  - observable state change
+  - outgoing interaction with an external dependency
+
+### Behavior Structure
+
+- `Given` establishes the relevant precondition:
+  - current system state
+  - responses from incoming dependencies the SUT reads from
+- `When` is the single triggering action on the system under test
+- `Then` states the observable outcome in domain terms
+
+### Unit Of Behavior Checklist
+
+Treat a candidate as a unit of behavior only if all of these are true:
+
+- It can be described in domain language, not implementation language
+- It has a clear precondition
+- It has a single trigger
+- It produces an observable outcome
+- It succeeds or fails atomically from the caller's perspective
+- The test should remain valid after internal refactoring
+
+### Small Enough For One Cycle
+
+A behavior is usually small enough for one TDD cycle when:
+
+- It captures one rule, decision, or workflow step
+- It does not split a domain outcome across multiple tests just because the code is split
+- It does not bundle unrelated domain outcomes into one test
+- One RED test can express it clearly through the public API
+- One GREEN step can satisfy it without adding speculative behavior
+
+### Naming Heuristic
+
+- If the test name sounds like an implementation detail, it is probably not a behavior
+- If the test name reads like a business rule or domain promise, it is probably a behavior
+
 ## Cycle Orchestration
 
 Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts. The orchestrator decides the next behavior slice, invokes the right phase in order, validates each handoff, and ensures the work stays test-first and behavior-preserving.
@@ -43,7 +87,7 @@ Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts. T
 
 ### Process
 
-1. Select the next smallest observable behavior.
+1. Select the next smallest unit of behavior with a clear observable outcome.
 2. Spawn a RED context with only the behavior slice and relevant local context.
 3. Validate the RED handoff against `references/phase-handoffs.md`.
 4. Spawn a GREEN context using the RED handoff as the primary input.
@@ -61,6 +105,10 @@ Before spawning the next phase, confirm the prior handoff includes:
 
 - `Phase`
 - `Behavior`
+- `Given`
+- `When`
+- `Then`
+- `Observable outcome type`
 - `Test level`
 - `Scope`
 - `Evidence`
@@ -94,12 +142,12 @@ Return a compact cycle report with:
 
 ## RED Phase
 
-Execute only the RED phase for one behavior slice. Define the next observable behavior as a test, run it, confirm it fails for the expected reason, and stop before any production implementation.
+Execute only the RED phase for one behavior slice. Define the next unit of behavior as a test, run it, confirm it fails for the expected reason, and stop before any production implementation.
 
 ### RED Process
 
-1. Identify the next smallest observable behavior.
-2. Write exactly one test that captures that behavior through the public API.
+1. Identify the next smallest unit of behavior.
+2. Write exactly one test that captures that behavior as a `Given / When / Then` state transition through the public API.
 3. Use factory functions for test data where needed.
 4. Run the narrowest useful test command.
 5. Confirm the new test fails for the right reason.
@@ -204,6 +252,15 @@ A collaborative mode for discovering requirements and designing interfaces throu
 - **User controls the pace** -- always wait for approval before writing code
 - **Interface emerges from tests** -- the test implies the design; discuss what it reveals
 
+### Behavior Discovery
+
+Before proposing the next test, make the behavior explicit:
+
+- `Given` -- what precondition matters here?
+- `When` -- what single action triggers the behavior?
+- `Then` -- what observable outcome should happen?
+- `Outcome type` -- is the proof a return value, state change, or outgoing external interaction?
+
 ### Pairing Process
 
 1. **Understand** -- ask what the user wants to build, listen for the problem, users, definition of done, and constraints
@@ -223,6 +280,8 @@ When suggesting candidates, rank by value to the core problem:
 3. **Error handling** -- what happens when expected input is missing
 4. **Edge cases** -- unusual but valid scenarios
 5. **Nice-to-haves** -- convenience, polish, optimization
+
+Value priority decides what to do next. The behavior model decides whether the candidate is specific enough for one cycle.
 
 ### Test Data Patterns
 
@@ -276,3 +335,4 @@ Stop and ask when:
 ## Reference Documentation
 
 - [Phase Handoffs](references/phase-handoffs.md) -- handoff contracts between TDD phases
+- [Units of Behavior](references/units-of-behavior.md) -- formal behavior definitions, checklists, and examples for picking the next slice
