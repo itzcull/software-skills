@@ -5,14 +5,14 @@
     "url": "https://cullenlabs.com"
   },
   "metadata": {
-    "description": "Tech-stack agnostic software engineering skills for AI coding agents — TDD, design patterns, DDD, system design, refactoring, and more",
-    "version": "1.0.0",
+    "description": "Tech-stack agnostic software engineering skills for AI coding agents",
+    "version": "1.0.1",
     "repository": "https://github.com/itzcull/software-skills"
   },
   "plugins": [
     {
       "name": "software-skills",
-      "description": "9 curated software engineering skills for Claude Code: TDD cycle orchestration, structured code review, GoF and modern design patterns, domain-driven design, branch analysis, git conventions, refactoring catalog, distributed system design, and twelve-factor app methodology",
+      "description": "Test Driven Development, Structured Code Review, Design Patterns, Diff Analysis, Domain Driven Design, Distributed System Design, Refactoring Catalog, Git Conventions, Twelve Factor App",
       "source": "./",
       "strict": false,
       "skills": [
