@@ -19,6 +19,7 @@ Skills are not libraries or frameworks. They are structured reference documents 
 | **DiffDive** (`diffdive`) | Branch analysis and context loading for getting up to speed on unfamiliar branches |
 | **Git Conventions** (`git-conventions`) | Commit message format, TDD commit rhythm, conventional commit types, PR standards |
 | **Refactorings** (`refactorings`) | Refactoring catalog based on Fowler's work -- method composition, feature moving, data organisation, conditional simplification (57 reference files) |
+| **Test Design** (`test-design`) | Authoritative resource on writing great tests -- behavior-focused design, test levels, test doubles, integration testing, and E2E/browser testing |
 | **System Design** (`system-design`) | Distributed systems patterns -- CAP theorem, caching, load balancing, message queues, consistency models, architectural patterns (61 reference files) |
 | **Twelve-Factor** (`twelve-factor`) | Twelve-Factor App methodology for building deployable SaaS applications |
 
