@@ -1,6 +1,6 @@
 # Test Doubles: Deep Dive
 
-Test doubles replace real objects in tests. This document covers the precise taxonomy, when to use each type, and the philosophical approaches to mocking.
+Test doubles replace real objects in tests. This document covers the precise taxonomy, when to use each type, and the philosophical approaches to collaborator replacement.
 
 ## The Two Test Failures
 
@@ -20,6 +20,16 @@ The principles in this document help minimize both.
 ## Taxonomy of Test Doubles
 
 Based on Gerard Meszaros's *xUnit Patterns*:
+
+Use the taxonomy as domain language for test design. Many frameworks call every generated double a "mock", but the design role still matters: a double may be stubbing an indirect input, faking a collaborator, spying on an indirect output, or enforcing mock expectations. Name the role and verb, not just the tool primitive.
+
+| Term | Role | Failure behavior |
+|---|---|---|
+| Dummy | Satisfies a required parameter that is not exercised | Does not participate in failure except through type/signature errors |
+| Stub | Returns controlled values or exceptions as indirect inputs | Does not assert arguments or deliberately fail the test |
+| Fake | Provides a lightweight working implementation of a real collaborator | Fails only through normal behavior; should be protected by contract tests when drift matters |
+| Spy | Records indirect outputs for later assertions | Does not fail by itself; the assert phase checks recorded calls |
+| Mock | Enforces pre-declared expectations about interactions | Can fail during the act phase when expectations are violated |
 
 ### Dummy Objects
 
@@ -42,9 +52,9 @@ processPayment(paymentData, dummyLogger);
 
 ### Fake Objects
 
-**Definition**: Working implementations with shortcuts that make them unsuitable for production. They have real logic, just simplified dependencies.
+**Definition**: Lightweight working implementations of collaborators that behave like the real object but omit production qualities such as persistence, scale, stability, or infrastructure.
 
-**When to use**: When you need realistic behavior but the real dependency is too heavy or external.
+**When to use**: When you need realistic behavior but the real dependency is too heavy, slow, unstable, persistent, or external.
 
 ```typescript
 // In-memory database - works like a real DB but without persistence
@@ -80,9 +90,9 @@ const payment = await repo.findById("pay_123");
 
 ### Stub Objects
 
-**Definition**: Provide canned answers to calls during the test. They don't verify behavior — they just provide required responses.
+**Definition**: Implement an interface to control indirect inputs by returning specific hard-coded values or throwing specific exceptions. Stubs do not check whether particular arguments were passed and do not deliberately fail the test.
 
-**When to use**: When the code under test needs a response from a collaborator to proceed.
+**When to use**: When the code under test needs a controlled response from a collaborator to proceed.
 
 ```typescript
 // Stub provides predefined responses
@@ -95,11 +105,11 @@ const paymentValidatorStub: PaymentValidator = {
 const result = processPayment(paymentData, paymentValidatorStub);
 ```
 
-**State verification with stubs**:
+**Spies that also stub a response**:
 
 ```typescript
-// Stub that also records state for verification
-class StubPaymentGateway implements PaymentGateway {
+// Spy records the outgoing call and also returns a controlled response
+class SpyPaymentGateway implements PaymentGateway {
   charges: Array<{ amount: number; cardToken: string }> = [];
 
   async charge(amount: number, cardToken: string): Promise<ChargeResult> {
@@ -108,19 +118,19 @@ class StubPaymentGateway implements PaymentGateway {
   }
 }
 
-const gateway = new StubPaymentGateway();
+const gateway = new SpyPaymentGateway();
 await processPayment(payment, gateway);
 
-// Verify through state, not behavior
+// Verify the recorded indirect output
 expect(gateway.charges).toHaveLength(1);
 expect(gateway.charges[0].amount).toBe(100);
 ```
 
 ### Spy Objects
 
-**Definition**: Stubs that also record information about how they were called. They capture the interaction for later verification.
+**Definition**: Test doubles that can do what stubs do and also record indirect outputs from the system under test. Spies capture method calls and arguments so the assert phase can verify the interaction.
 
-**When to use**: When you need to verify that certain interactions occurred without expecting specific behavior.
+**When to use**: When the observable outcome is an outgoing interaction, such as an email sent, event published, metric recorded, or external command issued.
 
 ```typescript
 // Spy records calls
@@ -147,7 +157,7 @@ const emailService = {
 
 await processOrder(order);
 
-// Use mock methods to verify
+// Use framework call-recording helpers to verify the spy role
 expect(emailService.send).toHaveBeenCalledTimes(1);
 expect(emailService.send).toHaveBeenCalledWith({
   to: "customer@example.com",
@@ -157,46 +167,20 @@ expect(emailService.send).toHaveBeenCalledWith({
 
 ### Mock Objects
 
-**Definition**: Pre-programmed with expectations about which calls they will receive. They verify behavior themselves and throw if expectations aren't met.
+**Definition**: Pre-programmed with strict expectations about which calls they will receive. A mock is like a trigger-happy spy: it can fail the test on its own during the act phase if expectations are not met.
 
-**Key distinction**: Mocks combine stubbing with verification. They're pre-configured with expectations, and they verify themselves at the end.
+**Key distinction**: Spies record interactions for later assertions. Mocks enforce expectations that were declared before the system under test acts.
 
 ```typescript
-// Using Jest mock
+// Jest mock functions often play a stub or spy role.
 const paymentGateway = {
   charge: jest.fn().mockResolvedValue({ success: true }),
 };
 
 await processPayment(payment, paymentGateway);
 
-// This is NOT a mock - it's a spy (recording only)
-// Mocks in the strict sense PRE-DECLARE expectations
-
-// Traditional mock with expectations (jMock style)
-describe("OrderProcessor", () => {
-  it("should send confirmation email on successful order", () => {
-    const emailService = {
-      send: jest.fn().mockResolvedValue(undefined),
-    };
-
-    // This is still state/recording verification, not mock-style behavior verification
-
-    // For true mock-style (verify at the end):
-    const mockEmailService = {
-      send: jest.fn().mockName("sendConfirmationEmail"),
-    };
-
-    const processor = new OrderProcessor(mockEmailService);
-    processor.process(order);
-
-    expect(mockEmailService.send).toHaveBeenCalledWith(
-      expect.objectContaining({
-        to: order.email,
-        template: "order_confirmation",
-      })
-    );
-  });
-});
+// This is not a mock in the Meszaros taxonomy: it records a call for later
+// assertion, so it is acting as a spy. Strict mocks pre-declare expectations.
 ```
 
 **Traditional mock object framework pattern** (jMock/EasyMock style):
@@ -269,12 +253,12 @@ Two philosophical schools of thought on when and how to use test doubles:
 
 ### Classical TDD (Detroit School)
 
-**Approach**: Use real objects if possible. Mock only awkward collaborations.
+**Approach**: Use real objects if possible. Use test doubles only for awkward collaborations.
 
 > "A classical TDDer would use a real warehouse and a double for the mail service." — Martin Fowler
 
 **Principles**:
-- Mock only at architectural boundaries (external systems)
+- Use test doubles only at architectural boundaries (external systems)
 - Within your system, use real collaborators
 - Verify through state when possible
 
@@ -283,7 +267,7 @@ Two philosophical schools of thought on when and how to use test doubles:
 describe("OrderProcessor", () => {
   it("should calculate total correctly", () => {
     const pricingEngine = new PricingEngine(); // Real object
-    const order = getMockOrder();
+    const order = getTestOrder();
 
     const total = pricingEngine.calculateTotal(order);
 
@@ -294,7 +278,7 @@ describe("OrderProcessor", () => {
 
 ### Mockist TDD (London School)
 
-**Approach**: Mock all collaborators. Every object beyond the system under test is a double.
+**Approach**: Replace all collaborators with test doubles. Mockist literature often calls all of those doubles "mocks", even when they are technically stubs or spies.
 
 > "A mockist TDD practitioner will always use a mock for any object with interesting behavior." — Martin Fowler
 
@@ -304,13 +288,13 @@ describe("OrderProcessor", () => {
 - Use behavior verification
 
 ```typescript
-// Mockist style - mock all collaborators
+// Mockist style - replace all collaborators with doubles
 describe("OrderProcessor", () => {
   it("should calculate total using pricing engine", () => {
     const pricingEngine = {
       calculateTotal: jest.fn().mockReturnValue(150),
     };
-    const order = getMockOrder();
+    const order = getTestOrder();
 
     const total = new OrderProcessor(pricingEngine).calculateTotal(order);
 
@@ -334,7 +318,7 @@ describe("OrderProcessor", () => {
 
 > "Personally I've always been a classic TDDer... I really like the fact that while writing the test you focus on the result of the behavior, not how it's done. A mockist is constantly thinking about how the SUT is going to be implemented."
 
-**Our recommendation**: Default to Classical TDD. Mock only at architectural boundaries. Use behavior verification sparingly for side effects.
+**Our recommendation**: Default to Classical TDD. Use test doubles only at architectural boundaries. Use behavior verification sparingly for side effects.
 
 ## Solitary vs Sociable Unit Tests
 
@@ -352,7 +336,7 @@ describe("OrderProcessor", () => {
     const discountCalculator = new DiscountCalculator(); // Real
     const processor = new OrderProcessor(pricingEngine, discountCalculator);
 
-    const result = processor.process(getMockOrder());
+    const result = processor.process(getTestOrder());
 
     expect(result.discountApplied).toBe(true);
   });
@@ -361,17 +345,17 @@ describe("OrderProcessor", () => {
 
 ### Solitary Unit Tests
 
-**Definition**: Tests where all collaborators are mocked or doubled.
+**Definition**: Tests where collaborators are replaced by test doubles.
 
 ```typescript
-// Solitary - all collaborators mocked
+// Solitary - collaborators replaced by test doubles
 describe("OrderProcessor", () => {
   it("should apply discount correctly", () => {
     const pricingEngine = { calculateTotal: jest.fn() };
     const discountCalculator = { calculateDiscount: jest.fn().mockReturnValue(0.1) };
     const processor = new OrderProcessor(pricingEngine, discountCalculator);
 
-    const result = processor.process(getMockOrder());
+    const result = processor.process(getTestOrder());
 
     expect(pricingEngine.calculateTotal).toHaveBeenCalled();
     expect(result.discountApplied).toBe(true);
@@ -391,12 +375,12 @@ describe("OrderProcessor", () => {
 
 ## Anti-Patterns in Test Doubles
 
-### Over-Mocking
+### Over-Doubling
 
-**Problem**: Mocking everything creates tests that mock reality rather than test behavior.
+**Problem**: Replacing every collaborator with a test double creates tests that model your assumptions rather than verify behavior.
 
 ```typescript
-// ❌ BAD - Mocking everything, testing nothing
+// ❌ BAD - Doubling everything, testing little
 it("should process payment", () => {
   const gateway = { charge: jest.fn().mockResolvedValue({ success: true }) };
   const validator = { validate: jest.fn().mockReturnValue(true) };
@@ -405,7 +389,7 @@ it("should process payment", () => {
   const metrics = { record: jest.fn() };
 
   const processor = new PaymentProcessor(gateway, validator, logger, notifier, metrics);
-  const result = processor.process(getMockPayment());
+  const result = processor.process(getTestPayment());
 
   expect(result.success).toBe(true);
   expect(gateway.charge).toHaveBeenCalled();
@@ -421,10 +405,10 @@ it("should process payment", () => {
 ```typescript
 // ✅ GOOD - Test behavior, not implementation details
 it("should reject payment with invalid card", () => {
-  const gateway = { charge: jest.fn() }; // Minimal stubbing
-  const processor = new PaymentProcessor(gateway, getMockValidator());
+  const gateway = { charge: jest.fn() }; // Minimal stub
+  const processor = new PaymentProcessor(gateway, getTestValidator());
 
-  const result = processor.process(getMockPayment({ cardNumber: "invalid" }));
+  const result = processor.process(getTestPayment({ cardNumber: "invalid" }));
 
   expect(result.success).toBe(false);
   expect(result.error.code).toBe("INVALID_CARD");
@@ -432,18 +416,18 @@ it("should reject payment with invalid card", () => {
 });
 ```
 
-### Mocking Implementation Details
+### Spying on Implementation Details
 
 **Problem**: Tests couple to internal structure and break on refactoring.
 
 ```typescript
-// ❌ BAD - Mocking internal collaborator
+// ❌ BAD - Replacing an internal collaborator
 jest.mock("./payment-validator");
 import { validatePayment } from "./payment-validator";
 
 it("should validate payment", () => {
   const processor = new PaymentProcessor();
-  processor.process(getMockPayment());
+  processor.process(getTestPayment());
 
   expect(validatePayment).toHaveBeenCalled();
 });
@@ -451,12 +435,12 @@ it("should validate payment", () => {
 
 **Solution**: Test through public API. If internal logic needs testing, it should be refactored to its own unit with its own tests.
 
-### Mock Setup Complexity
+### Stub Setup Complexity
 
-**Problem**: Mock configuration becomes more complex than the test logic.
+**Problem**: Stub configuration becomes more complex than the test logic.
 
 ```typescript
-// ❌ BAD - Complex mock setup obscures test intent
+// ❌ BAD - Complex stub setup obscures test intent
 it("should process payment with tiered discount", () => {
   const pricingEngine = {
     calculateBasePrice: jest.fn().mockImplementation((items) => {
@@ -472,7 +456,7 @@ it("should process payment with tiered discount", () => {
     calculateTax: jest.fn().mockImplementation((price) => price * 0.08),
     formatPrice: jest.fn().mockImplementation((price) => `$${price.toFixed(2)}`),
   };
-  // ... 30 more lines of mock setup
+  // ... 30 more lines of stub setup
 });
 ```
 
@@ -482,7 +466,7 @@ it("should process payment with tiered discount", () => {
 // ✅ GOOD - Real object for simple logic
 it("should apply gold tier discount", () => {
   const pricingEngine = new PricingEngine(); // Real object
-  const order = getMockOrder({ items: [/* items */], tier: "gold" });
+  const order = getTestOrder({ items: [/* items */], tier: "gold" });
 
   const result = pricingEngine.calculateFinalPrice(order);
 
@@ -502,7 +486,7 @@ it("should process order", () => {
   const metrics = { record: jest.fn(), start: jest.fn(), end: jest.fn() };
   const processor = new OrderProcessor(warehouse, email, metrics);
 
-  processor.process(getMockOrder());
+  processor.process(getTestOrder());
 
   expect(warehouse.remove).toHaveBeenCalledTimes(1);
   expect(warehouse.remove).toHaveBeenCalledWith("item-1", 2, "order-123");
@@ -529,7 +513,7 @@ it("should complete order and send confirmation", () => {
   const email = { send: jest.fn() }; // Spy
   const processor = new OrderProcessor(warehouse, email);
 
-  const result = processor.process(getMockOrder());
+  const result = processor.process(getTestOrder());
 
   expect(result.status).toBe("completed");
   expect(warehouse.remove).toHaveBeenCalled(); // Only verify critical interaction
@@ -611,8 +595,8 @@ Unit tests should be fast enough to support TDD:
 - Slow tests → longer CI cycles
 - Slow tests → break TDD flow
 
-**Speed tips for mock-heavy tests**:
-- Mock at boundaries, not internally
+**Speed tips for double-heavy tests**:
+- Use doubles at boundaries, not internally
 - Use in-memory fakes for databases
 - Parallelize independent test files
 

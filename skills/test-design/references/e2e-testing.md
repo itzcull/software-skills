@@ -230,7 +230,7 @@ fireEvent.submit(screen.getByRole("form"));
 ```typescript
 describe("UserProfile component", () => {
   it("should display user data after loading", async () => {
-    // Mock the API call
+    // Stub the API response
     jest.spyOn(api, "getUser").mockResolvedValue({
       id: "1",
       name: "Alice",
@@ -306,7 +306,7 @@ describe("PaymentForm error handling", () => {
   });
 
   it("should retry after error", async () => {
-    const mock = jest
+    const processPaymentSpy = jest
       .spyOn(paymentApi, "processPayment")
       .mockRejectedValueOnce(new Error("Network error"))
       .mockResolvedValueOnce({ success: true });
@@ -316,7 +316,7 @@ describe("PaymentForm error handling", () => {
     await userEvent.click(screen.getByRole("button", { name: /pay/i }));
     await userEvent.click(screen.getByRole("button", { name: /retry/i }));
 
-    expect(mock).toHaveBeenCalledTimes(2);
+    expect(processPaymentSpy).toHaveBeenCalledTimes(2);
   });
 });
 ```
@@ -454,7 +454,7 @@ test("should redirect to payment provider", async ({ page }) => {
   await expect(page).toHaveURL(/stripe\.com/);
 });
 
-// ✅ GOOD - Mock the redirect
+// ✅ GOOD - Stub the redirect inside your system boundary
 test("should initiate payment flow", async ({ page }) => {
   await page.goto("/checkout");
   await page.click("button[value='stripe']");
@@ -569,7 +569,7 @@ test("soft assertions collect all failures", async ({ page }) => {
 - **Parallelize across browsers**
 - **Shard across CI workers**
 - **Skip E2E on fast commits**, run on PR merge
-- **Mock expensive API calls** when possible
+- **Stub expensive API calls** when possible
 - **Use smaller test data**
 
 ## When to Skip E2E Tests
@@ -610,7 +610,7 @@ describe("CheckoutForm accessibility", () => {
 
 ## See Also
 
-- [Test Doubles](./test-doubles.md) — Mocking philosophy
+- [Test Doubles](./test-doubles.md) — Test double taxonomy and usage patterns
 - [Integration Testing](./integration-testing.md) — Backend integration patterns
 - [Playwright Best Practices](https://playwright.dev/docs/best-practices)
 - [Testing Library Queries](https://testing-library.com/docs/queries/about)

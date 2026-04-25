@@ -1,28 +1,28 @@
 # Integration Testing
 
-Integration tests verify that your code honors contracts with things you don't control — databases, APIs, third-party libraries. They complete the "don't mock what you don't own" pattern.
+Integration tests verify that your code honors contracts with things you don't control — databases, APIs, third-party libraries. They complete the "don't double what you don't own directly" pattern.
 
 ## Purpose and Scope
 
-Unit tests mock at architectural boundaries. Integration tests use real dependencies to prove your adapters work:
+Unit tests use test doubles at architectural boundaries. Integration tests use real dependencies to prove your adapters work:
 
-| Test Level | What It Tests | What It Mocks |
+| Test Level | What It Tests | What It Doubles |
 |------------|---------------|---------------|
 | Unit | Behavioral contracts within your system | External dependencies |
 | Integration | Your code's contract with external systems | Nothing — uses real dependencies |
 
 ```typescript
-// Unit test: mock your abstraction
+// Unit test: use a spy for your abstraction
 describe("PaymentProcessor (unit)", () => {
   it("should call gateway with correct amount", () => {
-    const mockGateway: PaymentGateway = {
+    const paymentGatewaySpy: PaymentGateway = {
       charge: jest.fn().mockResolvedValue({ success: true }),
     };
-    const processor = new PaymentProcessor(mockGateway);
+    const processor = new PaymentProcessor(paymentGatewaySpy);
 
-    processor.charge(getMockPayment({ amount: 100 }));
+    processor.charge(getTestPayment({ amount: 100 }));
 
-    expect(mockGateway.charge).toHaveBeenCalledWith(100, expect.any(String));
+    expect(paymentGatewaySpy.charge).toHaveBeenCalledWith(100, expect.any(String));
   });
 });
 
@@ -68,18 +68,18 @@ class StripePaymentGateway implements PaymentGateway {
   }
 }
 
-// 3. Unit tests: mock the interface
-describe("OrderProcessor with mock gateway", () => {
+// 3. Unit tests: use a stub or spy for the interface
+describe("OrderProcessor with gateway spy", () => {
   it("should process payment", () => {
-    const mockGateway: PaymentGateway = {
+    const paymentGatewaySpy: PaymentGateway = {
       charge: jest.fn().mockResolvedValue({ success: true }),
     };
-    const processor = new OrderProcessor(mockGateway);
+    const processor = new OrderProcessor(paymentGatewaySpy);
 
-    const result = processor.checkout(getMockOrder());
+    const result = processor.checkout(getTestOrder());
 
     expect(result.status).toBe("paid");
-    expect(mockGateway.charge).toHaveBeenCalled();
+    expect(paymentGatewaySpy.charge).toHaveBeenCalled();
   });
 });
 
@@ -139,7 +139,7 @@ describe("PaymentRepository integration", () => {
   });
 
   it("should persist and retrieve payment", async () => {
-    const payment = getMockPayment({ id: "pay_test_1" });
+    const payment = getTestPayment({ id: "pay_test_1" });
 
     await repository.save(payment);
     const retrieved = await repository.findById("pay_test_1");
@@ -278,7 +278,7 @@ For tests that need to run in parallel:
 ```typescript
 // Unique data per test
 const getUniquePayment = (testId: string) =>
-  getMockPayment({
+  getTestPayment({
     id: `pay_${testId}_${Date.now()}`,
     description: `Test payment for ${testId}`,
   });
@@ -299,15 +299,15 @@ describe("PaymentRepository parallel", () => {
 });
 ```
 
-## HTTP Mocking with MSW
+## HTTP Stubbing with MSW
 
 MSW (Mock Service Worker) intercepts requests at the network level, not the module level.
 
-### Why MSW Over Module Mocking?
+### Why MSW Over Module-Level Doubles?
 
-| Aspect | Module Mocking | MSW |
+| Aspect | Module-level double | MSW |
 |--------|---------------|-----|
-| **Works with any HTTP client** | No — only works with mocked module | Yes |
+| **Works with any HTTP client** | No — only works with replaced module | Yes |
 | **Works in Storybook** | No | Yes |
 | **Works in browser dev tools** | No | Yes |
 | **Tests real network flow** | No | Yes |
@@ -402,7 +402,7 @@ afterAll(() => server.close());
 // Override for specific test
 server.use(
   http.get("/api/payments/:id", () => {
-    return HttpResponse.json({ id: "mocked", amount: 999 });
+    return HttpResponse.json({ id: "stubbed", amount: 999 });
   })
 );
 ```
@@ -539,11 +539,11 @@ Integration tests add complexity. Skip when:
 - The adapter is trivial (e.g., HTTP client wrapper)
 - The external system has comprehensive integration tests
 - The cost of infrastructure outweighs the risk
-- A unit test with mocking provides sufficient coverage
+- A unit test with a stub or spy provides sufficient coverage
 
 ## See Also
 
-- [Test Doubles](./test-doubles.md) — Mocking philosophy and patterns
+- [Test Doubles](./test-doubles.md) — Test double taxonomy and usage patterns
 - [E2E Testing](./e2e-testing.md) — Browser and component testing
 - [Testcontainers Node.js Guide](https://testcontainers.com/guides/getting-started-with-testcontainers-for-nodejs/)
 - [MSW Documentation](https://mswjs.io/docs/)

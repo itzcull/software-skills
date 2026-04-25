@@ -35,7 +35,7 @@ Specify contracts between behavioral units within your system.
 
 - **"Unit" = unit of behavior, not unit of code** - test the behavior a caller depends on, not individual functions
 - Test through the public API exclusively - internals should be invisible to tests
-- Mock at architectural boundaries, not between internal collaborators
+- Use test doubles at architectural boundaries, not between internal collaborators
 - Should survive refactoring that preserves observable behavior
 - No 1:1 mapping between test files and implementation files
 
@@ -43,7 +43,7 @@ Specify contracts between behavioral units within your system.
 // Unit tests verify behavioral contracts
 describe("Payment processing", () => {
   it("should reject payments with negative amounts", () => {
-    const payment = getMockPayment({ amount: -100 });
+    const payment = getTestPayment({ amount: -100 });
     const result = processPayment(payment);
 
     expect(result.success).toBe(false);
@@ -57,9 +57,9 @@ describe("Payment processing", () => {
 Specify that your code honors contracts with things you don't control—databases, APIs, third-party libraries.
 
 - Verify your adapters work against real dependencies
-- Complete the "don't mock what you don't own" pattern: mock your abstraction in unit tests, prove the abstraction works here
+- Complete the "don't double what you don't own" pattern: use stubs or spies for your abstraction in unit tests, prove the abstraction works here
 - Test at the boundary between your code and external systems
-- May require test infrastructure (test databases, mock servers, containers)
+- May require test infrastructure (test databases, stub servers, containers)
 
 See [Integration Testing](./integration-testing.md) for Testcontainers patterns, MSW setup, and database testing strategies.
 
@@ -67,7 +67,7 @@ See [Integration Testing](./integration-testing.md) for Testcontainers patterns,
 // Integration test - proves our adapter works with real database
 describe("PaymentRepository", () => {
   it("should persist payment to database", async () => {
-    const payment = getMockPayment({ amount: 100 });
+    const payment = getTestPayment({ amount: 100 });
     const repository = new PaymentRepository(testDatabase);
 
     await repository.save(payment);
@@ -113,31 +113,31 @@ Each layer alone leaves gaps. The combination gives confidence that intent is pr
 | Adapter/dependency mismatch | Integration tests |
 | Composition failure | E2E tests |
 
-## Mocking Philosophy
+## Test Double Philosophy
 
-Mock at architectural boundaries, not between internal collaborators.
+Use test doubles at architectural boundaries, not between internal collaborators. Reserve `mock` for strict expectation-based doubles; use `stub`, `spy`, or `fake` when that is the role the double plays.
 
 See [Test Doubles](./test-doubles.md) for detailed coverage of dummy, stub, spy, mock, and fake objects.
 
-### Don't Mock What You Don't Own
+### Don't Double What You Don't Own Directly
 
-When you depend on something you don't control (database, external API, third-party library), create your own abstraction and mock that:
+When you depend on something you don't control (database, external API, third-party library), create your own abstraction and use a stub or spy for that abstraction in unit tests:
 
 ```typescript
-// ❌ BAD - Mocking third-party library directly
+// ❌ BAD - Replacing a third-party library directly
 jest.mock("stripe", () => ({
   charges: {
     create: jest.fn().mockResolvedValue({ id: "ch_123" }),
   },
 }));
 
-// ✅ GOOD - Mock your own abstraction
+// ✅ GOOD - Define your own abstraction
 interface PaymentGateway {
   charge(amount: number, cardToken: string): Promise<ChargeResult>;
 }
 
-// In unit tests: mock PaymentGateway
-const mockGateway: PaymentGateway = {
+// In unit tests: use a stub for PaymentGateway
+const paymentGatewayStub: PaymentGateway = {
   charge: jest.fn().mockResolvedValue({ success: true, chargeId: "ch_123" }),
 };
 
@@ -151,14 +151,14 @@ describe("StripePaymentGateway", () => {
 });
 ```
 
-### Where to Mock
+### Where to Use Test Doubles
 
-- **Unit tests**: Mock your abstractions (interfaces you own)
+- **Unit tests**: Stub or spy on abstractions you own
 - **Integration tests**: Use real dependencies to prove adapters work
-- **Never mock**: Internal collaborators within the same behavioral unit
+- **Never double**: Internal collaborators within the same behavioral unit
 
 ```typescript
-// ❌ BAD - Mocking internal collaborator
+// ❌ BAD - Spying on an internal collaborator
 it("should call validateAmount", () => {
   const spy = jest.spyOn(validator, "validateAmount");
   processPayment(payment);
@@ -167,7 +167,7 @@ it("should call validateAmount", () => {
 
 // ✅ GOOD - Test the behavior, not the internals
 it("should reject payments with negative amounts", () => {
-  const payment = getMockPayment({ amount: -100 });
+  const payment = getTestPayment({ amount: -100 });
   const result = processPayment(payment);
   expect(result.success).toBe(false);
 });
@@ -199,7 +199,7 @@ See [Test Doubles: Speed Expectations](./test-doubles.md#speed-expectations) for
 
 - **Jest** or **Vitest** for testing frameworks
 - **React Testing Library** for React components
-- **MSW (Mock Service Worker)** for HTTP mocking at the network level
+- **MSW (Mock Service Worker)** for HTTP stubbing at the network level
 - **Testcontainers** for integration tests with real databases
 - **Playwright** for E2E browser testing
 
@@ -224,7 +224,7 @@ src/
 Use factory functions with optional overrides for test data:
 
 ```typescript
-const getMockPaymentRequest = (
+const getTestPaymentRequest = (
   overrides?: Partial<PaymentRequest>
 ): PaymentRequest => {
   return {
@@ -238,13 +238,13 @@ const getMockPaymentRequest = (
       cvv: "123",
       token: "token",
     },
-    addressDetails: getMockAddressDetails(),
+    addressDetails: getTestAddressDetails(),
     brand: "Visa",
     ...overrides,
   };
 };
 
-const getMockAddressDetails = (
+const getTestAddressDetails = (
   overrides?: Partial<AddressDetails>
 ): AddressDetails => {
   return {
@@ -273,7 +273,7 @@ When schemas exist, validate factory output to catch test data issues early:
 ```typescript
 import { PaymentSchema, type Payment } from '../schemas/payment.schema';
 
-const getMockPayment = (overrides?: Partial<Payment>): Payment => {
+const getTestPayment = (overrides?: Partial<Payment>): Payment => {
   const basePayment = {
     amount: 100,
     currency: "GBP",
@@ -288,7 +288,7 @@ const getMockPayment = (overrides?: Partial<Payment>): Payment => {
 };
 
 // This catches errors in test setup:
-const payment = getMockPayment({
+const payment = getTestPayment({
   amount: -100  // ❌ Schema validation fails: amount must be positive
 });
 ```
@@ -314,7 +314,7 @@ it("should call validateAmount", () => {
 
 // ✅ GOOD - Behavior-focused test
 it("should reject payments with negative amounts", () => {
-  const payment = getMockPayment({ amount: -100 });
+  const payment = getTestPayment({ amount: -100 });
   const result = processPayment(payment);
   expect(result.success).toBe(false);
   expect(result.error.message).toBe("Invalid amount");
@@ -335,15 +335,15 @@ it("should process payment", () => {
 
 // ✅ GOOD - Factory functions (isolated, immutable)
 it("should process payment", () => {
-  const payment = getMockPayment({ amount: 100 });
+  const payment = getTestPayment({ amount: 100 });
   processPayment(payment);
 });
 ```
 
-### Mocking Internal Collaborators
+### Spying on Internal Collaborators
 
 ```typescript
-// ❌ BAD - Mocking something you own and control
+// ❌ BAD - Replacing something you own and control
 jest.mock("./payment-validator");
 it("should validate payment", () => {
   processPayment(payment);
@@ -357,19 +357,19 @@ it("should reject invalid payment", () => {
 });
 ```
 
-### Mocking What You Don't Own
+### Replacing What You Don't Own Directly
 
 ```typescript
-// ❌ BAD - Mocking third-party library directly
+// ❌ BAD - Replacing a third-party library directly
 jest.mock("axios");
-(axios.get as jest.Mock).mockResolvedValue({ data: mockData });
+(axios.get as jest.Mock).mockResolvedValue({ data: testData });
 
-// ✅ GOOD - Create and mock your own abstraction
+// ✅ GOOD - Create your own abstraction
 interface HttpClient {
   get<T>(url: string): Promise<T>;
 }
 
-// Unit test: mock HttpClient
+// Unit test: stub or spy on HttpClient
 // Integration test: prove AxiosHttpClient works with real HTTP
 ```
 
@@ -405,7 +405,7 @@ export const processPayment = (
 // payment-processor.test.ts - achieves 100% coverage of validator
 describe("Payment processing", () => {
   it("should reject payments with negative amounts", () => {
-    const payment = getMockPaymentRequest({ amount: -100 });
+    const payment = getTestPaymentRequest({ amount: -100 });
     const result = processPayment(payment);
 
     expect(result.success).toBe(false);
@@ -413,7 +413,7 @@ describe("Payment processing", () => {
   });
 
   it("should reject payments exceeding maximum amount", () => {
-    const payment = getMockPaymentRequest({ amount: 10001 });
+    const payment = getTestPaymentRequest({ amount: 10001 });
     const result = processPayment(payment);
 
     expect(result.success).toBe(false);
@@ -421,7 +421,7 @@ describe("Payment processing", () => {
   });
 
   it("should reject payments with invalid CVV format", () => {
-    const payment = getMockPaymentRequest({
+    const payment = getTestPaymentRequest({
       payingCardDetails: { cvv: "12", token: "valid-token" },
     });
     const result = processPayment(payment);
@@ -431,7 +431,7 @@ describe("Payment processing", () => {
   });
 
   it("should process valid payments successfully", () => {
-    const payment = getMockPaymentRequest({
+    const payment = getTestPaymentRequest({
       amount: 100,
       payingCardDetails: { cvv: "123", token: "valid-token" },
     });
@@ -483,7 +483,7 @@ See [E2E Testing](./e2e-testing.md) for Testing Library query priority, userEven
 ## See Also
 
 - [Test Doubles](./test-doubles.md) — Deep dive on mocks, stubs, spies, fakes; Classical vs Mockist TDD; solitary vs sociable tests
-- [Integration Testing](./integration-testing.md) — Testcontainers patterns, MSW for HTTP mocking, adapter testing strategies
+- [Integration Testing](./integration-testing.md) — Testcontainers patterns, MSW for HTTP stubbing, adapter testing strategies
 - [E2E Testing](./e2e-testing.md) — Playwright best practices, Testing Library query priority, component testing patterns
 
 ## Authoritative Sources
