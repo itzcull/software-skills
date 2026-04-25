@@ -1,6 +1,8 @@
 # Test Doubles: Deep Dive
 
-Test doubles replace real objects in tests. This document covers the precise taxonomy, when to use each type, and the philosophical approaches to collaborator replacement.
+Test doubles replace real collaborators in tests. This document covers the precise taxonomy, when to use each type, and the architectural consequences of collaborator replacement.
+
+The taxonomy is a design vocabulary, not a checklist. Modern test design should reduce the need for doubles by pushing business logic into pure functions, using real in-process collaborators, and proving infrastructure boundaries with high-fidelity integration or contract tests.
 
 ## The Two Test Failures
 
@@ -29,7 +31,10 @@ Use the taxonomy as domain language for test design. Many frameworks call every 
 | Stub | Returns controlled values or exceptions as indirect inputs | Does not assert arguments or deliberately fail the test |
 | Fake | Provides a lightweight working implementation of a real collaborator | Fails only through normal behavior; should be protected by contract tests when drift matters |
 | Spy | Records indirect outputs for later assertions | Does not fail by itself; the assert phase checks recorded calls |
-| Mock | Enforces pre-declared expectations about interactions | Can fail during the act phase when expectations are violated |
+| Mock | Enforces pre-declared expectations about role interactions | Can fail during the act phase when expectations are violated |
+| Temporary stub | Provides short-lived scaffolding for an unbuilt collaborator during outside-in TDD | Should disappear when the real collaborator exists |
+
+Precise naming matters because framework APIs blur the roles. `jest.fn()` or `vi.fn()` may be a stub, spy, or mock depending on how the test uses it. Name the role the double plays in the test, not the helper function that created it.
 
 ### Dummy Objects
 
@@ -88,6 +93,8 @@ const payment = await repo.findById("pay_123");
 
 **Risk**: Fakes can drift from real behavior. Use contract tests (same test suite run against both fake and real implementations).
 
+**Modern pressure**: Prefer real infrastructure through Testcontainers or equivalent tooling when the fake would need to emulate complex persistence, transactions, constraints, queues, or network semantics. A fake that becomes a second implementation of production behavior is test infrastructure that can have its own bugs.
+
 ### Stub Objects
 
 **Definition**: Implement an interface to control indirect inputs by returning specific hard-coded values or throwing specific exceptions. Stubs do not check whether particular arguments were passed and do not deliberately fail the test.
@@ -104,6 +111,20 @@ const paymentValidatorStub: PaymentValidator = {
 // The processor calls these stubs to get answers
 const result = processPayment(paymentData, paymentValidatorStub);
 ```
+
+### Temporary Test Stubs
+
+**Definition**: Short-lived stubs used during outside-in TDD before the depended-on component exists.
+
+**When to use**: When a failing test has discovered a needed collaboration and the real collaborator has not been implemented yet.
+
+**Rule**: Delete temporary stubs once the real implementation exists. Do not let scaffolding become permanent test architecture.
+
+### Spy Objects
+
+**Definition**: Test doubles that can do what stubs do and also record indirect outputs from the system under test. Spies capture method calls and arguments so the assert phase can verify the interaction.
+
+**When to use**: When the observable outcome is an outgoing interaction, such as an email sent, event published, metric recorded, or external command issued.
 
 **Spies that also stub a response**:
 
@@ -125,12 +146,6 @@ await processPayment(payment, gateway);
 expect(gateway.charges).toHaveLength(1);
 expect(gateway.charges[0].amount).toBe(100);
 ```
-
-### Spy Objects
-
-**Definition**: Test doubles that can do what stubs do and also record indirect outputs from the system under test. Spies capture method calls and arguments so the assert phase can verify the interaction.
-
-**When to use**: When the observable outcome is an outgoing interaction, such as an email sent, event published, metric recorded, or external command issued.
 
 ```typescript
 // Spy records calls
@@ -167,9 +182,13 @@ expect(emailService.send).toHaveBeenCalledWith({
 
 ### Mock Objects
 
-**Definition**: Pre-programmed with strict expectations about which calls they will receive. A mock is like a trigger-happy spy: it can fail the test on its own during the act phase if expectations are not met.
+**Definition**: Pre-programmed with strict expectations about which role interactions they will receive. A mock is like a trigger-happy spy: it can fail the test on its own during the act phase if expectations are not met.
 
 **Key distinction**: Spies record interactions for later assertions. Mocks enforce expectations that were declared before the system under test acts.
+
+**Original design purpose**: Mocks were created to discover and enforce role-based collaboration protocols in outside-in TDD. They support Tell, Don't Ask design: the system under test tells an application-owned role to do work rather than pulling state from collaborators and making decisions externally.
+
+**Misuse**: Mocking every concrete class for isolation is not the same thing as mocking roles. It commonly creates brittle tests and header interfaces that only mirror concrete classes so they can be replaced in tests.
 
 ```typescript
 // Jest mock functions often play a stub or spy role.
@@ -245,7 +264,41 @@ it("should notify warehouse after purchase", () => {
 | **Best for** | Checking results | Checking side effects |
 | **Risk** | May need query methods | Brittle to implementation changes |
 
-**Recommendation**: Prefer state verification when possible. Use behavior verification for side effects (notifications, API calls, writes to external systems).
+**Recommendation**: Prefer state verification when possible. Use behavior verification when the outgoing interaction is the observable behavior: notifications, events, metrics, API calls, queue messages, or writes through an external port.
+
+## Mock Roles, Not Objects
+
+Use mocks for roles owned by your application, not for arbitrary objects. A role is a narrow collaboration need expressed from the system's perspective, such as `PaymentGateway`, `OrderEvents`, or `EmailSender`.
+
+Do not mock fixed third-party APIs, runtime types, database clients, or concrete classes directly. Wrap external systems in an application-owned port, test application behavior against the port with a stub or spy, and prove the adapter with integration or contract tests.
+
+### Header Interfaces
+
+A header interface is an interface that merely copies the public API of a concrete class so the class can be mocked.
+
+```typescript
+// BAD - interface exists only to mock the concrete class
+interface UserRepositoryInterface {
+  save(user: User): Promise<void>;
+  findById(id: string): Promise<User | null>;
+  findByEmail(email: string): Promise<User | null>;
+}
+
+class UserRepository implements UserRepositoryInterface {
+  // Same methods, same shape, no role distinction
+}
+```
+
+Prefer role-based ports that express what this behavior needs.
+
+```typescript
+// GOOD - role owned by the checkout use case
+interface CustomerCreditLookup {
+  findAvailableCredit(customerId: string): Promise<Money>;
+}
+```
+
+The test should reveal a collaboration role. It should not force every concrete class to have a twin interface.
 
 ## Classical vs Mockist TDD
 
@@ -278,14 +331,14 @@ describe("OrderProcessor", () => {
 
 ### Mockist TDD (London School)
 
-**Approach**: Replace all collaborators with test doubles. Mockist literature often calls all of those doubles "mocks", even when they are technically stubs or spies.
+**Approach**: Replace collaborators with test doubles while driving design from the outside in. Mockist literature often calls all of those doubles "mocks", even when they are technically stubs or spies.
 
 > "A mockist TDD practitioner will always use a mock for any object with interesting behavior." — Martin Fowler
 
 **Principles**:
-- Test behavior through interactions
-- Each class is tested in isolation
-- Use behavior verification
+- Test behavior through role interactions
+- Discover narrow interfaces needed by the object under test
+- Use behavior verification deliberately
 
 ```typescript
 // Mockist style - replace all collaborators with doubles
@@ -318,7 +371,7 @@ describe("OrderProcessor", () => {
 
 > "Personally I've always been a classic TDDer... I really like the fact that while writing the test you focus on the result of the behavior, not how it's done. A mockist is constantly thinking about how the SUT is going to be implemented."
 
-**Our recommendation**: Default to Classical TDD. Use test doubles only at architectural boundaries. Use behavior verification sparingly for side effects.
+**Our recommendation**: Default to Classical TDD and sociable tests. Use mockist outside-in techniques when they help discover a role or specify an outgoing side effect. Do not use mockist isolation as a default class-by-class testing strategy.
 
 ## Solitary vs Sociable Unit Tests
 
@@ -367,11 +420,50 @@ describe("OrderProcessor", () => {
 - When collaborators are awkward (external services, databases)
 - When you want to isolate the class for debugging
 - When testing error paths that are hard to trigger with real collaborators
+- When outside-in TDD is discovering a new collaboration role
 
 **When to use sociable tests**:
 - Default case
 - When collaborators are simple and fast
 - When testing integration between classes within a bounded context
+- When refactoring safety matters more than pinpointing the exact internal collaborator that failed
+
+## Functional Core, Imperative Shell
+
+The strongest way to avoid mock-heavy tests is to remove side effects from core logic.
+
+| Layer | Shape | Test strategy |
+|---|---|---|
+| Functional core | Pure functions that take data and return data | Unit tests with direct input/output assertions and no doubles |
+| Imperative shell | Reads databases, calls APIs, publishes events, writes files | Sparse adapter, integration, contract, or E2E tests |
+
+Pure domain logic has no collaborators to replace. If a rule can be modeled as data in and data out, prefer that design over injecting services that must be stubbed or mocked.
+
+```typescript
+// GOOD - domain rule needs no mock
+const discount = calculateDiscount({
+  subtotal: 100,
+  customerTier: "gold",
+});
+
+expect(discount).toEqual({ amount: 10, reason: "gold-tier" });
+```
+
+The shell gathers inputs, calls the core, and executes the effects the core decides should happen.
+
+## Mock Drift and Contract Testing
+
+Mocks and stubs can lie. If a consumer's double says an API returns `{ userId }` but the provider now returns `{ id }`, the consumer's unit tests keep passing while production breaks.
+
+Use contract tests when the boundary crosses a separately deployed service or team. Consumer-driven contract testing records the consumer's expectations as an executable artifact and verifies that the provider still satisfies them in CI.
+
+| Boundary risk | Better test |
+|---|---|
+| Fake diverges from real adapter | Shared contract test suite against fake and real implementations |
+| Consumer mock diverges from provider API | Consumer-driven contract test such as Pact |
+| Adapter behavior depends on real infrastructure semantics | Integration test with Testcontainers or equivalent |
+
+Contract tests do not replace unit tests. They make boundary assumptions executable so local doubles cannot drift silently.
 
 ## Anti-Patterns in Test Doubles
 

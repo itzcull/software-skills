@@ -35,7 +35,8 @@ Specify contracts between behavioral units within your system.
 
 - **"Unit" = unit of behavior, not unit of code** - test the behavior a caller depends on, not individual functions
 - Test through the public API exclusively - internals should be invisible to tests
-- Use test doubles at architectural boundaries, not between internal collaborators
+- Prefer sociable tests with real in-process collaborators
+- Use test doubles at architectural boundaries, not between internal collaborators inside the same behavioral unit
 - Should survive refactoring that preserves observable behavior
 - No 1:1 mapping between test files and implementation files
 
@@ -59,7 +60,7 @@ Specify that your code honors contracts with things you don't control—database
 - Verify your adapters work against real dependencies
 - Complete the "don't double what you don't own" pattern: use stubs or spies for your abstraction in unit tests, prove the abstraction works here
 - Test at the boundary between your code and external systems
-- May require test infrastructure (test databases, stub servers, containers)
+- Prefer high-fidelity test infrastructure when practical: real databases, real queues, containerized services, or protocol-level HTTP stubs
 
 See [Integration Testing](./integration-testing.md) for Testcontainers patterns, MSW setup, and database testing strategies.
 
@@ -111,17 +112,24 @@ Each layer alone leaves gaps. The combination gives confidence that intent is pr
 |-----|-----------------|
 | Behavioral regression | Unit tests |
 | Adapter/dependency mismatch | Integration tests |
+| Consumer-provider drift | Contract tests |
 | Composition failure | E2E tests |
 
 ## Test Double Philosophy
 
 Use test doubles at architectural boundaries, not between internal collaborators. Reserve `mock` for strict expectation-based doubles; use `stub`, `spy`, or `fake` when that is the role the double plays.
 
+Default to state and outcome verification. Use behavior verification only when the outgoing interaction is the observable behavior, such as publishing an event, sending an email, recording a metric, or issuing a command to an external port.
+
+Prefer a functional core and imperative shell where the architecture allows it. Pure domain functions should take data and return data; they need no mocks. The shell should be thin and tested with a small number of adapter or integration tests.
+
+Mocks were originally a design tool for discovering role-based interfaces in outside-in TDD. They are not a license to replace every class with a generated double. If an interface merely mirrors a concrete class so the class can be mocked, it is probably a header interface and a design smell.
+
 See [Test Doubles](./test-doubles.md) for detailed coverage of dummy, stub, spy, mock, and fake objects.
 
 ### Don't Double What You Don't Own Directly
 
-When you depend on something you don't control (database, external API, third-party library), create your own abstraction and use a stub or spy for that abstraction in unit tests:
+When you depend on something you don't control (database, external API, third-party library), create your own role or port and use a stub or spy for that abstraction in unit tests:
 
 ```typescript
 // ❌ BAD - Replacing a third-party library directly
@@ -153,8 +161,9 @@ describe("StripePaymentGateway", () => {
 
 ### Where to Use Test Doubles
 
-- **Unit tests**: Stub or spy on abstractions you own
-- **Integration tests**: Use real dependencies to prove adapters work
+- **Unit tests**: Stub or spy on application-owned roles or ports at architectural boundaries
+- **Integration tests**: Use real dependencies, containers, or faithful protocol stubs to prove adapters work
+- **Contract tests**: Capture consumer-provider expectations when mocks could drift from a remote service
 - **Never double**: Internal collaborators within the same behavioral unit
 
 ```typescript
@@ -179,6 +188,8 @@ it("should reject payments with negative amounts", () => {
 - **Test from the caller's perspective** - what does the consumer care about?
 - **If a refactor breaks your tests but preserves behavior, those tests were wrong**
 - **"calls X with Y" is weaker than "given A, when B, then C"** - specify outcomes, not interactions
+- **Mock roles, not objects** - double an application-owned collaboration role, not a concrete class or third-party API
+- **Prefer real collaborators until they hurt** - introduce doubles for boundaries, speed, determinism, unbuilt collaborators, or explicit interaction design
 
 ## Four Pillars of Good Tests
 
@@ -201,6 +212,7 @@ See [Test Doubles: Speed Expectations](./test-doubles.md#speed-expectations) for
 - **React Testing Library** for React components
 - **MSW (Mock Service Worker)** for HTTP stubbing at the network level
 - **Testcontainers** for integration tests with real databases
+- **Pact** or equivalent contract tooling for consumer-provider API drift
 - **Playwright** for E2E browser testing
 
 See [E2E Testing](./e2e-testing.md) for Playwright and Testing Library patterns.

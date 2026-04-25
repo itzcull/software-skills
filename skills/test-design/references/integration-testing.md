@@ -1,6 +1,6 @@
 # Integration Testing
 
-Integration tests verify that your code honors contracts with things you don't control — databases, APIs, third-party libraries. They complete the "don't double what you don't own directly" pattern.
+Integration tests verify that your code honors contracts with things you don't control: databases, APIs, third-party libraries, queues, filesystems, and platform services. They complete the "don't double what you don't own directly" pattern.
 
 ## Purpose and Scope
 
@@ -9,7 +9,7 @@ Unit tests use test doubles at architectural boundaries. Integration tests use r
 | Test Level | What It Tests | What It Doubles |
 |------------|---------------|---------------|
 | Unit | Behavioral contracts within your system | External dependencies |
-| Integration | Your code's contract with external systems | Nothing — uses real dependencies |
+| Integration | Your code's contract with external systems | Prefer nothing; use protocol stubs only when real dependencies are impractical |
 
 ```typescript
 // Unit test: use a spy for your abstraction
@@ -102,6 +102,8 @@ describe("StripePaymentGateway integration", () => {
 ## Testcontainers Best Practices
 
 Testcontainers provides real Docker containers for integration testing.
+
+Use containers when dependency behavior matters: SQL constraints, transaction isolation, migrations, broker semantics, Redis expiry, object storage behavior, or version-specific quirks. Prefer a fake only when its behavior is intentionally small and contract-tested against the real adapter.
 
 ### Core Principles
 
@@ -303,6 +305,8 @@ describe("PaymentRepository parallel", () => {
 
 MSW (Mock Service Worker) intercepts requests at the network level, not the module level.
 
+MSW is a protocol-level stub. It is usually better than mocking an HTTP client module because application code still performs a real request through its normal networking path.
+
 ### Why MSW Over Module-Level Doubles?
 
 | Aspect | Module-level double | MSW |
@@ -407,6 +411,39 @@ server.use(
 );
 ```
 
+## Consumer-Driven Contract Testing
+
+Use contract tests when the dependency is a separately deployed service and local mocks could drift from provider reality.
+
+Traditional stubs and mocks encode the consumer team's assumptions. If the provider changes a field name, status code, required header, or error shape, consumer unit tests can still pass because the double keeps returning the old shape. Consumer-driven contract testing turns those assumptions into an executable artifact verified by the provider.
+
+| Test Type | What It Proves | Main Risk |
+|---|---|---|
+| Unit test with stub | Consumer behavior for a local response shape | Stub can drift from provider |
+| Provider integration test | Provider works for its own examples | May miss consumer-specific needs |
+| Consumer-driven contract test | Provider satisfies the consumer's expected protocol | Requires broker/process discipline |
+
+### Pact-Style Flow
+
+1. Consumer test runs against a local mock provider supplied by the contract framework.
+2. The framework records the request and expected response as a contract.
+3. The contract is published to a broker or shared artifact store.
+4. Provider CI verifies the contract against the real provider implementation.
+5. Breaking provider changes fail before deployment.
+
+### When to Use Contract Tests
+
+- A service boundary crosses team, repository, or deployment boundaries
+- An API has multiple consumers with different expectations
+- A mock or MSW handler duplicates provider response schemas that change often
+- Full E2E coverage would be too slow, flaky, or expensive
+
+### When Not to Use Contract Tests
+
+- The provider and consumer are deployed as one unit
+- The boundary is already covered by a cheap integration test against the real dependency
+- The API shape is trivial and stable enough that contract infrastructure adds more cost than confidence
+
 ## Message Queue Testing
 
 ### Kafka Testing
@@ -504,7 +541,7 @@ Integration tests are slower than unit tests. Optimize where possible:
 | Strategy | Impact |
 |----------|--------|
 | Reuse containers across tests | 10-100x faster |
-| Use in-memory databases when possible | 10-50x faster |
+| Use in-memory databases only when semantics do not matter | 10-50x faster |
 | Parallelize independent test files | Linear with worker count |
 | Skip integration tests on fast commits | Faster feedback loop |
 
@@ -540,6 +577,7 @@ Integration tests add complexity. Skip when:
 - The external system has comprehensive integration tests
 - The cost of infrastructure outweighs the risk
 - A unit test with a stub or spy provides sufficient coverage
+- A consumer-driven contract test already verifies the remote protocol risk
 
 ## See Also
 
