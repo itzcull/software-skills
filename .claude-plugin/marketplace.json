@@ -12,10 +12,11 @@
   "plugins": [
     {
       "name": "software-skills",
-      "description": "Test Driven Development, Test Design, Structured Code Review, Design Patterns, Diff Analysis, Domain Driven Design, Distributed System Design, Refactoring Catalog, Git Conventions, Twelve Factor App",
+      "description": "Test Driven Development, Test Design, Architecture Decision Records, Structured Code Review, Design Patterns, Diff Analysis, Domain Driven Design, Distributed System Design, Refactoring Catalog, Git Conventions, Twelve Factor App",
       "source": "./",
       "strict": false,
       "skills": [
+        "./skills/architecture-decision-record",
         "./skills/code-review",
         "./skills/design-patterns",
         "./skills/diffdive",

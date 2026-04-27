@@ -13,6 +13,7 @@ Skills are not libraries or frameworks. They are structured reference documents 
 | Skill | Description |
 |-------|-------------|
 | **Test-Driven Development** (`test-driven-development`) | Complete TDD skill -- RED-GREEN-REFACTOR cycle orchestration, phase execution, handoff contracts, and guided TDD pairing |
+| **Architecture Decision Record** (`architecture-decision-record`) | ADR authoring and review -- elicit architectural rationale, compare options, capture consequences, and manage decision lifecycle |
 | **Code Review** (`code-review`) | Structured taxonomy-guided review with two-pass detection across 16 error categories |
 | **Design Patterns** (`design-patterns`) | GoF and modern patterns -- creational, structural, behavioural, and architectural with trade-offs (22 reference files) |
 | **Domain-Driven Design** (`domain-driven-design`) | Strategic and tactical DDD -- bounded contexts, aggregates, entities, value objects, context mapping, EventStorming (17 reference files) |
