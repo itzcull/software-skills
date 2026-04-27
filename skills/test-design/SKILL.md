@@ -41,6 +41,20 @@ Provide an authoritative resource on writing great tests, grounded in the princi
 - Test data factories should return complete objects with sensible defaults and optional overrides
 - Validate factory output against real schemas when schemas exist
 
+## Authoritative Test Data
+
+Tests should rely on the same application-owned definitions as production code. Import real schemas, types, domain constructors, and existing test data factories from their authoritative locations instead of redefining parallel shapes inside test files.
+
+Use test-only factories when application factories do not exist, but keep them aligned with real application contracts:
+
+- Build complete, valid objects by default
+- Accept focused overrides for the behavior under test
+- Compose existing factories for nested or related data
+- Validate generated data with real schemas when schemas exist
+- Avoid duplicating domain constraints in test helpers
+
+Minimize shared mutable state in tests. Prefer creating fresh data inside each test through factories over mutating outer-scope variables or relying on setup hooks that hide important preconditions. Shared setup is acceptable only when it represents expensive infrastructure or stable test harness configuration, not behavior-specific data.
+
 ## Domain Language
 
 Use these terms precisely when designing, writing, or reviewing tests:
