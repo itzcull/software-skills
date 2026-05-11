@@ -12,6 +12,7 @@ Skills are not libraries or frameworks. They are structured reference documents 
 
 | Skill | Description |
 |-------|-------------|
+| **C4 Modeling** (`c4-modeling`) | Software architecture visualization -- C4 context, container, component, dynamic, deployment, and landscape diagrams with architecture-as-code guidance |
 | **Test-Driven Development** (`test-driven-development`) | Complete TDD skill -- RED-GREEN-REFACTOR cycle orchestration, phase execution, handoff contracts, and guided TDD pairing |
 | **Architecture Decision Record** (`architecture-decision-record`) | ADR authoring and review -- elicit architectural rationale, compare options, capture consequences, and manage decision lifecycle |
 | **Code Review** (`code-review`) | Structured taxonomy-guided review with two-pass detection across 16 error categories |

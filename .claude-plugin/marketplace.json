@@ -6,17 +6,18 @@
   },
   "metadata": {
     "description": "Tech-stack agnostic software engineering skills for AI coding agents",
-    "version": "1.0.1",
+    "version": "1.1.0",
     "repository": "https://github.com/itzcull/software-skills"
   },
   "plugins": [
     {
       "name": "software-skills",
-      "description": "Test Driven Development, Test Design, Architecture Decision Records, Structured Code Review, Design Patterns, Diff Analysis, Domain Driven Design, Semantic Naming, Distributed System Design, Refactoring Catalog, Git Conventions, Twelve Factor App",
+      "description": "Test Driven Development, Test Design, Architecture Decision Records, C4 Modeling, Structured Code Review, Design Patterns, Diff Analysis, Domain Driven Design, Semantic Naming, Distributed System Design, Refactoring Catalog, Git Conventions, Twelve Factor App",
       "source": "./",
       "strict": false,
       "skills": [
         "./skills/architecture-decision-record",
+        "./skills/c4-modeling",
         "./skills/code-review",
         "./skills/design-patterns",
         "./skills/diffdive",
