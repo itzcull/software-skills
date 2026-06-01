@@ -20,6 +20,7 @@ Skills are not libraries or frameworks. They are structured reference documents 
 | **Domain-Driven Design** (`domain-driven-design`) | Strategic and tactical DDD -- bounded contexts, aggregates, entities, value objects, context mapping, EventStorming (17 reference files) |
 | **DiffDive** (`diffdive`) | Branch analysis and context loading for getting up to speed on unfamiliar branches |
 | **Git Conventions** (`git-conventions`) | Commit message format, TDD commit rhythm, conventional commit types, PR standards |
+| **Package Upgrader** (`package-upgrader`) | Dependency upgrade strategy using versioning standards, risk classification, incremental execution, verification, and rollback guidance across ecosystems |
 | **Refactorings** (`refactorings`) | Refactoring catalog based on Fowler's work -- method composition, feature moving, data organisation, conditional simplification (57 reference files) |
 | **Semantic Naming** (`semantic-naming`) | Naming and categorising programming constructs by semantic role, architectural boundary, lifecycle, and behavioural responsibility |
 | **Test Design** (`test-design`) | Authoritative resource on writing great tests -- behavior-focused design, test levels, test doubles, sociable tests, contract testing, integration testing, and E2E/browser testing |
