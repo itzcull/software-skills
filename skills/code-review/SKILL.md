@@ -164,7 +164,3 @@ Stop and ask when:
 
 - `references/categories.md` -- master category index, scales, and finding template
 - `references/<category-name>.md` -- individual category review rules with examples
-- `~/.claude/docs/testing.md` -- for Testing category context
-- `~/.claude/docs/code-style.md` -- for Style and Naming category context
-- `~/.claude/docs/typescript.md` -- for TypeScript-specific review rules
-- `~/.claude/docs/workflow.md` -- for understanding TDD and commit expectations
