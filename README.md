@@ -23,6 +23,7 @@ Skills are not libraries or frameworks. They are structured reference documents 
 | **Package Upgrader** (`package-upgrader`) | Dependency upgrade strategy using versioning standards, risk classification, incremental execution, verification, and rollback guidance across ecosystems |
 | **Refactorings** (`refactorings`) | Refactoring catalog based on Fowler's work -- method composition, feature moving, data organisation, conditional simplification (57 reference files) |
 | **Semantic Naming** (`semantic-naming`) | Naming and categorising programming constructs by semantic role, architectural boundary, lifecycle, and behavioural responsibility |
+| **Sync Branch** (`sync-branch`) | Sync a feature/PR branch with trunk -- positional `push|keep-local` and `rebase|merge` arguments, autonomous conflict resolution, conditional verification, and safe push behavior |
 | **Test Design** (`test-design`) | Authoritative resource on writing great tests -- behavior-focused design, test levels, test doubles, sociable tests, contract testing, integration testing, and E2E/browser testing |
 | **System Design** (`system-design`) | Distributed systems patterns -- CAP theorem, caching, load balancing, message queues, consistency models, architectural patterns (61 reference files) |
 | **Twelve-Factor** (`twelve-factor`) | Twelve-Factor App methodology for building deployable SaaS applications |

@@ -12,7 +12,7 @@
   "plugins": [
     {
       "name": "software-skills",
-      "description": "Test Driven Development, Test Design, Architecture Decision Records, C4 Modeling, Structured Code Review, Design Patterns, Diff Analysis, Domain Driven Design, Semantic Naming, Distributed System Design, Refactoring Catalog, Git Conventions, Twelve Factor App",
+      "description": "Test Driven Development, Test Design, Architecture Decision Records, C4 Modeling, Structured Code Review, Design Patterns, Diff Analysis, Domain Driven Design, Semantic Naming, Sync Branch, Distributed System Design, Refactoring Catalog, Git Conventions, Twelve Factor App",
       "source": "./",
       "strict": false,
       "skills": [
@@ -25,6 +25,7 @@
         "./skills/git-conventions",
         "./skills/refactorings",
         "./skills/semantic-naming",
+        "./skills/sync-branch",
         "./skills/test-design",
         "./skills/system-design",
         "./skills/test-driven-development",
