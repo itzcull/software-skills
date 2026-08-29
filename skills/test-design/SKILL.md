@@ -1,6 +1,12 @@
 ---
 name: test-design
-description: Authoritative resource on writing great tests: behavior-focused test design, test levels, test doubles, sociable testing, integration testing, E2E/browser testing, test data factories, and anti-patterns. Use when designing test strategies, choosing test levels, writing resilient tests, selecting dummies/stubs/fakes/spies/mocks, avoiding mock-heavy brittleness, or reviewing test quality.
+description: >-
+  Authoritative resource on writing great tests: behavior-focused test design,
+  test levels, test doubles, sociable testing, integration testing, E2E/browser
+  testing, test data factories, and anti-patterns. Use when designing test
+  strategies, choosing test levels, writing resilient tests, selecting
+  dummies/stubs/fakes/spies/mocks, avoiding mock-heavy brittleness, or reviewing
+  test quality.
 license: MIT
 version: 1.0.0
 metadata:
