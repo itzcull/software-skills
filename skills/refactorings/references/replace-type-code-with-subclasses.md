@@ -833,8 +833,8 @@ class PayPalStrategy {
 
 ## Related Refactorings
 
-- [Replace Type Code with State/Strategy](replace-type-code-with-state-strategy.md) - Alternative approach using composition
+- Replace Type Code with State/Strategy - Alternative approach using composition
 - [Replace Conditional with Polymorphism](replace-conditional-with-polymorphism.md) - Remove conditionals after creating hierarchy
-- [Extract Subclass](extract-subclass.md) - Create subclasses for specialization
+- Extract Subclass - Create subclasses for specialization
 - [Pull Up Method](pull-up-method.md) - Move common behavior to base class
 - [Push Down Method](push-down-method.md) - Move specific behavior to subclasses

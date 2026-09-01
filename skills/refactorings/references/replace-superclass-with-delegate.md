@@ -831,6 +831,6 @@ class LoggingDecorator {
 
 - [Replace Inheritance with Delegation](replace-superclass-with-delegate.md) - This refactoring
 - [Extract Class](extract-class.md) - Create the delegate class
-- [Move Method](move-method.md) - Move methods to appropriate classes
+- Move Method - Move methods to appropriate classes
 - [Hide Delegate](hide-delegate.md) - Hide the delegation relationship
 - [Remove Middle Man](remove-middle-man.md) - Expose delegate when appropriate

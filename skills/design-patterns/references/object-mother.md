@@ -27,7 +27,7 @@ TestUsers
 The pattern can become problematic over time due to:
 - Potential code bloat
 - Repetitive code creation
-- Violation of the [DRY (Don't Repeat Yourself)](../principles/dont-repeat-yourself.md) principle
+- Violation of the DRY (Don't Repeat Yourself) principle
 
 ## Alternative Pattern
 
@@ -42,4 +42,4 @@ An alternative to the Object Mother pattern is the [Builder pattern](builder.md)
 
 - [Builder Pattern](builder.md)
 - [Factory Method Pattern](factory-method.md)
-- [Testing - Overview](../testing/overview.md)
+- Testing - Overview

@@ -285,6 +285,6 @@ if (validationError) {
 ## Related Refactorings
 
 - [Decompose Conditional](decompose-conditional.md) - Break down complex conditions
-- [Replace Nested Conditional with Guard Clauses](replace-nested-conditional-with-guard-clauses.md) - Simplify nested logic
+- Replace Nested Conditional with Guard Clauses - Simplify nested logic
 - [Extract Function](extract-function.md) - Used to create the consolidated function
 - [Introduce Explaining Variable](extract-variable.md) - For complex boolean expressions

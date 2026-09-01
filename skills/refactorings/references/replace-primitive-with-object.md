@@ -739,7 +739,7 @@ class Version {
 ## Related Refactorings
 
 - [Extract Class](extract-class.md) - Create the value object class
-- [Move Method](move-method.md) - Move behavior to the value object
+- Move Method - Move behavior to the value object
 - [Introduce Parameter Object](introduce-parameter-object.md) - Group related primitives
 - [Replace Type Code with Subclasses](replace-type-code-with-subclasses.md) - Alternative for enums
 - [Change Reference to Value](change-reference-to-value.md) - Make objects value-based

@@ -694,5 +694,5 @@ class CommandManager {
 - [Extract Function](extract-function.md) - Break down command logic
 - [Introduce Parameter Object](introduce-parameter-object.md) - Simplify command parameters
 - [Replace Parameter with Query](replace-parameter-with-query.md) - Reduce command parameters
-- [Move Method](move-method.md) - Move command logic to appropriate classes
+- Move Method - Move command logic to appropriate classes
 - [Extract Class](extract-class.md) - Create command receivers

@@ -739,7 +739,7 @@ import { formatCurrency } from './utils';
 ## Related Refactorings
 
 - [Extract Function](extract-function.md) - Create a function if none exists
-- [Move Method](move-method.md) - Move function to better location
+- Move Method - Move function to better location
 - [Inline Function](inline-function.md) - The reverse operation
 - [Pull Up Method](pull-up-method.md) - Move function to superclass
 - [Extract Variable](extract-variable.md) - Simplify function call parameters

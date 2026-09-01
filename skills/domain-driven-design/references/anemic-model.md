@@ -5,7 +5,7 @@ In object-oriented programming and Domain-Driven Design (DDD), an anemic model r
 ## Definition
 - Objects primarily contain properties
 - Behaviors are extracted to separate service objects
-- Fails to follow the [Tell, Don't Ask principle](../principles/tell-dont-ask.md)
+- Fails to follow the Tell, Don't Ask principle
 - Lacks encapsulation of internal state and behavior
 
 ## Characteristics

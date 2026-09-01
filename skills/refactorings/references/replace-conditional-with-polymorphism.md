@@ -944,6 +944,6 @@ class ShapeFactory {
 
 - [Replace Type Code with Subclasses](replace-type-code-with-subclasses.md) - Create the subclass structure
 - [Extract Class](extract-class.md) - Create strategy classes
-- [Move Method](move-method.md) - Move type-specific behavior to subclasses
+- Move Method - Move type-specific behavior to subclasses
 - [Replace Parameter with Query](replace-parameter-with-query.md) - Remove type parameters
 - [Introduce Polymorphism](introduce-parameter-object.md) - Alternative approach to conditional logic

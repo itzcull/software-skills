@@ -147,4 +147,4 @@ class PersonId {
 
 - [Extract Class](extract-class.md) - Extract mutable parts into separate class
 - [Replace Primitive with Object](replace-primitive-with-object.md) - Create proper value objects
-- [Encapsulate Field](encapsulate-field.md) - Add proper encapsulation before removing setters
+- Encapsulate Field - Add proper encapsulation before removing setters

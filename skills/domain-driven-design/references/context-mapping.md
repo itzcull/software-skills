@@ -32,7 +32,7 @@ There are three primary team relationship types:
 - Customer-Supplier
 
 ### Problematic Patterns
-- [Big Ball of Mud](../antipatterns/big-ball-of-mud.md)
+- Big Ball of Mud
 - Conformist
 
 ### Key Patterns Explained

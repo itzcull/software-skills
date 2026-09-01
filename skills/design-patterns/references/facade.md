@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Facade Pattern provides a simplified interface for a complex subsystem, reducing complexity and improving usability. It helps address code smells like [the big ball of mud](../antipatterns/big-ball-of-mud.md) and [the blob](../antipatterns/blob.md).
+The Facade Pattern provides a simplified interface for a complex subsystem, reducing complexity and improving usability. It helps address code smells like the big ball of mud and the blob.
 
 ## Key Characteristics
 
@@ -36,8 +36,8 @@ Create a focused facade for product management that only exposes necessary produ
 
 ## Benefits
 
-- Embraces [KISS](../principles/keep-it-simple.md) principle
-- Supports [separation of concerns](../principles/separation-of-concerns.md)
+- Embraces KISS principle
+- Supports separation of concerns
 - Simplifies client interactions with complex systems
 
 ## Related Patterns

@@ -673,5 +673,5 @@ class ReportBuilder {
 - [Add Parameter](change-function-declaration.md) - The inverse operation
 - [Introduce Parameter Object](introduce-parameter-object.md) - Group remaining parameters
 - [Extract Variable](extract-variable.md) - Extract parameter computation
-- [Move Method](move-method.md) - Move method closer to data source
+- Move Method - Move method closer to data source
 - [Preserve Whole Object](preserve-whole-object.md) - Pass object instead of derived values

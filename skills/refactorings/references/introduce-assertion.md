@@ -142,6 +142,6 @@ function assert(condition, message) {
 
 ## Related Refactorings
 
-- [Introduce Guard Clause](introduce-guard-clause.md) - Add early returns for invalid conditions
+- Introduce Guard Clause - Add early returns for invalid conditions
 - [Extract Function](extract-function.md) - Extract assertion logic into reusable methods
 - [Add Parameter](change-function-declaration.md) - Add parameters to make dependencies explicit

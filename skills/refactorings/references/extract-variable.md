@@ -348,6 +348,6 @@ const quadrupledValue = doubledValue * 2;
 
 - [Inline Variable](inline-variable.md) - The inverse operation
 - [Extract Function](extract-function.md) - When extracted logic becomes reusable
-- [Replace Temp with Query](replace-temp-with-query.md) - Convert variables to functions
+- Replace Temp with Query - Convert variables to functions
 - [Split Variable](split-variable.md) - When variables are used for multiple purposes
 - [Introduce Parameter Object](introduce-parameter-object.md) - When multiple related variables emerge

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Repository Pattern is an abstraction of data persistence that provides a collection-like interface for working with domain objects, helping to achieve loose coupling and [persistence ignorance](../principles/persistence-ignorance.md).
+The Repository Pattern is an abstraction of data persistence that provides a collection-like interface for working with domain objects, helping to achieve loose coupling and persistence ignorance.
 
 ## Key Characteristics
 
@@ -17,7 +17,7 @@ The Repository Pattern is an abstraction of data persistence that provides a col
 - Create a repository for each business object
 - Implement only the specific methods needed
 - Focus on aggregate root objects
-- Follows [YAGNI](../principles/yagni.md) principle
+- Follows YAGNI principle
 
 ### 2. Generic Repository Interface
 
@@ -78,7 +78,7 @@ class Repository<T extends EntityBase> implements IRepository<T> {
 ### Specification Pattern
 
 - Separate queries into their own types
-- Helps maintain [Single Responsibility Principle](../principles/single-responsibility.md)
+- Helps maintain Single Responsibility Principle
 - Allows for more flexible and maintainable query logic
 
 ### Recommended Library

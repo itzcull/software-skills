@@ -647,4 +647,4 @@ class OrderService {
 - [Add Parameter](change-function-declaration.md) - Add the new parameter
 - [Extract Variable](extract-variable.md) - Extract parameter computation
 - [Introduce Parameter Object](introduce-parameter-object.md) - Group related parameters
-- [Move Method](move-method.md) - Move method closer to data source
+- Move Method - Move method closer to data source

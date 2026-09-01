@@ -635,4 +635,4 @@ class RunningStatistics {
 - [Inline Variable](inline-variable.md) - Remove unnecessary stored calculations
 - [Replace Temp with Query](replace-derived-variable-with-query.md) - Similar concept for temporary variables
 - [Introduce Parameter Object](introduce-parameter-object.md) - Group related data for calculations
-- [Move Method](move-method.md) - Move calculations to appropriate classes
+- Move Method - Move calculations to appropriate classes

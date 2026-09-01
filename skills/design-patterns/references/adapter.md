@@ -12,8 +12,8 @@ The Adapter Design Pattern (also known as the Wrapper) allows two classes with i
 
 - Provides a way to make incompatible interfaces work together
 - Creates a middle-layer abstraction that translates between different interfaces
-- Enables the [Open-Closed Principle](../principles/open-closed.md)
-- Frequently used in [Domain-Driven Design](../domain-driven-design/ddd-overview.md) as part of Anti-Corruption Layers
+- Enables the Open-Closed Principle
+- Frequently used in Domain-Driven Design as part of Anti-Corruption Layers
 
 ## Example
 

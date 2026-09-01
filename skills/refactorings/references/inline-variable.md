@@ -336,6 +336,6 @@ function calculateShipping(order) {
 
 - [Extract Variable](extract-variable.md) - The inverse operation
 - [Inline Function](inline-function.md) - Similar concept for functions  
-- [Replace Temp with Query](replace-temp-with-query.md) - Alternative to inlining
+- Replace Temp with Query - Alternative to inlining
 - [Split Variable](split-variable.md) - When variables serve multiple purposes
 - [Remove Dead Code](remove-dead-code.md) - May follow from inlining

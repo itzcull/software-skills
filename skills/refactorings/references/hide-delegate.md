@@ -169,5 +169,5 @@ const departmentName = person.getDepartmentName();
 ## Related Refactorings
 
 - [Remove Middle Man](remove-middle-man.md) - The inverse operation when hiding becomes excessive
-- [Move Method](move-method.md) - Move methods to eliminate delegation
+- Move Method - Move methods to eliminate delegation
 - [Extract Class](extract-class.md) - Extract delegate handling into separate class

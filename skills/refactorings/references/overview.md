@@ -41,18 +41,15 @@ Refactorings that help organize data structures.
 - [Replace Derived Variable with Query](replace-derived-variable-with-query.md) - Replace a stored value with a calculation
 - [Change Reference to Value](change-reference-to-value.md) - Change a reference object to a value object
 - [Change Value to Reference](change-value-to-reference.md) - Change a value object to a reference object
-- [Replace Magic Literal](replace-magic-literal.md) - Replace magic numbers/strings with named constants
 
 ### Simplifying Conditional Expressions
 Refactorings that make conditional logic easier to understand.
 
 - [Decompose Conditional](decompose-conditional.md) - Extract complex conditional logic into well-named functions
 - [Consolidate Conditional Expression](consolidate-conditional-expression.md) - Combine multiple conditionals with the same result
-- [Replace Nested Conditional with Guard Clauses](replace-nested-conditional-with-guard-clauses.md) - Use guard clauses for special cases
 - [Replace Conditional with Polymorphism](replace-conditional-with-polymorphism.md) - Replace conditional logic with polymorphic behavior
 - [Introduce Special Case](introduce-special-case.md) - Create a special-case element to remove special-case logic
 - [Introduce Assertion](introduce-assertion.md) - Make assumptions explicit with assertions
-- [Replace Control Flag with Break](replace-control-flag-with-break.md) - Use break/return instead of control flags
 
 ### Simplifying Method Calls
 Refactorings that make method calls easier to understand and use.
@@ -60,7 +57,6 @@ Refactorings that make method calls easier to understand and use.
 - [Rename Function](change-function-declaration.md) - Give a function a more meaningful name
 - [Add Parameter](change-function-declaration.md) - Add a new parameter to a function
 - [Remove Parameter](change-function-declaration.md) - Remove an unused parameter
-- [Separate Query from Modifier](separate-query-from-modifier.md) - Separate methods that return values from methods that change state
 - [Parameterize Function](parameterize-function.md) - Replace similar functions with one parameterized function
 - [Remove Flag Argument](remove-flag-argument.md) - Replace boolean parameters with explicit methods
 - [Preserve Whole Object](preserve-whole-object.md) - Pass whole objects instead of multiple values
@@ -69,8 +65,6 @@ Refactorings that make method calls easier to understand and use.
 - [Remove Setting Method](remove-setting-method.md) - Remove setters for fields that shouldn't change
 - [Replace Constructor with Factory Function](replace-constructor-with-factory-function.md) - Replace constructor calls with factory functions
 - [Replace Function with Command](replace-function-with-command.md) - Turn a function into a command object
-- [Replace Command with Function](replace-command-with-function.md) - Turn a command object into a function
-- [Return Modified Value](return-modified-value.md) - Have functions return modified values instead of modifying parameters
 
 ### Dealing with Generalization
 Refactorings that deal with abstraction and inheritance hierarchies.
@@ -85,21 +79,17 @@ Refactorings that deal with abstraction and inheritance hierarchies.
 - [Extract Class](extract-class.md) - Create a new class for a subset of features
 - [Inline Class](inline-class.md) - Merge a class into another class
 - [Collapse Hierarchy](collapse-hierarchy.md) - Merge a subclass and superclass
-- [Replace Subclass with Delegate](replace-subclass-with-delegate.md) - Replace inheritance with delegation
 - [Replace Superclass with Delegate](replace-superclass-with-delegate.md) - Replace superclass inheritance with delegation
 - [Replace Type Code with Subclasses](replace-type-code-with-subclasses.md) - Replace type codes with subclasses
 
 ### Large Scale Refactorings
 More complex refactorings that often combine multiple smaller refactorings.
 
-- [Replace Error Code with Exception](replace-error-code-with-exception.md) - Use exceptions instead of error codes
-- [Replace Exception with Precheck](replace-exception-with-precheck.md) - Test for errors before causing exceptions
 - [Extract Class](extract-class.md) - Create a new class from an existing class
 - [Inline Class](inline-class.md) - Move all features from a class into another
 - [Hide Delegate](hide-delegate.md) - Hide delegation from clients
 - [Remove Middle Man](remove-middle-man.md) - Remove unnecessary delegation
 - [Substitute Algorithm](substitute-algorithm.md) - Replace an algorithm with a clearer one
-- [Replace Temp with Query](replace-temp-with-query.md) - Replace temporary variables with method calls
 - [Encapsulate Record](encapsulate-record.md) - Replace records with data classes
 - [Encapsulate Collection](encapsulate-collection.md) - Make collections accessible only through methods
 - [Replace Primitive with Object](replace-primitive-with-object.md) - Replace primitive values with small objects
@@ -129,5 +119,3 @@ More complex refactorings that often combine multiple smaller refactorings.
 ## Related Resources
 - [Martin Fowler's Refactoring Website](https://refactoring.com)
 - Book: "Refactoring: Improving the Design of Existing Code" by Martin Fowler
-- [Code Smells](../antipatterns/overview.md) - Signs that code needs refactoring
-- [Design Patterns](../design-patterns/overview.md) - Common solutions to design problems

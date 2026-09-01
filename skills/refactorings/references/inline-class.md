@@ -458,4 +458,4 @@ class Money {
 - [Move Field](move-field.md) - Used during inlining process
 - [Move Method](move-function.md) - Used during inlining process
 - [Collapse Hierarchy](collapse-hierarchy.md) - Similar concept for inheritance
-- [Replace Class with Function](replace-command-with-function.md) - When class becomes too simple
+- Replace Class with Function - When class becomes too simple

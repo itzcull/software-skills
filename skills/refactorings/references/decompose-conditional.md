@@ -303,6 +303,6 @@ function isAdult(person) {
 
 - [Extract Function](extract-function.md) - The primary tool for this refactoring
 - [Consolidate Conditional Expression](consolidate-conditional-expression.md) - Combine related conditions
-- [Replace Nested Conditional with Guard Clauses](replace-nested-conditional-with-guard-clauses.md) - Simplify nested logic
+- Replace Nested Conditional with Guard Clauses - Simplify nested logic
 - [Replace Conditional with Polymorphism](replace-conditional-with-polymorphism.md) - Use objects instead of conditions
 - [Introduce Explaining Variable](extract-variable.md) - For complex expressions within conditions

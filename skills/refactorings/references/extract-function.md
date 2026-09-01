@@ -406,5 +406,5 @@ function processUrgentOrder(order) { /* urgent processing */ }
 - [Inline Function](inline-function.md) - The inverse operation
 - [Extract Variable](extract-variable.md) - Extract complex expressions first
 - [Introduce Parameter Object](introduce-parameter-object.md) - For functions with many parameters
-- [Replace Temp with Query](replace-temp-with-query.md) - Extract calculations into functions
+- Replace Temp with Query - Extract calculations into functions
 - [Split Phase](split-phase.md) - For functions doing multiple distinct tasks

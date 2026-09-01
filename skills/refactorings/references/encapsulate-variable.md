@@ -309,7 +309,7 @@ function processData() {
 ## Related Refactorings
 
 - [Extract Variable](extract-variable.md) - May create variables that need encapsulation
-- [Replace Global with Query](replace-temp-with-query.md) - Alternative to global variables
+- Replace Global with Query - Alternative to global variables
 - [Encapsulate Collection](encapsulate-collection.md) - Specific case for collections
 - [Encapsulate Record](encapsulate-record.md) - For structured data
 - [Introduce Parameter Object](introduce-parameter-object.md) - Alternative for grouped data

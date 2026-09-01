@@ -223,4 +223,4 @@ class Employee {
 - [Push Down Field](push-down-field.md) - Alternative direction for moving fields
 - [Extract Superclass](extract-superclass.md) - Opposite refactoring
 - [Replace Type Code with Subclasses](replace-type-code-with-subclasses.md) - Opposite approach
-- [Replace Subclass with Delegate](replace-subclass-with-delegate.md) - Alternative to collapsing
+- Replace Subclass with Delegate - Alternative to collapsing

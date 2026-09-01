@@ -4,9 +4,9 @@
 
 The Singleton design pattern ensures an application never contains more than a single instance of a given type. However, it is often considered an antipattern due to several key issues:
 
-- Violates the [Single Responsibility Principle](../principles/single-responsibility.md)
+- Violates the Single Responsibility Principle
 - Creates tight coupling through static references
-- Introduces [Static Cling](../antipatterns/static-cling.md)
+- Introduces Static Cling
 
 ## Example Implementation (Not Recommended)
 
@@ -32,8 +32,8 @@ class Singleton {
 
 Instead of using the Singleton pattern, the recommended approach is to:
 
-1. Follow the [Explicit Dependencies Principle](../principles/explicit-dependencies.md)
-2. Use [dependency injection](../practices/dependency-injection.md)
+1. Follow the Explicit Dependencies Principle
+2. Use dependency injection
 3. Configure services/IOC container to manage object lifetime
 
 ## References

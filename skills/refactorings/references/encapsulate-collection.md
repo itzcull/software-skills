@@ -226,5 +226,5 @@ console.log(course.studentCount); // 0
 ## Related Refactorings
 
 - [Extract Class](extract-class.md) - Extract collection into its own class
-- [Move Method](move-method.md) - Move collection operations to appropriate classes
+- Move Method - Move collection operations to appropriate classes
 - [Replace Primitive with Object](replace-primitive-with-object.md) - Replace primitive collections with rich objects

@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Memento pattern is a behavioral design pattern that allows capturing and externalizing an object's internal state without violating [encapsulation](../principles/encapsulation.md), enabling state restoration later.
+The Memento pattern is a behavioral design pattern that allows capturing and externalizing an object's internal state without violating encapsulation, enabling state restoration later.
 
 ## Intent
 

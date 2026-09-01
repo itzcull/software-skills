@@ -162,6 +162,6 @@ const isAdult = person.isAdult();
 ## Related Refactorings
 
 - [Hide Delegate](hide-delegate.md) - The inverse operation when encapsulation is needed
-- [Move Method](move-method.md) - Move useful methods from middle man to delegate
+- Move Method - Move useful methods from middle man to delegate
 - [Inline Class](inline-class.md) - Merge middle man into another class
 - [Extract Superclass](extract-superclass.md) - Create common interface for delegate and middle man

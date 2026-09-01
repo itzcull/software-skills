@@ -73,9 +73,9 @@ class MoviesController {
 
 ## Key Principles Supported
 
-- [Single Responsibility Principle](../principles/single-responsibility.md)
-- [Explicit Dependencies Principle](../principles/explicit-dependencies.md)
-- [Dependency Inversion Principle](../principles/dependency-inversion.md)
+- Single Responsibility Principle
+- Explicit Dependencies Principle
+- Dependency Inversion Principle
 
 ## References
 
