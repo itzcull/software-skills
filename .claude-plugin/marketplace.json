@@ -1,36 +1,13 @@
 {
   "name": "software-skills",
   "owner": {
-    "name": "Will Cullen",
-    "url": "https://cullenlabs.com"
+    "name": "Will Cullen"
   },
-  "metadata": {
-    "description": "Tech-stack agnostic software engineering skills for AI coding agents",
-    "version": "1.1.0",
-    "repository": "https://github.com/itzcull/software-skills"
-  },
+  "description": "Software engineering skills for AI coding agents",
   "plugins": [
     {
       "name": "software-skills",
-      "description": "Test Driven Development, Test Design, Architecture Decision Records, C4 Modeling, Structured Code Review, Design Patterns, Diff Analysis, Domain Driven Design, Semantic Naming, Sync Branch, Distributed System Design, Refactoring Catalog, Git Conventions, Twelve Factor App",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./skills/architecture-decision-record",
-        "./skills/c4-modeling",
-        "./skills/code-review",
-        "./skills/design-patterns",
-        "./skills/diffdive",
-        "./skills/domain-driven-design",
-        "./skills/git-conventions",
-        "./skills/refactorings",
-        "./skills/semantic-naming",
-        "./skills/sync-branch",
-        "./skills/test-design",
-        "./skills/system-design",
-        "./skills/test-driven-development",
-        "./skills/twelve-factor"
-      ]
+      "source": "./"
     }
   ]
 }
