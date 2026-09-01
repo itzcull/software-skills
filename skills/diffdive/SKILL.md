@@ -2,7 +2,6 @@
 name: diffdive
 description: Branch analysis and context loading. Analyses the diff between the current branch and trunk (master/main) to get up to speed quickly. Use when switching to an unfamiliar branch, resuming work after time away, onboarding onto a colleague's branch, reviewing a PR, or when you need a situation report on what a branch has changed relative to trunk.
 license: MIT
-version: 1.0.0
 metadata:
   author: itzcull
 ---

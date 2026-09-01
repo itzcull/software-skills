@@ -2,7 +2,6 @@
 name: twelve-factor
 description: Twelve-Factor App methodology for building deployable software-as-a-service applications. Use when configuring environment variables, connecting to backing services, structuring startup/shutdown, handling process signals, setting up CI/CD pipelines, or auditing deployment readiness. Core factors (config, dependencies, backing services, logs) apply to any deployed application. Server-specific factors (port binding, concurrency, disposability) apply to backend services.
 license: MIT
-compatibility: opencode
 metadata:
   source: https://12factor.net
   author: Adam Wiggins (methodology), adapted for TypeScript/Node.js
@@ -40,6 +39,7 @@ There will be many deploys (production, staging, developer environments) but the
 **In a monorepo**, each service must have its own entry point, its own deploy pipeline, and its own set of backing service connections. A single repo is acceptable as long as each service deploys independently.
 
 **Code-level implications:**
+
 - Shared utilities between services become packages published to a registry or workspace-linked via the package manager
 - No copy-pasting code between services -- extract to a library
 - Each deployable unit has exactly one `package.json` (or equivalent manifest)
@@ -67,6 +67,7 @@ export const checkSystemDependencies = (required: readonly string[]) => {
 ```
 
 **Rules:**
+
 - Every dependency in `package.json` with exact or pinned ranges
 - Lockfile (`package-lock.json`, `pnpm-lock.yaml`, `bun.lock`) committed to the repo
 - Dependencies are isolated -- the app uses `node_modules`, not global installs. Never `npm install -g` for app dependencies.
@@ -75,6 +76,7 @@ export const checkSystemDependencies = (required: readonly string[]) => {
 - The full dependency specification applies uniformly to both production and development
 
 **Anti-patterns:**
+
 ```typescript
 // Assuming a global tool exists
 import { execSync } from 'child_process';
@@ -247,6 +249,7 @@ A codebase becomes a deploy through three stages:
 It is impossible to make changes to code at runtime -- there is no way to propagate those changes back to the build stage. The run stage should have as few moving parts as possible.
 
 **Code-level implications:**
+
 - No environment-specific build outputs -- the same build artifact deploys to every environment
 - Config comes from env vars at runtime, not from compile-time substitution
 - No `process.env.NODE_ENV` checks that change compiled output
@@ -361,6 +364,7 @@ worker: node dist/worker.js
 ```
 
 **Rules:**
+
 - Separate entry points for each process type (web, worker, scheduler)
 - HTTP handlers dispatch background work to a queue, never process it inline
 - Each process type scales independently
@@ -381,6 +385,7 @@ Minimise startup time. A process should take a few seconds from launch command t
 ### Graceful Shutdown
 
 Processes shut down gracefully on **SIGTERM**:
+
 - Web processes stop listening on the port (refuse new requests), allow in-flight requests to finish, then exit
 - Worker processes return the current job to the queue, so it can be retried by another worker
 
@@ -474,6 +479,7 @@ const processPayment = async ({
 ```
 
 **Rules:**
+
 - Handle SIGTERM and SIGINT for graceful shutdown
 - Set a drain timeout -- force exit if shutdown hangs
 - Await `server.close()` to drain in-flight connections
@@ -492,7 +498,7 @@ const processPayment = async ({
 Historically, three gaps exist between development and production:
 
 | Gap | Traditional | Twelve-Factor |
-|-----|-------------|---------------|
+| ----- | ------------- | --------------- |
 | **Time gap** | Weeks between code written and deployed | Hours or minutes |
 | **Personnel gap** | Developers write code, ops deploys it | Same people write and deploy |
 | **Tools gap** | Different stacks in dev vs prod | As similar as possible |
@@ -502,6 +508,7 @@ Historically, three gaps exist between development and production:
 Modern tools (Docker Compose, Homebrew, apt) make running production-grade backing services locally inexpensive.
 
 **Rules:**
+
 - If production uses PostgreSQL, develop against PostgreSQL (not SQLite)
 - If production uses Redis, develop against Redis (not in-memory maps)
 - Use containers (Docker Compose) to run backing services locally
@@ -611,6 +618,7 @@ try {
 ```
 
 **Rules:**
+
 - Admin scripts live in the repo alongside application code (e.g., `scripts/migrate.ts`)
 - They are not separate tools or ad-hoc shell commands
 - They import from the main codebase and use the same config module
@@ -660,4 +668,3 @@ Twelve-factor patterns are testable through behavior-driven tests. Config inject
 - [ ] Logs written as structured JSON to stdout, no file transports
 - [ ] Logs include timestamps and request correlation IDs
 - [ ] Admin scripts live in repo, use shared config and dependencies, run against same release
-

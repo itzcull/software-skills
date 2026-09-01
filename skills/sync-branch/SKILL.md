@@ -8,7 +8,6 @@ description: >-
   main/master before merge. Arguments are positional: push|keep-local then
   rebase|merge, defaulting to push rebase.
 license: MIT
-version: 1.0.0
 metadata:
   author: itzcull
 ---

@@ -2,7 +2,6 @@
 name: test-driven-development
 description: Complete TDD skill covering the RED-GREEN-REFACTOR cycle, phase orchestration across spawned contexts, individual phase execution (RED, GREEN, REFACTOR), handoff contracts, and guided TDD pairing for collaborative test-first development. Use when implementing features test-first, running TDD cycles, pairing on test-driven discovery, or enforcing strict phase boundaries.
 license: MIT
-version: 1.0.0
 metadata:
   author: itzcull
 ---

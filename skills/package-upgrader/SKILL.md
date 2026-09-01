@@ -2,7 +2,6 @@
 name: package-upgrader
 description: Dependency upgrades, package upgrades, update packages, outdated packages, version bumps, security updates, and dependency management. Use when planning, executing, or reviewing safe dependency upgrades across any package ecosystem using versioning standards, risk classification, verification, and rollback guidance.
 license: MIT
-version: 1.0.0
 metadata:
   author: itzcull
 ---

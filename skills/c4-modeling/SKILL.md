@@ -2,7 +2,6 @@
 name: c4-modeling
 description: Create, review, or maintain C4 model architecture diagrams and architecture-as-code artifacts. Use for system context, container, component, dynamic, deployment, or landscape diagrams; Structurizr DSL; Mermaid architecture diagrams; architecture visualization; diagram audits; and codebase-derived software architecture maps.
 license: MIT
-version: 1.0.0
 metadata:
   author: itzcull
 ---

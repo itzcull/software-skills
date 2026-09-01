@@ -2,7 +2,6 @@
 name: architecture-decision-record
 description: Create, revise, or review Architecture Decision Records (ADRs). Use when documenting architectural decisions, eliciting decision rationale, comparing options, recording trade-offs, superseding previous decisions, or setting up ADR practices and templates.
 license: MIT
-version: 1.0.0
 metadata:
   author: itzcull
 ---

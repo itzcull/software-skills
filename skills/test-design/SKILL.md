@@ -8,7 +8,6 @@ description: >-
   dummies/stubs/fakes/spies/mocks, avoiding mock-heavy brittleness, or reviewing
   test quality.
 license: MIT
-version: 1.0.0
 metadata:
   author: itzcull
 ---
@@ -66,7 +65,7 @@ Minimize shared mutable state in tests. Prefer creating fresh data inside each t
 Use these terms precisely when designing, writing, or reviewing tests:
 
 | Term | Role in test design |
-|---|---|
+| --- | --- |
 | `Test double` | Any replacement collaborator used in a test instead of the real object |
 | `Dummy` | A value passed only to satisfy a signature; the test does not exercise it |
 | `Stub` | Controls indirect inputs by returning specific values or throwing specific exceptions |
@@ -84,7 +83,7 @@ Mocks are not general-purpose isolation tools. In their original design role, mo
 ## Test Level Heuristic
 
 | Question | Preferred Test Level |
-|---|---|
+| --- | --- |
 | Does a behavioral rule still hold inside our system? | Unit test |
 | Does our adapter honor a dependency contract? | Integration test |
 | Does a service still satisfy a consumer-provider protocol? | Contract test |

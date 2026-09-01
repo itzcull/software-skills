@@ -2,7 +2,6 @@
 name: code-review
 description: Structured, taxonomy-guided code review with selective category focus. Performs two-pass review (detect then verify) across 16 error categories with independent severity, confidence, and qualifier axes. Use when reviewing a PR, reviewing staged changes, performing a pre-merge quality gate, or when asked to review specific files or a diff.
 license: MIT
-version: 1.0.0
 metadata:
   author: itzcull
 ---
@@ -31,7 +30,7 @@ Perform structured code review guided by a formal error taxonomy. Instead of ope
 Profiles are predefined category bundles. Use a profile name as shorthand, or specify individual categories by name.
 
 | Profile | Categories | Use When |
-|---|---|---|
+| --- | --- | --- |
 | `quick` | Logic & Correctness, Error Handling, Security, Performance | Fast review focusing on highest-signal defect categories |
 | `correctness` | Logic & Correctness, Data Handling, Error Handling, Concurrency & Timing | Verifying functional behaviour is correct |
 | `security` | Security, Concurrency & Timing, Resource Management, API & Interface | Security-focused audit |
