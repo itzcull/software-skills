@@ -1,12 +1,12 @@
 ---
-name: code-documentation
+name: comment-guidance
 description: Source-level code comments and API documentation. Use when writing, revising, or reviewing docstrings, rustdoc, JSDoc, Doxygen, C# XML comments, TODO/FIXME markers, or documentation of intent, contracts, invariants, ownership, concurrency, safety, and failures.
 license: MIT
 metadata:
   author: itzcull
 ---
 
-# Code Documentation
+# Comment Guidance
 
 ## Purpose
 
