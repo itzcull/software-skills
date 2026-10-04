@@ -152,6 +152,8 @@ Implementations may add stricter rules but must not weaken this contract. Test-f
 
 When reporting an assessment, identify covered responsibilities, gaps, and the concrete provisions needed to close them. Do not certify an entire methodology from a partial source description.
 
+For evidence-based procedure assessments or proposals to improve this model, follow [Evaluating procedures and improving the model](references/evaluating-procedures.md). It distinguishes procedure conformance from limitations of the contract itself; this file remains authoritative for the contract.
+
 ## Relationship to other skills
 
 Treat `autonomous-engineering` as a concrete implementation candidate: its strict TDD, ambiguity escalation, ADR practices, and review artifacts provide particular ways to fulfil these responsibilities. Assess its full instructions before claiming complete conformance.
