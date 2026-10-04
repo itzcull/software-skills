@@ -13,6 +13,14 @@ Provide actionable guidance for building twelve-factor compliant applications. T
 
 Core factors (config, dependencies, backing services, logs) apply to any deployed application -- services, frontends, workers, CLI tools. Server-specific factors (port binding, concurrency, disposability) apply only to backend services that run as long-lived processes.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies deployability and operational guidance across design, implementation, and readiness evaluation. The enclosing procedure places applicable work and evidence at its declared [concern boundaries](../structured-development/SKILL.md#concern-placement); the shared contract does not mandate twelve-factor adoption for every implementation.
+
+Start from the application type, deployment environment, existing configuration and backing services, and the operational obligations in scope. Return applicable design or implementation guidance, or an assessment against the [checklist](#checklist), distinguishing verified behavior from recommendations, assumptions, and checks not performed.
+
+Conformance to these practices alone does not establish production readiness. For example, structured log emission does not prove that operators can diagnose failures with those logs. Return remaining runtime checks, proposed deferrals, and operational handoffs to the enclosing procedure for ownership and disposition rather than silently treating them as complete.
+
 ## When to Apply
 
 - **Greenfield projects**: All 12 factors are mandatory. Structure the application to follow every applicable factor from the start.

@@ -10,6 +10,14 @@ metadata:
 
 Perform structured code review guided by a formal error taxonomy. Instead of open-ended "review this code" analysis, this skill loads specific error categories with concrete review rules, examples, and severity guidance. The reviewer selectively focuses on chosen categories -- improving detection precision by narrowing the search space per the "mental attitude hypothesis" (focused reviewers detect 8x more issues in their focus area).
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies scoped evaluation findings for decisions about rework, acceptance, or further investigation. It may be invoked at several review boundaries; it does not define those boundaries or select the work to deliver.
+
+Use the [expected inputs](#inputs-expected) together with the relevant acceptance criteria and inherited constraints. Identify the assessed revision in the report's scope. Return the [review report](#output-format), making its coverage and evidence limits explicit so the enclosing procedure can assign findings and decide their disposition.
+
+A clean report means no supported findings within the reviewed scope, categories, and threshold, not proof of correctness or release readiness. Do not imply tests were run when the review only inspected code. Unresolved findings and missing evidence return to the designated decision-maker; performing a review does not authorize fixes, merging, or acceptance.
+
 ## When to use
 
 - Reviewing a pull request or branch diff
