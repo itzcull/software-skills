@@ -152,6 +152,8 @@ Implementations may add stricter rules but must not weaken this contract. Test-f
 
 When reporting an assessment, identify covered responsibilities, gaps, and the concrete provisions needed to close them. Do not certify an entire methodology from a partial source description.
 
+For evidence-based procedure assessments or proposals to improve this model, follow [Evaluating procedures and improving the model](references/evaluating-procedures.md). It distinguishes procedure conformance from limitations of the contract itself; this file remains authoritative for the contract.
+
 ## Relationship to other skills
 
 Treat `autonomous-engineering` as a concrete implementation candidate: its strict TDD, ambiguity escalation, ADR practices, and review artifacts provide particular ways to fulfil these responsibilities. Assess its full instructions before claiming complete conformance.
@@ -160,17 +162,14 @@ Use `test-driven-development` for its implementation cycle and phase rules, not 
 
 ## Researched examples
 
+For examples of how development processes, frameworks, and concern-specific practices map to this contract, consult [the examples index](examples/INDEX.md). Use its selection guide to choose relevant examples; inclusion does not certify conformance.
+
 Each example maps the seven responsibilities and discusses loop structure and concern placement. It separates the source's described practices from our interpretation and any additions needed for a concrete implementation. The mappings use these evidence labels:
 
 - **Supported:** the cited material describes a relevant practice. This does not certify full conformance.
 - **Partial:** the material supports part of the responsibility; the remaining provision is identified.
 - **Not established:** the material reviewed does not establish the provision. This is a limit of the evidence, not proof that the wider methodology lacks it.
 
-The examples paraphrase selected sources rather than reproduce their complete methodologies. Follow the external sources for fuller definitions. Keep implementation-specific rules in examples or implementation skills, not in the abstract procedure.
+The examples paraphrase selected sources rather than reproduce complete methodologies. Follow the external sources for fuller definitions. Keep implementation-specific rules in examples or implementation skills, not in the abstract procedure.
 
-- [Test-driven development](examples/test-driven-development.md): a fine-grained implementation and verification protocol.
-- [Behaviour-driven development](examples/behaviour-driven-development.md): shared understanding and examples carried into automation.
-- [Feature-driven development](examples/feature-driven-development.md): feature-level organisation and repeated design/build cycles.
-- [Shape Up](examples/shape-up.md): emergent scopes and explicit treatment of uncertainty.
-- [Spiral development](examples/spiral-development.md): a process family defined through invariants and risk reduction.
-- [Spec-driven development with GitHub Spec Kit](examples/spec-driven-development.md): explicit artifacts connecting intent to execution.
+Additional-criteria tables link unresolved obligations back to this contract and use the [evaluation classifications](references/evaluating-procedures.md#3-classify-findings). They distinguish insufficient evidence from obligations belonging to a surrounding procedure, rather than treating either as a proven failure. The adopting team must establish these provisions in its concrete, composed procedure before claiming conformance.
