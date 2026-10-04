@@ -12,6 +12,14 @@ metadata:
 
 Create trustworthy comments that lower cognitive load without duplicating the implementation. Treat documentation as part of an abstraction's design: code explains the mechanism; comments preserve intent and contracts that code and types cannot express.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill preserves source-level intent and contracts during implementation, review, and handoff. It supplies documentation evidence at the affected code boundary, not a separate requirement to document every development activity.
+
+Use the agreed scope, public interfaces, observed behavior, and authoritative specifications to establish what the comments may claim. Return the documentation outcomes and checks described by the [completion criteria](#completion-criteria), including unresolved discrepancies and out-of-scope opportunities. An intentional decision to add no comment is a valid result when the code already communicates the information.
+
+Comments communicate obligations; they do not prove those obligations are fulfilled. When code, tests, and specifications disagree, return the conflict to the enclosing procedure's decision-maker rather than silently changing the promised behavior or claiming completion from prose alone.
+
 ## Core principles
 
 - **Abstraction disconnect**: useful comments operate at a different level from the code. Explain higher-level purpose and rationale or lower-level guarantees and constraints, never a prose translation of syntax.

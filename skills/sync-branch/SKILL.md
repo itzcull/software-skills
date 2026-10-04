@@ -25,6 +25,14 @@ trunk). **Merge** is available when a merge commit is preferred or history must 
 The default destination behavior is **push**. Use **keep-local** when the branch should be synced
 locally without updating the remote branch.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies a bounded repository-integration operation when a development branch needs current trunk changes. It updates the basis for further work or review without selecting new feature scope.
+
+Use the current branch, trunk, agreed strategy and destination mode, and existing worktree state as described in [Inputs / Arguments](#inputs--arguments) and preflight. Return the [sync report](#step-10-report), including conflicts, verification, push outcome, and restored-work status. Route irreconcilable intent, failed checks, or unresolved local changes back to the enclosing procedure before it continues on assumptions that the operation succeeded.
+
+Successful synchronization is not feature acceptance or proof of behavioral integration. Under this skill's conflict-triggered verification rule, a clean integration skips local checks and relies on CI; report that distinction rather than claiming checks passed. The enclosing procedure remains responsible for obtaining the evidence required at its next acceptance boundary. Preserve the requested push or keep-local mode; synchronization does not authorize merging the feature into trunk or releasing it.
+
 ## When to use
 
 - The user says "pull down the latest master/main, resolve conflicts, commit and push"

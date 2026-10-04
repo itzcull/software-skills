@@ -10,6 +10,14 @@ metadata:
 
 Define the conventions for git commits that maintain a clean, bisectable, and meaningful project history. Every commit represents stable, working software with incremental, focused changes.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies change-recording and review-handoff conventions across increments. Its commit boundaries preserve understandable history; they are not substitutes for the enclosing procedure's acceptance or release boundaries.
+
+Use the intended change, repository policy, available verification evidence, and the Git operation the user has authorized. Return proposed commit boundaries and messages, or the resulting commit or PR references when execution is requested, with an honest account of verification. Apply TDD-specific cadence when the procedure uses TDD rather than imposing test-first development on every procedure.
+
+A commit records a change; a PR presents it for review. Neither establishes acceptance or release readiness. If stability cannot be demonstrated, report the missing or failed checks instead of asserting a verified commit. This skill's conventions do not independently authorize committing, pushing, or merging.
+
 ## When to use
 
 - Writing commit messages
