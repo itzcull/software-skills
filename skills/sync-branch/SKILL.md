@@ -27,11 +27,11 @@ locally without updating the remote branch.
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies a bounded repository-integration operation when a development branch needs current trunk changes. It updates the basis for further work or review without selecting new feature scope.
+Within [structured development](../structured-development/SKILL.md), this skill supplies a bounded repository-integration operation when a development branch needs current trunk changes. It supports [preparing further work](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment) and [reconciling changes](../structured-development/SKILL.md#6-reconcile-and-adapt) without selecting new feature scope.
 
 Use the current branch, trunk, agreed strategy and destination mode, and existing worktree state as described in [Inputs / Arguments](#inputs--arguments) and preflight. Return the [sync report](#step-10-report), including conflicts, verification, push outcome, and restored-work status. Route irreconcilable intent, failed checks, or unresolved local changes back to the enclosing procedure before it continues on assumptions that the operation succeeded.
 
-Successful synchronization is not feature acceptance or proof of behavioral integration. Under this skill's conflict-triggered verification rule, a clean integration skips local checks and relies on CI; report that distinction rather than claiming checks passed. The enclosing procedure remains responsible for obtaining the evidence required at its next acceptance boundary. Preserve the requested push or keep-local mode; synchronization does not authorize merging the feature into trunk or releasing it.
+Successful synchronization is not feature acceptance or proof of behavioral integration. Apply the [verification rules](#step-7-verify) to both conflict resolution and inherited progression conditions; when local checks may be deferred to CI, report that distinction rather than claiming checks passed. The enclosing procedure remains responsible for obtaining the evidence required at its next acceptance boundary. Preserve the requested push or keep-local mode; synchronization does not authorize merging the feature into trunk or releasing it.
 
 ## When to use
 
@@ -141,18 +141,20 @@ If a conflict is genuinely irreconcilable (the two sides express contradictory i
 be combined), stop, restore with the rollback anchor or `git rebase --abort` / `git merge --abort`,
 and surface the specific conflict to the user rather than guessing.
 
-### Step 7: Verify (only if conflicts occurred)
+### Step 7: Verify
 
-Skip this step entirely on a clean integration (no conflicts) — rely on CI.
-
-If conflicts were resolved, verify before pushing or reporting success, because that is where
-breakage hides:
+Establish which checks the repository or enclosing procedure requires before pushing or handing
+back the branch. A conflict-free integration does not waive those progression conditions.
 
 - Detect the repo's checks from `package.json` scripts, `Makefile`, or CI config (build, test, lint,
-  typecheck).
-- Run them.
-- If anything fails: **stop, do not push or report success.** Report the failure so the resolution can
-  be corrected.
+  typecheck), together with any checks inherited from the agreed task.
+- If conflicts were resolved, run the relevant repository checks before pushing or reporting
+  success. Also run any checks required at this boundary, even when integration was conflict-free.
+- Only defer local checks to CI after a clean integration when the agreed progression conditions
+  permit it. State that verification is deferred, identify the receiving CI gate, and do not report
+  unobserved CI results as passes.
+- If any check fails or a required check cannot run: **stop, do not push or report verified completion.**
+  Return the evidence and blocker for resolution rather than silently skipping the check.
 
 ### Step 8: Push or keep local
 
@@ -183,7 +185,7 @@ Summarise:
 - Destination behavior (push/keep-local)
 - Commits replayed (rebase) or the merge commit (merge)
 - Conflicts encountered and how each was resolved
-- Verification result (run / skipped / failed)
+- Verification commands and results (passed / failed / blocked / deferred), with the required boundary and receiving CI gate for deferred checks
 - Push result, or skipped push with the command to run later
 - Stash restoration status
 
@@ -212,7 +214,7 @@ not a mechanical merge tool:
   not seen.
 - **Never push in `keep-local` mode.** Leave the synced commits local and report how to push later.
 - **Never run on detached HEAD or directly on trunk.**
-- **Stop and report on verification failure** — never push code that failed local checks.
+- **Respect verification boundaries** — stop on failed local checks or unverified required pre-push checks; follow Step 7 for permitted CI deferrals.
 - **Leave a recoverable state.** On a broken integration, prefer `git rebase --abort` /
   `git merge --abort` (or `git reset --hard <anchor>`) and surface the problem rather than leaving a
   half-finished rebase or merge.

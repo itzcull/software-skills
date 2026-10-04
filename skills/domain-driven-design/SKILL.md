@@ -12,7 +12,7 @@ Provide comprehensive reference material on Domain-Driven Design. Covers the str
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supports intent clarification, work structuring, and design decisions through domain language and models. Use strategic guidance when boundaries or ownership are uncertain, and tactical guidance when implementing behavior within an understood context. Bounded contexts are domain boundaries, not mandatory development loops.
+Within [structured development](../structured-development/SKILL.md), this skill supports [intent clarification](../structured-development/SKILL.md#1-establish-intent-and-boundaries), [work structuring](../structured-development/SKILL.md#2-structure-the-work), and [implementation decisions](../structured-development/SKILL.md#4-execute-the-increment) through domain language and models. Use strategic guidance when boundaries or ownership are uncertain, and tactical guidance when implementing behavior within an understood context. Bounded contexts are domain boundaries, not mandatory development loops.
 
 Start from stakeholder examples, business rules, existing terminology, and known ownership constraints. Return a proposed or revised model with its supporting examples, boundary relationships, and unresolved domain questions. The enclosing procedure uses that understanding to select behaviors and evaluation criteria.
 
@@ -40,7 +40,7 @@ A plausible model is not evidence that domain experts agree or that implementati
 ## Related skills
 
 - Load `design-patterns` for Repository and Specification patterns
-- Use the `domain-designer` agent for interactive DDD modeling
+- Domain modeling can be performed directly. Use an available advisor only when delegation is explicitly authorized; no particular agent is required.
 
 ## Reference files
 

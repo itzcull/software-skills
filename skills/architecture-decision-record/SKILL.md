@@ -14,7 +14,7 @@ An ADR is not a design guide. It is an append-only decision log entry that recor
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies decision traceability when preparing work or reconsidering assumptions. A decision can constrain several increments or loops; its record is not itself a delivery stage.
+Within [structured development](../structured-development/SKILL.md), this skill supplies [decision traceability](../structured-development/SKILL.md#conformance-requirements) when [preparing work](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment) or [reconsidering assumptions](../structured-development/SKILL.md#6-reconcile-and-adapt). A decision can constrain several increments or loops; its record is not itself a delivery stage.
 
 Use the [expected inputs](#inputs-expected) to establish the decision's scope, evidence, status, and deciders. Return the [requested output](#output-format) with its links to affected work, so the enclosing procedure can carry accepted decisions into implementation and act on reevaluation triggers.
 

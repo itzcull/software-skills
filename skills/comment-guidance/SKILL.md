@@ -14,7 +14,7 @@ Create trustworthy comments that lower cognitive load without duplicating the im
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill preserves source-level intent and contracts during implementation, review, and handoff. It supplies documentation evidence at the affected code boundary, not a separate requirement to document every development activity.
+Within [structured development](../structured-development/SKILL.md), this skill preserves source-level intent and contracts during [implementation](../structured-development/SKILL.md#4-execute-the-increment), [evaluation](../structured-development/SKILL.md#5-evaluate-the-result), and [scope handoff](../structured-development/SKILL.md#7-close-the-agreed-scope). It supplies documentation evidence at the affected code boundary, not a separate requirement to document every development activity.
 
 Use the agreed scope, public interfaces, observed behavior, and authoritative specifications to establish what the comments may claim. Return the documentation outcomes and checks described by the [completion criteria](#completion-criteria), including unresolved discrepancies and out-of-scope opportunities. An intentional decision to add no comment is a valid result when the code already communicates the information.
 

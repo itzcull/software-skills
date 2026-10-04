@@ -14,7 +14,7 @@ Dependency upgrade guidance must be grounded in the project being changed. Do no
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies a risk-bounded dependency-maintenance protocol. Upgrade units can be increments within feature work or a separate maintenance loop; a dependency change is not automatically a new product behavior.
+Within [structured development](../structured-development/SKILL.md), this skill supplies a risk-bounded dependency-maintenance protocol for [preparing](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment), [executing](../structured-development/SKILL.md#4-execute-the-increment), [evaluating](../structured-development/SKILL.md#5-evaluate-the-result), and [reconciling](../structured-development/SKILL.md#6-reconcile-and-adapt) upgrade increments. Upgrade units can be increments within feature work or a separate maintenance loop; a dependency change is not automatically a new product behavior.
 
 Start from the upgrade goal, permitted dependency scope, repository tooling, compatibility constraints, baseline evidence, and rollback options. Return the upgrade strategy or the changes and verification described in [Verify and report](#step-6-verify-and-report), including deferred candidates, unresolved risks, and decisions needed from the enclosing procedure.
 

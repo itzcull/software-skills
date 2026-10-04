@@ -12,7 +12,7 @@ Provide a comprehensive catalog of refactoring operations that improve code stru
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this catalog supplies behavior-preserving transformations during an increment or as explicitly selected maintenance work. A TDD REFACTOR phase is one use, not the only place structural improvement may occur.
+Within [structured development](../structured-development/SKILL.md), this catalog supplies behavior-preserving transformations for [executing](../structured-development/SKILL.md#4-execute-the-increment) an increment or explicitly selected maintenance work; verification supports [evaluation of the result](../structured-development/SKILL.md#5-evaluate-the-result). A TDD REFACTOR phase is one use, not the only place structural improvement may occur.
 
 Start from a concrete design problem, the agreed change boundary, compatibility constraints, and available behavioral verification. Return a recommended transformation or a justified no-change decision. When changes are authorized, return the changed scope and verification evidence, separating demonstrated preservation from assumptions or checks not run.
 

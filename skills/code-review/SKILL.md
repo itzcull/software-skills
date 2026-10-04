@@ -12,7 +12,7 @@ Perform structured code review guided by a formal error taxonomy. Instead of ope
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies scoped evaluation findings for decisions about rework, acceptance, or further investigation. It may be invoked at several review boundaries; it does not define those boundaries or select the work to deliver.
+Within [structured development](../structured-development/SKILL.md), this skill supplies scoped [evaluation findings](../structured-development/SKILL.md#5-evaluate-the-result) for [decisions about rework, acceptance, or further investigation](../structured-development/SKILL.md#6-reconcile-and-adapt). It may be invoked at several review boundaries; it does not define those boundaries or select the work to deliver.
 
 Use the [expected inputs](#inputs-expected) together with the relevant acceptance criteria and inherited constraints. Identify the assessed revision in the report's scope. Return the [review report](#output-format), making its coverage and evidence limits explicit so the enclosing procedure can assign findings and decide their disposition.
 

@@ -12,21 +12,23 @@
 
 ## Stability Invariant
 
-Every commit MUST satisfy ALL of these criteria:
+Before committing, satisfy the applicable stability checks defined by the repository and enclosing procedure:
 
-- All tests pass
-- Build succeeds
-- Linting passes
-- Type checking passes
+- Required tests pass
+- The required build succeeds
+- Required linting passes
+- Required type checking passes
+
+A check that does not apply to the repository is different from a required check that was skipped or could not run. Record that distinction; do not commit while a required stability check is failing or unverified.
 
 **Why this matters:**
 
 - **Bisect safety**: Any commit can be checked out and run
 - **Rollback confidence**: Can revert to any previous commit safely
-- **CI/CD reliability**: Every commit is deployable
+- **CI/CD reliability**: Verified commits provide a reproducible input to release evaluation; they do not establish release readiness
 - **Team coordination**: No one pulls broken code
 
-**Pre-commit verification:**
+**Pre-commit verification:** discover the repository's commands rather than assuming a toolchain. For example, use the following only when these npm scripts are defined and cover the required checks:
 
 ```bash
 npm test && npm run build && npm run lint && npm run typecheck
@@ -128,12 +130,14 @@ Co-authored-by: Jane Developer <jane@example.com>
 
 ### Commit Points in RED-GREEN-REFACTOR
 
-1. **After GREEN** (Required)
+When the procedure selects TDD, use these stable checkpoints within its authorized commit boundaries. They do not grant permission to commit or override required checks.
+
+1. **After GREEN** (Recommended)
    - Test passes
    - Minimal implementation complete
    - Commit message: `feat: <what behavior was added>`
 
-2. **After REFACTOR** (Required if refactored)
+2. **After REFACTOR** (Recommended if refactored)
    - Code improved while tests remain green
    - Commit message: `refactor: <what was improved>`
 
@@ -150,37 +154,28 @@ Co-authored-by: Jane Developer <jane@example.com>
 
 ### Good vs Bad Commit Sequences
 
-**Good - Clear TDD progression:**
+**Good - Stable implementation followed by refactoring:**
 
 ```
-feat(test): add test for payment validation (RED)
-feat: implement payment validation (GREEN)
-refactor: extract payment validation constants (REFACTOR)
+feat: implement payment validation with tests
+refactor: extract payment validation constants
 ```
 
 **Good - No refactoring needed:**
 
 ```
-feat(test): add test for discount calculation (RED)
-feat: implement discount calculation (GREEN)
+feat: implement discount calculation with tests
 ```
 
-**Bad - Combined test and implementation:**
+In both cases, observe RED before implementing, then commit the test and implementation together after GREEN and the required checks. If refactoring follows, verify it before the next authorized commit.
+
+**Bad - Committing a failing RED state:**
 
 ```
-feat: add payment validation with tests
+test: add failing shipping calculation test
 ```
 
-This suggests the test wasn't written first.
-
-**Bad - Refactoring during RED:**
-
-```
-feat(test): add test for shipping calculation (RED)
-refactor: extract shipping logic
-```
-
-Never refactor when tests aren't green.
+Keep the expected failure as execution evidence, not as a broken commit. See [Assessing TDD Compliance](#assessing-tdd-compliance) for the evidence needed to establish test-first ordering.
 
 ## Atomic Commits
 
@@ -226,7 +221,9 @@ feat: add email validation and fix login bug
 
 Four unrelated changes - impossible to revert selectively.
 
-## Verifying TDD Compliance via Git History
+## Assessing TDD Compliance
+
+Git history shows committed scope and ordering, not the sequence of uncommitted test runs and implementation work. When TDD is selected, use the [TDD cycle report and phase evidence](../../test-driven-development/SKILL.md#cycle-report) to assess test-first execution. A test and its implementation in the same commit neither proves nor disproves TDD.
 
 ### Checking Commit History
 
@@ -238,25 +235,25 @@ git log -p --follow path/to/implementation.test.ts
 
 ### What to Look For
 
-**Good signs:**
+**Execution evidence:**
 
-- Test file commits appear BEFORE implementation commits
-- Commit messages show RED-GREEN-REFACTOR progression
-- Small, focused commits
-- Refactoring in separate commits from features
+- The intended behavior is connected to a test that failed for the expected reason before implementation.
+- The report identifies the commands and results establishing RED, GREEN, and any behavior-preserving refactoring.
+- Required stability checks passed for the committed state.
 
-**Bad signs:**
+**History evidence:**
 
-- Implementation committed without corresponding test
-- Test and implementation in same commit without clear RED phase
-- Large commits with multiple features
-- Refactoring mixed with new features
+- Commits are small and focused, with tests included alongside the behavior they verify.
+- Unrelated refactoring is not mixed into a feature change.
+- Messages identify the change; they are not substitutes for execution results.
+
+If phase evidence is unavailable, report test-first ordering as unestablished rather than inferring compliance or violation from commit order alone.
 
 ### Code Review Checklist
 
-- Was there a failing test before each production code change?
-- Do commit messages indicate RED-GREEN-REFACTOR progression?
-- Are refactoring commits separate from feature commits?
+- If TDD was selected, does execution evidence establish a failing behavior test before implementation?
+- Are observed results distinguished from unavailable phase evidence?
+- Are refactoring and feature changes separated according to the agreed commit boundaries?
 - Does each commit represent stable software?
 - Are commit messages clear and imperative?
 - Is each commit atomic and focused?
@@ -320,4 +317,4 @@ Refactoring when tests are failing.
 
 ## Related skills
 
-- Load `software-practices` for 50/72 Rule, TDD, and Red-Green-Refactor details
+- Use [test-driven-development](../../test-driven-development/SKILL.md) for cycle sequencing and phase evidence; this reference owns commit conventions.

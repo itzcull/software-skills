@@ -12,7 +12,7 @@ Choose names for programming constructs that reveal their semantic role, archite
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill makes domain meaning and design responsibilities explicit during implementation, refactoring, and review. It supports readable, reviewable increments rather than adding a separate naming stage.
+Within [structured development](../structured-development/SKILL.md), this skill makes domain meaning and design responsibilities explicit while [executing](../structured-development/SKILL.md#4-execute-the-increment) and [evaluating](../structured-development/SKILL.md#5-evaluate-the-result) changes, including refactoring. It supports readable, reviewable increments rather than adding a separate naming stage.
 
 Use the construct's actual behavior, domain vocabulary, ownership boundary, and nearby naming conventions. Return proposed names with their semantic rationale and any mismatch between the claimed role and observed responsibilities. For an authorized rename, report affected references and verification results.
 

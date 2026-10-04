@@ -15,7 +15,7 @@ Core factors (config, dependencies, backing services, logs) apply to any deploye
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies deployability and operational guidance across design, implementation, and readiness evaluation. The enclosing procedure places applicable work and evidence at its declared [concern boundaries](../structured-development/SKILL.md#concern-placement); the shared contract does not mandate twelve-factor adoption for every implementation.
+Within [structured development](../structured-development/SKILL.md), this skill supplies deployability and operational guidance when [preparing](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment), [executing](../structured-development/SKILL.md#4-execute-the-increment), and [evaluating](../structured-development/SKILL.md#5-evaluate-the-result) increments. The enclosing procedure places applicable work and evidence at its declared [concern boundaries](../structured-development/SKILL.md#concern-placement); the shared contract does not mandate twelve-factor adoption for every implementation.
 
 Start from the application type, deployment environment, existing configuration and backing services, and the operational obligations in scope. Return applicable design or implementation guidance, or an assessment against the [checklist](#checklist), distinguishing verified behavior from recommendations, assumptions, and checks not performed.
 
