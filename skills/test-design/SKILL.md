@@ -16,6 +16,14 @@ metadata:
 
 Provide an authoritative resource on writing great tests, grounded in the principle that tests encode intent, not implementation. This skill helps agents choose appropriate test levels, write behavior-focused tests, use test doubles deliberately, prefer real collaborators where practical, and avoid brittle tests that fail during safe refactoring.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies verification design when preparing increments and evaluating results. It helps decide what evidence is needed and how to obtain it; [test-driven-development](../test-driven-development/SKILL.md) separately owns test-first sequencing when that protocol is selected.
+
+Start from the intended observable behavior, acceptance criteria, relevant risks, public interfaces, and dependency boundaries. Explain why the chosen test level and interface can demonstrate the promised behavior. Return the test strategy, tests, or test-quality findings requested, with coverage limits; when tests are executed, distinguish observed results from checks only proposed.
+
+Test design does not authorize changing acceptance criteria to fit convenient assertions. Return ambiguous expected outcomes and untestable obligations to the enclosing procedure for a decision. Passing the selected tests provides bounded evidence, not automatic feature acceptance or proof that every relevant concern is covered.
+
 ## When to use
 
 - Designing a testing strategy for a feature or system
