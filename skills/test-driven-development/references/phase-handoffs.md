@@ -2,6 +2,10 @@
 
 This reference defines the contract between spawned TDD phase contexts. Each phase receives a focused handoff, performs only its own work, and returns a handoff for the next phase.
 
+Use the skill's [cycle inputs](../SKILL.md#cycle-inputs) to establish the enclosing scope before entering this phase chain. Carry inherited decisions and concern obligations, with references to their source, in `Constraints`; preserve unresolved issues in `Open questions` until they receive an explicit disposition. A phase transition does not reset those obligations.
+
+Phase handoffs establish readiness for the next TDD phase, not feature acceptance. Return cycle-level evidence and outstanding decisions through the [cycle report](../SKILL.md#cycle-report).
+
 ## Operating Model
 
 - One unit of behavior per cycle
