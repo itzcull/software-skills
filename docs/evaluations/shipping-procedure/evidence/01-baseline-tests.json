@@ -1,0 +1,23 @@
+{
+  "label": "01-baseline-tests",
+  "timestamp": "2026-10-04T05:01:22.226285+00:00",
+  "cwd": "implementation",
+  "command": [
+    "node",
+    "--test"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "\u2714 checkout accepts the order subtotal in cents (28.896334ms)\n\u2714 orders below the free-shipping threshold pay the standard charge (0.282666ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 72.682458\n",
+  "stderr": "",
+  "before": {
+    "head": "HEAD",
+    "status": "?? .gitignore\n?? amounts.mjs\n?? checkout.mjs\n?? shipping.mjs\n?? test/\n",
+    "sourceSha256": "1cc69f99a1a5ba0a402d632adfa2972d4753de1b268e0444e87ce3d91f446e9e"
+  },
+  "after": {
+    "head": "HEAD",
+    "status": "?? .gitignore\n?? amounts.mjs\n?? checkout.mjs\n?? shipping.mjs\n?? test/\n",
+    "sourceSha256": "1cc69f99a1a5ba0a402d632adfa2972d4753de1b268e0444e87ce3d91f446e9e"
+  }
+}

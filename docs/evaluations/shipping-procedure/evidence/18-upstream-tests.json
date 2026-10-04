@@ -1,0 +1,23 @@
+{
+  "label": "18-upstream-tests",
+  "timestamp": "2026-10-04T05:03:50.730250+00:00",
+  "cwd": "upstream-controller",
+  "command": [
+    "node",
+    "--test"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "\u2714 checkout accepts the order subtotal in cents (27.024708ms)\n\u2714 orders below the free-shipping threshold pay the standard charge (0.290542ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 69.075458\n",
+  "stderr": "",
+  "before": {
+    "head": "1eb4f2481caef48b3c6d2b30d4316819becbf69b",
+    "status": " M amounts.mjs\n",
+    "sourceSha256": "c75d4ab757647662836f64d4908329e614dea5111932bd57880935b0f5fd6165"
+  },
+  "after": {
+    "head": "1eb4f2481caef48b3c6d2b30d4316819becbf69b",
+    "status": " M amounts.mjs\n",
+    "sourceSha256": "c75d4ab757647662836f64d4908329e614dea5111932bd57880935b0f5fd6165"
+  }
+}

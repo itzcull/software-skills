@@ -1,0 +1,24 @@
+{
+  "label": "28-change-preflight",
+  "timestamp": "2026-10-04T05:04:18.275771+00:00",
+  "cwd": "implementation",
+  "command": [
+    "git",
+    "status",
+    "--porcelain"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "",
+  "stderr": "",
+  "before": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": "",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  },
+  "after": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": "",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  }
+}

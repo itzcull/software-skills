@@ -1,0 +1,23 @@
+{
+  "label": "06-normal-green",
+  "timestamp": "2026-10-04T05:01:53.447573+00:00",
+  "cwd": "implementation",
+  "command": [
+    "node",
+    "--test"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "\u2714 checkout accepts the order subtotal in cents (28.587459ms)\n\u2714 orders below the free-shipping threshold pay the standard charge (0.290917ms)\n\u2714 orders at the free-shipping threshold ship free (0.044416ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 71.69425\n",
+  "stderr": "",
+  "before": {
+    "head": "1eb4f2481caef48b3c6d2b30d4316819becbf69b",
+    "status": " M shipping.mjs\n M test/shipping-policy.test.mjs\n",
+    "sourceSha256": "121b03a0dace23a3b3ce9ce460ad40316282a48100d91c054db5f67e479b5e35"
+  },
+  "after": {
+    "head": "1eb4f2481caef48b3c6d2b30d4316819becbf69b",
+    "status": " M shipping.mjs\n M test/shipping-policy.test.mjs\n",
+    "sourceSha256": "121b03a0dace23a3b3ce9ce460ad40316282a48100d91c054db5f67e479b5e35"
+  }
+}

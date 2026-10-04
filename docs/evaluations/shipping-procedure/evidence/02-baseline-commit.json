@@ -1,0 +1,25 @@
+{
+  "label": "02-baseline-commit",
+  "timestamp": "2026-10-04T05:01:22.347584+00:00",
+  "cwd": "implementation",
+  "command": [
+    "git",
+    "commit",
+    "-m",
+    "test: establish the flat-fee checkout fixture"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "[master (root-commit) 1eb4f24] test: establish the flat-fee checkout fixture\n 6 files changed, 32 insertions(+)\n create mode 100644 .gitignore\n create mode 100644 amounts.mjs\n create mode 100644 checkout.mjs\n create mode 100644 shipping.mjs\n create mode 100644 test/checkout-contract.test.mjs\n create mode 100644 test/shipping-policy.test.mjs\n",
+  "stderr": "",
+  "before": {
+    "head": "HEAD",
+    "status": "A  .gitignore\nA  amounts.mjs\nA  checkout.mjs\nA  shipping.mjs\nA  test/checkout-contract.test.mjs\nA  test/shipping-policy.test.mjs\n",
+    "sourceSha256": "1cc69f99a1a5ba0a402d632adfa2972d4753de1b268e0444e87ce3d91f446e9e"
+  },
+  "after": {
+    "head": "1eb4f2481caef48b3c6d2b30d4316819becbf69b",
+    "status": "",
+    "sourceSha256": "1cc69f99a1a5ba0a402d632adfa2972d4753de1b268e0444e87ce3d91f446e9e"
+  }
+}

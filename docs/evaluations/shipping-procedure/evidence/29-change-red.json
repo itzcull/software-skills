@@ -1,0 +1,23 @@
+{
+  "label": "29-change-red",
+  "timestamp": "2026-10-04T05:04:36.475859+00:00",
+  "cwd": "implementation",
+  "command": [
+    "node",
+    "--test"
+  ],
+  "expectedExit": 1,
+  "actualExit": 1,
+  "stdout": "\u2714 checkout accepts the order subtotal in cents (27.343375ms)\n\u2714 discounts reduce the subtotal used for free-shipping eligibility (28.9905ms)\n\u2714 orders below the free-shipping threshold pay the standard charge (0.309ms)\n\u2716 orders below the revised free-shipping threshold pay the standard charge (0.349291ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 98.558459\n\n\u2716 failing tests:\n\ntest at test/shipping-policy.test.mjs:9:1\n\u2716 orders below the revised free-shipping threshold pay the standard charge (0.349291ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 500\n  \n      at TestContext.<anonymous> (file:///private/tmp/structured-development-exercise.mEtXQ9/implementation/test/shipping-policy.test.mjs:10:10)\n      at Test.runInAsyncScope (node:async_hooks:226:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 500,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+  "stderr": "",
+  "before": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": " M test/shipping-policy.test.mjs\n",
+    "sourceSha256": "3aff9b8a4f67f23da4c29907884e68d8411daffd4911409e2baea549bb0b756f"
+  },
+  "after": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": " M test/shipping-policy.test.mjs\n",
+    "sourceSha256": "3aff9b8a4f67f23da4c29907884e68d8411daffd4911409e2baea549bb0b756f"
+  }
+}

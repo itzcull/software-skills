@@ -1,0 +1,25 @@
+{
+  "label": "22-sync-remote-before",
+  "timestamp": "2026-10-04T05:03:51.253205+00:00",
+  "cwd": "sync-case",
+  "command": [
+    "git",
+    "ls-remote",
+    "origin",
+    "refs/heads/shipping-policy"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "aedd0186ddd1c8489cd28ee071a38aacabdda021\trefs/heads/shipping-policy\n",
+  "stderr": "",
+  "before": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": "",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  },
+  "after": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": "",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  }
+}

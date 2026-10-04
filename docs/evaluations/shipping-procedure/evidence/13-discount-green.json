@@ -1,0 +1,23 @@
+{
+  "label": "13-discount-green",
+  "timestamp": "2026-10-04T05:03:15.777923+00:00",
+  "cwd": "implementation",
+  "command": [
+    "node",
+    "--test"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "\u2714 checkout accepts the order subtotal in cents (27.721458ms)\n\u2714 discounts reduce the subtotal used for free-shipping eligibility (27.14575ms)\n\u2714 orders below the free-shipping threshold pay the standard charge (0.334375ms)\n\u2714 orders at the free-shipping threshold ship free (0.054792ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 99.420084\n",
+  "stderr": "",
+  "before": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": " M checkout.mjs\n M test/checkout-contract.test.mjs\n",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  },
+  "after": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": " M checkout.mjs\n M test/checkout-contract.test.mjs\n",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  }
+}

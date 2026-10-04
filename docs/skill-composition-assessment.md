@@ -8,6 +8,8 @@ This assessment examines whether the repository's skills provide usable contribu
 
 The subject is prescribed guidance, not an observed execution or a complete user-configured procedure. Coverage includes all 17 skill entry points and selected workflow, handoff, verification, and review references. This is not an exhaustive technical audit of every catalog entry, code sample, or external source. No agent-execution or skill-trigger evaluations were run.
 
+A subsequent [direct-execution exercise](evaluations/shipping-procedure/README.md) complements this prescription-level assessment with captured tests, handoffs, and Git outcomes for a selected composition. Its scripted decisions, coverage, and limits are reported separately; it is not an independent-agent evaluation.
+
 ## Contribution coverage
 
 All 16 supporting skills have a representable contribution. They need not each implement a complete loop or independently discharge all seven responsibilities. The table records the operational evidence inspected beyond the new relationship prose; it does not define phases or an execution order.
