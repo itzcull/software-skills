@@ -10,6 +10,14 @@ metadata:
 
 Provide a comprehensive catalog of refactoring operations that improve code structure without changing external behaviour. Each refactoring describes a specific, mechanical transformation with clear motivation and mechanics.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this catalog supplies behavior-preserving transformations during an increment or as explicitly selected maintenance work. A TDD REFACTOR phase is one use, not the only place structural improvement may occur.
+
+Start from a concrete design problem, the agreed change boundary, compatibility constraints, and available behavioral verification. Return a recommended transformation or a justified no-change decision. When changes are authorized, return the changed scope and verification evidence, separating demonstrated preservation from assumptions or checks not run.
+
+A cleaner structure is not proof that behavior was preserved. If the change requires new behavior, incompatible interfaces, or work beyond the selected scope, return it to the enclosing procedure for a separate decision rather than presenting it as routine cleanup.
+
 ## When to use
 
 - Refactoring code during the REFACTOR step of TDD

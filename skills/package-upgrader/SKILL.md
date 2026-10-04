@@ -12,6 +12,14 @@ Guide safe dependency upgrades in any repository. The skill helps an agent disco
 
 Dependency upgrade guidance must be grounded in the project being changed. Do not assume a language, package manager, registry, lockfile format, or command syntax before inspecting the repository.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies a risk-bounded dependency-maintenance protocol. Upgrade units can be increments within feature work or a separate maintenance loop; a dependency change is not automatically a new product behavior.
+
+Start from the upgrade goal, permitted dependency scope, repository tooling, compatibility constraints, baseline evidence, and rollback options. Return the upgrade strategy or the changes and verification described in [Verify and report](#step-6-verify-and-report), including deferred candidates, unresolved risks, and decisions needed from the enclosing procedure.
+
+A resolved lockfile or newer version does not by itself establish compatibility, security remediation, or deployment readiness. Escalate migrations, inadequate verification, and conflicting constraints through the existing conditions; do not silently expand the upgrade or accept residual risk on the user's behalf. The enclosing procedure decides whether the evidence supports acceptance and owns any subsequent release or operational handoff.
+
 ## When to use
 
 - The user asks to upgrade dependencies, update packages, bump versions, refresh outdated dependencies, or manage dependency drift
