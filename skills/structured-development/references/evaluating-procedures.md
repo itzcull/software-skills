@@ -44,7 +44,7 @@ Apply findings to specific obligations and scopes, not indiscriminately to an en
 | Missing provision | A sufficiently specified procedure leaves a required obligation unaddressed. |
 | Unknown | Available evidence is insufficient to determine fulfilment or conflict. |
 | Scope mismatch | The obligation belongs to an enclosing or collaborating procedure rather than the component being assessed. |
-| Model limitation | The procedure exposes a useful distinction the model cannot adequately express, an unnecessary restriction, or an insufficient safeguard. |
+| Model limitation | A demonstrated inability to faithfully represent a relevant procedure or decision-relevant distinction using the current model, as tested in [Challenge the model](#4-challenge-the-model). |
 
 A model limitation is a finding about the contract, and can coexist with a conformance finding about the procedure. Neither automatically cancels the other: assess against the recorded contract version, then propose a revision separately.
 
@@ -61,6 +61,24 @@ Distinguish conformance from effectiveness. A conforming procedure is not guaran
 
 ## 4. Challenge the model
 
+### Demonstrate representational failure first
+
+Before proposing an improvement to the model, demonstrate why the particular procedure cannot be faithfully represented by the current model. A faithful representation preserves the source-supported scopes, decisions, responsibilities, evidence, and feedback relationships without inventing provisions or changing their meaning.
+
+Representability is not conformance. A procedure that the model can accurately describe and classify as nonconforming does not, for that reason alone, demonstrate a model limitation. Nor do different terminology, incomplete source evidence, or a preference for additional safeguards establish one.
+
+Make the case explicitly:
+
+1. Identify the concrete, source-supported procedure or scenario and the distinction that matters to its operation.
+2. Attempt a mapping using the existing responsibilities, loops, concern placements, and boundaries; show what already fits.
+3. Identify the exact point where the mapping fails. Cite the model wording or missing expressive capability and explain what meaning would be lost, distorted, or invented to make it fit.
+4. Test reasonable alternative mappings using the model's existing flexibility, including responsibility allocation, inherited decisions, distinct completion boundaries, and external handoffs. Explain why those alternatives do not resolve the failure.
+5. Explain why preserving the distinction is necessary within this model's purpose, rather than a detail for an implementation-specific protocol.
+
+If a faithful mapping exists, retain it and do not propose a model change from this evaluation. If evidence is insufficient to attempt the mapping, gather evidence rather than treating uncertainty as a representational failure. Corrections to examples or interpretations may still be warranted.
+
+### Test the claimed limitation
+
 For each significant mismatch, ask:
 
 - Is the requirement necessary to the contract's purpose, or does it encode a preferred practice?
@@ -72,7 +90,7 @@ For each significant mismatch, ask:
 
 Test both **false rejection** (excluding a useful procedure because the model is unnecessarily restrictive) and **false acceptance** (accepting a procedure despite a failure the contract intends to prevent).
 
-Use a concrete scenario to show the problem. Distinguish observed outcomes from hypothetical counterexamples, and explain why the scenario tests the model rather than merely showing a poor execution of an adequate procedure.
+Use a concrete scenario to show the problem. Distinguish observed outcomes from hypothetical counterexamples, and explain why the scenario tests the model rather than merely showing a poor execution of an adequate procedure. False acceptance or rejection motivates investigation; a model-change proposal still requires the representational-failure demonstration above.
 
 ## 5. Choose a disposition and propose the smallest change
 
@@ -82,14 +100,14 @@ A valid evaluation can conclude that we should:
 - Gather more evidence.
 - Correct a researched example or its interpretation.
 - Improve a concrete implementation or its handoff to another procedure.
-- Clarify, add, remove, or relax a model requirement.
+- Clarify, add, remove, or relax a model requirement only after [demonstrating representational failure](#demonstrate-representational-failure-first).
 
 Do not expand the model merely to accommodate terminology from another methodology. Prefer an implementation-specific provision when the distinction does not need to constrain all implementations.
 
 For a proposed model change, record:
 
-1. The problem, relevant sources, and current finding.
-2. The smallest proposed change to the authoritative contract, with its rationale.
+1. The problem, relevant sources, current finding, and the failed-mapping demonstration required by [Challenge the model](#4-challenge-the-model).
+2. The smallest proposed change to the authoritative contract, showing how it enables the faithful representation that previously failed.
 3. Why an example correction or implementation-specific provision is insufficient.
 4. The effect on existing implementations and examples, including any changed conformance judgments.
 5. The motivating scenario and a contrasting case that tests whether the change generalises.
@@ -99,6 +117,6 @@ Treat evaluation as grounds for a proposal, not automatic permission to change t
 
 ## Evaluation output
 
-Return a concise record containing the subject and scope, contract version, evidence-backed findings, model challenges, and recommended disposition. Include the change proposal only when one is justified.
+Return a concise record containing the subject and scope, contract version, evidence-backed findings, model challenges, and recommended disposition. State separately whether the procedure is faithfully representable, not representable for a demonstrated reason, or not assessable from the available evidence. Include a model-change proposal only when supported by the failed-mapping demonstration.
 
 State what could not be established and what additional evidence would resolve it. Avoid an overall conformance claim when material obligations remain unknown or outside the assessed scope.
