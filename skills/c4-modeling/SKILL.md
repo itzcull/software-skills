@@ -12,6 +12,14 @@ Help an agent create, audit, and maintain software architecture models using the
 
 Use C4 to communicate structure, responsibilities, and relationships. Do not use it as a complete enterprise modeling framework, detailed UML replacement, deployment runbook, or exhaustive source-code map.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies architecture views for establishing system boundaries, preparing changes, and reconciling implementation with intended structure. C4 abstraction levels describe the system, not a prescribed hierarchy of development loops.
+
+Use the [expected inputs](#inputs-expected) to select the audience, scope, and evidence. Make clear whether a view describes the current system or a proposed design. Return the [model or review report](#output-format) with its evidence, assumptions, and gaps, so the enclosing procedure can identify dependencies and decisions affecting the work.
+
+A diagram does not establish runtime correctness, architectural approval, or operational readiness. When sources disagree or a view exposes a changed boundary, return that discrepancy to the relevant design owner; do not silently redesign the system to make the diagram consistent.
+
 ## When to use
 
 - The user asks for a C4 model, C4 diagram, system context diagram, container diagram, component diagram, dynamic diagram, deployment diagram, or system landscape
