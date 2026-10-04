@@ -10,6 +10,14 @@ metadata:
 
 Provide comprehensive reference material on system design concepts. Covers building blocks, architectural patterns, key concepts, and tradeoffs for designing reliable distributed systems.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies architectural decision support when establishing constraints, preparing increments, or revisiting risks. It can inform several loops without prescribing a separate upfront design phase.
+
+Start from the intended outcomes, workload, quality requirements, existing architecture, and operational constraints. Distinguish measured facts from estimates. Return viable options, context-specific trade-offs, assumptions, and the experiments or checks needed to resolve uncertainty; the enclosing procedure decides which option to adopt and how to schedule that work.
+
+A design recommendation does not establish capacity, reliability, or production readiness. Route unresolved trade-offs and changes to accepted constraints to the responsible decision-maker. Use [architecture-decision-record](../architecture-decision-record/SKILL.md) when the resulting decision needs a durable record rather than treating an analysis as an accepted ruling.
+
 ## When to use
 
 - Designing a new distributed system or service

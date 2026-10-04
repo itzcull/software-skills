@@ -10,6 +10,14 @@ metadata:
 
 Choose names for programming constructs that reveal their semantic role, architectural boundary, lifecycle, and behavioural responsibility. This skill helps agents categorise a construct before naming it, so names communicate domain meaning rather than implementation trivia.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill makes domain meaning and design responsibilities explicit during implementation, refactoring, and review. It supports readable, reviewable increments rather than adding a separate naming stage.
+
+Use the construct's actual behavior, domain vocabulary, ownership boundary, and nearby naming conventions. Return proposed names with their semantic rationale and any mismatch between the claimed role and observed responsibilities. For an authorized rename, report affected references and verification results.
+
+A better name does not repair an incorrect abstraction. If the analysis requires changing responsibilities, public compatibility, or agreed boundaries, return that design question to the enclosing procedure rather than hiding a redesign inside a rename.
+
 ## When to use
 
 - Naming a new class, function, type, module, package, directory, or test helper

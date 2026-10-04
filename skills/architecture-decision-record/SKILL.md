@@ -12,6 +12,14 @@ Help an agent elicit decision-influencing information from an author and turn it
 
 An ADR is not a design guide. It is an append-only decision log entry that records one architecturally significant choice at a specific point in time.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supplies decision traceability when preparing work or reconsidering assumptions. A decision can constrain several increments or loops; its record is not itself a delivery stage.
+
+Use the [expected inputs](#inputs-expected) to establish the decision's scope, evidence, status, and deciders. Return the [requested output](#output-format) with its links to affected work, so the enclosing procedure can carry accepted decisions into implementation and act on reevaluation triggers.
+
+Approval belongs to the identified deciders. Drafting an ADR does not approve its proposal, and an accepted ADR does not prove that software implements it. Return missing rationale, uncertain authority, or changed premises to the decision owner rather than inventing acceptance or silently changing inherited constraints.
+
 ## When to use
 
 - The user asks to create, write, draft, revise, or review an ADR

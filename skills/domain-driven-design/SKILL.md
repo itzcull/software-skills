@@ -10,6 +10,14 @@ metadata:
 
 Provide comprehensive reference material on Domain-Driven Design. Covers the strategic patterns for organising complex domains and the tactical patterns for implementing domain models in code.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this skill supports intent clarification, work structuring, and design decisions through domain language and models. Use strategic guidance when boundaries or ownership are uncertain, and tactical guidance when implementing behavior within an understood context. Bounded contexts are domain boundaries, not mandatory development loops.
+
+Start from stakeholder examples, business rules, existing terminology, and known ownership constraints. Return a proposed or revised model with its supporting examples, boundary relationships, and unresolved domain questions. The enclosing procedure uses that understanding to select behaviors and evaluation criteria.
+
+A plausible model is not evidence that domain experts agree or that implementation preserves its rules. Return conflicting meanings and decisions that change scope to the user or domain decision-maker before treating them as settled. This skill does not require every procedure to adopt DDD.
+
 ## When to use
 
 - Modeling a new domain or bounded context

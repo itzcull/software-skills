@@ -1,6 +1,6 @@
 ---
 name: structured-development
-description: Define, adapt, or assess structured procedures for implementing a series of software behaviours or features. Use when designing development workflows, defining nested development loops and cross-cutting concern placement, comparing methodologies, or checking whether a concrete workflow fulfils a shared development contract. Separates abstract responsibilities from implementation-specific protocols such as autonomous engineering, TDD, and spec-driven development.
+description: Define, adapt, or assess structured procedures for implementing a series of software behaviours or features. Use when designing development workflows, defining nested development loops and cross-cutting concern placement, comparing methodologies, or checking whether a concrete workflow fulfils a shared development contract. Separates abstract responsibilities from implementation-specific protocols such as TDD and spec-driven development.
 license: MIT
 metadata:
   author: itzcull
@@ -156,9 +156,9 @@ For evidence-based procedure assessments or proposals to improve this model, fol
 
 ## Relationship to other skills
 
-Treat `autonomous-engineering` as a concrete implementation candidate: its strict TDD, ambiguity escalation, ADR practices, and review artifacts provide particular ways to fulfil these responsibilities. Assess its full instructions before claiming complete conformance.
+Users define their concrete procedures and compose the supporting skills they need. Assess those procedures against this contract; using a particular skill does not by itself establish conformance.
 
-Use `test-driven-development` for its implementation cycle and phase rules, not as a replacement for this broader contract. Other implementations can use different protocols without inheriting TDD-specific requirements.
+Use [test-driven-development](../test-driven-development/SKILL.md) for its implementation cycle and phase rules, not as a replacement for this broader contract. Other implementations can use different protocols without inheriting TDD-specific requirements.
 
 ## Researched examples
 

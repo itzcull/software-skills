@@ -10,6 +10,14 @@ metadata:
 
 Provide a reference catalog of software design patterns with implementation guidance, trade-offs, and practical examples. Based on the Gang of Four patterns and extended with modern architectural patterns.
 
+## Relationship to structured development
+
+Within [structured development](../structured-development/SKILL.md), this catalog supplies design options while preparing, executing, or reviewing an increment. Consult it for an observed design problem, not to introduce a pattern as a goal in itself.
+
+Use the intended behavior, existing structure, constraints, and concrete change pressure to compare a pattern with simpler alternatives. Return a recommendation and its trade-offs, or an explanation of why no pattern is warranted. When implementation is requested, keep changes within the agreed scope and return verification evidence to the enclosing procedure.
+
+Pattern selection is not architectural approval or proof of correctness. If an option changes public behavior, ownership, or inherited design decisions beyond the increment, return that choice for authorization rather than expanding the work silently.
+
 ## When to use
 
 - Choosing a design pattern for a recurring problem
