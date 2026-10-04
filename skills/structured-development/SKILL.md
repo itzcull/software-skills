@@ -8,7 +8,9 @@ metadata:
 
 ## Purpose
 
-Define an abstract procedure for advancing software development through bounded, evidence-producing increments. Concrete implementations supply the practices that fulfil this contract; this skill does not prescribe one implementation methodology.
+Structured development defines a methodology-independent contract for incremental software development within a broader software lifecycle. Concrete procedures specify how its responsibilities are fulfilled.
+
+Advance development through bounded, evidence-producing increments. This skill governs development through completion or handoff of agreed scope; it does not define the entire software development lifecycle (SDLC), including deployment, operations, and retirement.
 
 ## Authority and terminology
 
