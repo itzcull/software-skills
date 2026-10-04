@@ -1,6 +1,6 @@
 ---
 name: test-driven-development
-description: Complete TDD skill covering the RED-GREEN-REFACTOR cycle, phase orchestration across spawned contexts, individual phase execution (RED, GREEN, REFACTOR), handoff contracts, and guided TDD pairing for collaborative test-first development. Use when implementing features test-first, running TDD cycles, pairing on test-driven discovery, or enforcing strict phase boundaries.
+description: Behavior-level test-first implementation and design-feedback protocol for use within a structured-development procedure. Covers RED-GREEN-REFACTOR cycles, phase orchestration across spawned contexts, individual phase execution, handoff contracts, and guided TDD pairing. Use when implementing features test-first, running TDD cycles, pairing on test-driven discovery, or connecting TDD evidence and escalation to an enclosing development procedure.
 license: MIT
 metadata:
   author: itzcull
@@ -8,7 +8,34 @@ metadata:
 
 ## Purpose
 
-Provide everything needed to practice strict Test-Driven Development: orchestrate RED-GREEN-REFACTOR cycles, execute individual phases with clear boundaries, validate handoffs between phases, and guide collaborative test-first discovery sessions.
+Provide a behavior-level implementation and design-feedback protocol using strict Test-Driven Development: orchestrate RED-GREEN-REFACTOR cycles, execute individual phases with clear boundaries, validate handoffs between phases, and guide collaborative test-first discovery sessions.
+
+## Relationship to Structured Development
+
+[Structured development](../structured-development/SKILL.md) owns the methodology-independent contract. This skill owns the TDD protocol that a concrete procedure can use within a behavior-level development loop; it is not a complete delivery procedure or a replacement for the contract.
+
+Within that loop, behavior selection and executable tests prepare an increment, implementation and refactoring realize it, and test results support evaluation and adaptation. The [cycle report](#cycle-report) closes or escalates that local scope. These contributions span several [abstract responsibilities](../structured-development/SKILL.md#abstract-procedure), rather than belonging only to execution.
+
+The enclosing procedure owns broader outcome selection, integration, acceptance, and lifecycle handoffs. It determines which obligations are assigned to TDD cycles and which require evaluation elsewhere. Completing a cycle supplies evidence to that procedure; it does not establish feature acceptance, operational readiness, or release authorization.
+
+Guided pairing and separate-context orchestration are participation arrangements for the protocol. Selecting this skill does not itself authorize delegation, commits, or deployment.
+
+### Cycle Inputs
+
+Before starting a cycle, establish from the enclosing procedure or the user's agreed task:
+
+- The intended behavior and its connection to a broader goal or acceptance criterion; use guided discovery when the behavior still needs clarification.
+- The allowed scope, inherited decisions and constraints, and relevant [concern obligations](../structured-development/SKILL.md#concern-placement) due at this cycle's boundary.
+- The verification needed for those obligations, including relevant integration or regression checks beyond the new test.
+- Who can select the next behavior, resolve ambiguity, or approve changes to scope and acceptance criteria, and who receives the cycle's results.
+
+Reuse existing plans, tests, and discussions rather than requiring a new input document. Check that inherited decisions still apply to the selected behavior. Resolve missing inputs that prevent safe progress before RED; do not invent approvals or obligations. A standalone TDD request can use the user's agreed scope and authority without inventing a larger process.
+
+### Results and Handoffs
+
+Return the [cycle report](#cycle-report) to the enclosing procedure before selecting further work under its decision authority. Preserve the connection from the intended behavior to implementation evidence and any remaining obligations. Work outside the cycle, including deferred concerns, returns to that procedure for disposition; it is not silently treated as completed.
+
+For a single-phase invocation, return the [phase handoff](references/phase-handoffs.md), not a claim that the cycle is complete. When a discovery invalidates inherited decisions or affects another scope, use the [escalation conditions](#escalation-conditions) to obtain a decision before continuing.
 
 ## When to use
 
@@ -74,7 +101,7 @@ A behavior is usually small enough for one TDD cycle when:
 
 ## Cycle Orchestration
 
-Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts. The orchestrator decides the next unit of behavior, invokes the right phase in order, validates each handoff, and ensures the work stays test-first and behavior-preserving.
+Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts when delegation is authorized. The orchestrator selects the next unit of behavior within the enclosing procedure's authority, invokes the right phase in order, validates each handoff, and ensures the work stays test-first and behavior-preserving.
 
 ### Orchestration Model
 
@@ -96,7 +123,7 @@ Coordinate a strict RED-GREEN-REFACTOR cycle across separate spawned contexts. T
    - completed cycle with `no refactor needed`, or
    - completed cycle with verified refactoring, or
    - escalated cycle requiring user input
-8. Decide whether the next unit of behavior should start immediately or wait for a commit boundary.
+8. Return the cycle report and, within the enclosing procedure's authority, decide whether to start another cycle, wait for a commit boundary, or seek a decision.
 
 ### Handoff Validation
 
@@ -131,13 +158,16 @@ Reject or rework the handoff if:
 
 ### Cycle Report
 
-Return a compact cycle report with:
+For either orchestration or guided pairing, return a compact report on completion or escalation with:
 
-- The unit of behavior completed
-- The three phase outcomes
-- Key commands used in each phase
-- Whether refactoring was applied or skipped
-- Any unresolved questions before the next cycle
+- The unit of behavior and its originating goal or acceptance criterion
+- Cycle disposition: completed or escalated, with outcomes for phases performed and those not reached
+- Changed files, relevant test identifiers, exact verification commands and results, including required checks not performed or still failing
+- Whether refactoring was applied or skipped, and why
+- Evidence for the concern obligations assigned to this cycle, and any outstanding work or limitations
+- Discoveries affecting other scopes or inherited decisions, unresolved questions, and the decision or action needed from the receiving user or procedure
+
+A completed report establishes only the verified cycle scope. If a required check cannot be completed, report the limitation and escalate rather than claiming completion.
 
 ## RED Phase
 
@@ -268,7 +298,7 @@ Before proposing the next test, make the behavior explicit:
 4. **RED** -- write the test, run it, confirm it fails for the right reason
 5. **GREEN** -- write minimum code to pass, run tests to confirm
 6. **REFACTOR** -- assess explicitly, improve if warranted, confirm tests still pass
-7. **Next** -- re-evaluate what matters most and repeat
+7. **Next** -- return the cycle report, re-evaluate what matters most with the user, and repeat within the agreed scope
 
 ### Behavior Priority
 
@@ -322,7 +352,7 @@ Tests reveal interface requirements. When proposing a test, explicitly discuss:
 
 ## Escalation Conditions
 
-Stop and ask when:
+Stop and ask the user or the decision-maker identified in the cycle inputs when:
 
 - The next unit of behavior is not clear enough to write one focused test
 - A phase handoff is invalid or incomplete after reasonable correction
@@ -330,6 +360,9 @@ Stop and ask when:
 - REFACTOR reveals larger pre-existing design issues outside current scope
 - Project test infrastructure is too broken to prove RED or GREEN honestly
 - The observed failure suggests broken test infrastructure rather than missing behavior
+- Discoveries invalidate inherited decisions, affect another scope, or prevent a required cycle-boundary obligation from being met
+
+Return the relevant evidence, affected scope or constraint, and the decision needed. Resume only after the blocker is resolved or an authorized decision establishes revised inputs; revalidate the applicable phase entry conditions rather than skipping them.
 
 ## Constraints
 
