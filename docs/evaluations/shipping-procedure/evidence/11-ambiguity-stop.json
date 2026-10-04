@@ -1,0 +1,24 @@
+{
+  "label": "11-ambiguity-stop",
+  "timestamp": "2026-10-04T05:02:33.268016+00:00",
+  "cwd": "implementation",
+  "command": [
+    "git",
+    "status",
+    "--porcelain"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "",
+  "stderr": "",
+  "before": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": "",
+    "sourceSha256": "121b03a0dace23a3b3ce9ce460ad40316282a48100d91c054db5f67e479b5e35"
+  },
+  "after": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": "",
+    "sourceSha256": "121b03a0dace23a3b3ce9ce460ad40316282a48100d91c054db5f67e479b5e35"
+  }
+}

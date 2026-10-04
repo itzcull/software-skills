@@ -1,0 +1,26 @@
+{
+  "label": "27-sync-review-evidence",
+  "timestamp": "2026-10-04T05:04:17.979159+00:00",
+  "cwd": "sync-case",
+  "command": [
+    "git",
+    "diff",
+    "aedd0186ddd1c8489cd28ee071a38aacabdda021..HEAD",
+    "--",
+    "amounts.mjs"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "diff --git a/amounts.mjs b/amounts.mjs\nindex 7c98a6d..99cb248 100644\n--- a/amounts.mjs\n+++ b/amounts.mjs\n@@ -1,4 +1,4 @@\n-// Checkout inputs are integer cents.\n+// Controller stimulus: parse whole currency units into cents.\n export function parseAmount(value) {\n-  return Number(value);\n+  return Number(value) * 100;\n }\n",
+  "stderr": "",
+  "before": {
+    "head": "4fb6f68b05a29d54d825d18b8071e93e36fa5668",
+    "status": "",
+    "sourceSha256": "1fecce592f209f1cea36c8b71a1a4a45c89424ba364adfd405b6c02ff71b1b28"
+  },
+  "after": {
+    "head": "4fb6f68b05a29d54d825d18b8071e93e36fa5668",
+    "status": "",
+    "sourceSha256": "1fecce592f209f1cea36c8b71a1a4a45c89424ba364adfd405b6c02ff71b1b28"
+  }
+}

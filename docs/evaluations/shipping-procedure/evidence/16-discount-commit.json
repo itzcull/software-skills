@@ -1,0 +1,25 @@
+{
+  "label": "16-discount-commit",
+  "timestamp": "2026-10-04T05:03:35.526650+00:00",
+  "cwd": "implementation",
+  "command": [
+    "git",
+    "commit",
+    "-m",
+    "feat: apply shipping eligibility after discounts"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "[shipping-policy aedd018] feat: apply shipping eligibility after discounts\n 2 files changed, 8 insertions(+), 1 deletion(-)\n",
+  "stderr": "",
+  "before": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": "M  checkout.mjs\nM  test/checkout-contract.test.mjs\n",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  },
+  "after": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": "",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  }
+}

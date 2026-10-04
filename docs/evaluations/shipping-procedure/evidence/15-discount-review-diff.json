@@ -1,0 +1,24 @@
+{
+  "label": "15-discount-review-diff",
+  "timestamp": "2026-10-04T05:03:16.282316+00:00",
+  "cwd": "implementation",
+  "command": [
+    "git",
+    "diff",
+    "--check"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "",
+  "stderr": "",
+  "before": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": " M checkout.mjs\n M test/checkout-contract.test.mjs\n",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  },
+  "after": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": " M checkout.mjs\n M test/checkout-contract.test.mjs\n",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  }
+}

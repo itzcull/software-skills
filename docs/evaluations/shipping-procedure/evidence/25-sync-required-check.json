@@ -1,0 +1,23 @@
+{
+  "label": "25-sync-required-check",
+  "timestamp": "2026-10-04T05:03:51.712767+00:00",
+  "cwd": "sync-case",
+  "command": [
+    "node",
+    "--test"
+  ],
+  "expectedExit": 1,
+  "actualExit": 1,
+  "stdout": "\u2716 checkout accepts the order subtotal in cents (28.025958ms)\n\u2716 discounts reduce the subtotal used for free-shipping eligibility (27.67125ms)\n\u2714 orders below the free-shipping threshold pay the standard charge (0.307458ms)\n\u2714 orders at the free-shipping threshold ship free (0.050958ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 2\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 101.025125\n\n\u2716 failing tests:\n\ntest at test/checkout-contract.test.mjs:8:1\n\u2716 checkout accepts the order subtotal in cents (28.025958ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  '0' !== '500'\n  \n      at TestContext.<anonymous> (file:///private/tmp/structured-development-exercise.mEtXQ9/sync-case/test/checkout-contract.test.mjs:11:10)\n      at Test.runInAsyncScope (node:async_hooks:226:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.start (node:internal/test_runner/test:1242:17)\n      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: '0',\n    expected: '500',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n\ntest at test/checkout-contract.test.mjs:14:1\n\u2716 discounts reduce the subtotal used for free-shipping eligibility (27.67125ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  '0' !== '500'\n  \n      at TestContext.<anonymous> (file:///private/tmp/structured-development-exercise.mEtXQ9/sync-case/test/checkout-contract.test.mjs:17:10)\n      at Test.runInAsyncScope (node:async_hooks:226:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: '0',\n    expected: '500',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+  "stderr": "",
+  "before": {
+    "head": "4fb6f68b05a29d54d825d18b8071e93e36fa5668",
+    "status": "",
+    "sourceSha256": "1fecce592f209f1cea36c8b71a1a4a45c89424ba364adfd405b6c02ff71b1b28"
+  },
+  "after": {
+    "head": "4fb6f68b05a29d54d825d18b8071e93e36fa5668",
+    "status": "",
+    "sourceSha256": "1fecce592f209f1cea36c8b71a1a4a45c89424ba364adfd405b6c02ff71b1b28"
+  }
+}

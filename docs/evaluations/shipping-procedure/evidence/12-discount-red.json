@@ -1,0 +1,23 @@
+{
+  "label": "12-discount-red",
+  "timestamp": "2026-10-04T05:03:04.634958+00:00",
+  "cwd": "implementation",
+  "command": [
+    "node",
+    "--test"
+  ],
+  "expectedExit": 1,
+  "actualExit": 1,
+  "stdout": "\u2714 checkout accepts the order subtotal in cents (27.140708ms)\n\u2716 discounts reduce the subtotal used for free-shipping eligibility (28.263417ms)\n\u2714 orders below the free-shipping threshold pay the standard charge (0.304958ms)\n\u2714 orders at the free-shipping threshold ship free (0.055458ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 101.6355\n\n\u2716 failing tests:\n\ntest at test/checkout-contract.test.mjs:14:1\n\u2716 discounts reduce the subtotal used for free-shipping eligibility (28.263417ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  '0' !== '500'\n  \n      at TestContext.<anonymous> (file:///private/tmp/structured-development-exercise.mEtXQ9/implementation/test/checkout-contract.test.mjs:17:10)\n      at Test.runInAsyncScope (node:async_hooks:226:14)\n      at Test.run (node:internal/test_runner/test:1382:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)\n      at Test.postRun (node:internal/test_runner/test:1522:19)\n      at Test.run (node:internal/test_runner/test:1447:12)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: '0',\n    expected: '500',\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+  "stderr": "",
+  "before": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": " M test/checkout-contract.test.mjs\n",
+    "sourceSha256": "7fbf15fa362f577f0e0d1111e6d7e07288771d9a4efba7f9118948a1d76f602d"
+  },
+  "after": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": " M test/checkout-contract.test.mjs\n",
+    "sourceSha256": "7fbf15fa362f577f0e0d1111e6d7e07288771d9a4efba7f9118948a1d76f602d"
+  }
+}

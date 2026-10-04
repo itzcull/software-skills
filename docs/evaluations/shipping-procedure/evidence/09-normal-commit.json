@@ -1,0 +1,25 @@
+{
+  "label": "09-normal-commit",
+  "timestamp": "2026-10-04T05:02:33.027162+00:00",
+  "cwd": "implementation",
+  "command": [
+    "git",
+    "commit",
+    "-m",
+    "feat: offer free shipping at the published threshold"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "[shipping-policy 6004d12] feat: offer free shipping at the published threshold\n 2 files changed, 5 insertions(+), 1 deletion(-)\n",
+  "stderr": "",
+  "before": {
+    "head": "1eb4f2481caef48b3c6d2b30d4316819becbf69b",
+    "status": "M  shipping.mjs\nM  test/shipping-policy.test.mjs\n",
+    "sourceSha256": "121b03a0dace23a3b3ce9ce460ad40316282a48100d91c054db5f67e479b5e35"
+  },
+  "after": {
+    "head": "6004d123a7c2222c874fad4151167e1e2b34da40",
+    "status": "",
+    "sourceSha256": "121b03a0dace23a3b3ce9ce460ad40316282a48100d91c054db5f67e479b5e35"
+  }
+}

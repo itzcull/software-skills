@@ -1,0 +1,24 @@
+{
+  "label": "24-sync-rebase",
+  "timestamp": "2026-10-04T05:03:51.485217+00:00",
+  "cwd": "sync-case",
+  "command": [
+    "git",
+    "rebase",
+    "origin/master"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "",
+  "stderr": "Rebasing (1/2)\nRebasing (2/2)\nSuccessfully rebased and updated refs/heads/shipping-policy.\n",
+  "before": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": "",
+    "sourceSha256": "080f47eb16e9bfe1866e6934f4e20e0dd65076d5313ffb0ee4697cf48b05cd29"
+  },
+  "after": {
+    "head": "4fb6f68b05a29d54d825d18b8071e93e36fa5668",
+    "status": "",
+    "sourceSha256": "1fecce592f209f1cea36c8b71a1a4a45c89424ba364adfd405b6c02ff71b1b28"
+  }
+}

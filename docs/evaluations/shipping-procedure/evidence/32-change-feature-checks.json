@@ -1,0 +1,23 @@
+{
+  "label": "32-change-feature-checks",
+  "timestamp": "2026-10-04T05:04:59.095388+00:00",
+  "cwd": "implementation",
+  "command": [
+    "node",
+    "--test"
+  ],
+  "expectedExit": 0,
+  "actualExit": 0,
+  "stdout": "\u2714 checkout accepts the order subtotal in cents (28.088666ms)\n\u2714 discounts reduce the subtotal used for free-shipping eligibility (26.878542ms)\n\u2714 checkout ships free at the revised threshold after discount (25.147834ms)\n\u2714 checkout charges shipping below the revised threshold after discount (25.495042ms)\n\u2714 orders below the free-shipping threshold pay the standard charge (0.278167ms)\n\u2714 orders below the revised free-shipping threshold pay the standard charge (0.050458ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 150.066625\n",
+  "stderr": "",
+  "before": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": " M shipping.mjs\n M test/checkout-contract.test.mjs\n M test/shipping-policy.test.mjs\n",
+    "sourceSha256": "7bb26ebeecf9c152b1cd4eaa2160c997a5d0e782d8ea997029e09745fd206820"
+  },
+  "after": {
+    "head": "aedd0186ddd1c8489cd28ee071a38aacabdda021",
+    "status": " M shipping.mjs\n M test/checkout-contract.test.mjs\n M test/shipping-policy.test.mjs\n",
+    "sourceSha256": "7bb26ebeecf9c152b1cd4eaa2160c997a5d0e782d8ea997029e09745fd206820"
+  }
+}
