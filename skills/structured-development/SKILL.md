@@ -162,25 +162,14 @@ Use `test-driven-development` for its implementation cycle and phase rules, not 
 
 ## Researched examples
 
+For examples of how development processes, frameworks, and concern-specific practices map to this contract, consult [the examples index](examples/INDEX.md). Use its selection guide to choose relevant examples; inclusion does not certify conformance.
+
 Each example maps the seven responsibilities and discusses loop structure and concern placement. It separates the source's described practices from our interpretation and any additions needed for a concrete implementation. The mappings use these evidence labels:
 
 - **Supported:** the cited material describes a relevant practice. This does not certify full conformance.
 - **Partial:** the material supports part of the responsibility; the remaining provision is identified.
 - **Not established:** the material reviewed does not establish the provision. This is a limit of the evidence, not proof that the wider methodology lacks it.
 
-The examples include development processes, frameworks, and concern-specific practices; inclusion does not certify full conformance. They paraphrase selected sources rather than reproduce complete methodologies. Follow the external sources for fuller definitions. Keep implementation-specific rules in examples or implementation skills, not in the abstract procedure.
+The examples paraphrase selected sources rather than reproduce complete methodologies. Follow the external sources for fuller definitions. Keep implementation-specific rules in examples or implementation skills, not in the abstract procedure.
 
 Additional-criteria tables link unresolved obligations back to this contract and use the [evaluation classifications](references/evaluating-procedures.md#3-classify-findings). They distinguish insufficient evidence from obligations belonging to a surrounding procedure, rather than treating either as a proven failure. The adopting team must establish these provisions in its concrete, composed procedure before claiming conformance.
-
-- [Test-driven development](examples/test-driven-development.md): a fine-grained implementation and verification protocol.
-- [Behaviour-driven development](examples/behaviour-driven-development.md): shared understanding and examples carried into automation.
-- [Feature-driven development](examples/feature-driven-development.md): feature-level organisation and repeated design/build cycles.
-- [Shape Up](examples/shape-up.md): emergent scopes and explicit treatment of uncertainty.
-- [Spiral development](examples/spiral-development.md): a process family defined through invariants and risk reduction.
-- [Spec-driven development with GitHub Spec Kit](examples/spec-driven-development.md): explicit artifacts connecting intent to execution.
-- [OpenUP](examples/openup.md): micro-increments, iteration delivery, and project-level decisions.
-- [Scrum](examples/scrum.md): product and Sprint feedback with distinct Increment quality and release boundaries.
-- [Google SRE engagement models](examples/sre-engagement.md): operational concern timing and readiness for ownership transfer.
-- [Continuous Discovery](examples/continuous-discovery.md): bounded learning commitments within ongoing product discovery.
-- [Microsoft Security Development Lifecycle](examples/security-development-lifecycle.md): security practices spanning governance, development, and operation.
-- [HEART and Goals–Signals–Metrics](examples/heart-framework.md): measurement design connecting product goals to trustworthy observations.
