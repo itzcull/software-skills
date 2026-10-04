@@ -12,7 +12,7 @@ Provide comprehensive reference material on system design concepts. Covers build
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies architectural decision support when establishing constraints, preparing increments, or revisiting risks. It can inform several loops without prescribing a separate upfront design phase.
+Within [structured development](../structured-development/SKILL.md), this skill supplies architectural decision support when [establishing constraints](../structured-development/SKILL.md#1-establish-intent-and-boundaries), [preparing increments](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment), or [revisiting risks](../structured-development/SKILL.md#6-reconcile-and-adapt). It can inform several loops without prescribing a separate upfront design phase.
 
 Start from the intended outcomes, workload, quality requirements, existing architecture, and operational constraints. Distinguish measured facts from estimates. Return viable options, context-specific trade-offs, assumptions, and the experiments or checks needed to resolve uncertainty; the enclosing procedure decides which option to adopt and how to schedule that work.
 
@@ -37,7 +37,7 @@ A design recommendation does not establish capacity, reliability, or production 
 
 ## Related
 
-- Use the `system-designer` agent for interactive architectural decisions
+- Architectural analysis can be performed directly. Use an available advisor only when delegation is explicitly authorized; no particular agent is required.
 
 ## Reference files
 

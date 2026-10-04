@@ -12,7 +12,7 @@ Get up to speed on a branch by analysing its divergence from trunk. Produces a s
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies context for establishing intent, preparing further work, and reconciling a branch with its original goal. It is an orientation activity, not an implementation or verification protocol.
+Within [structured development](../structured-development/SKILL.md), this skill supplies context for [establishing intent](../structured-development/SKILL.md#1-establish-intent-and-boundaries), [preparing further work](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment), and [reconciling a branch with its original goal](../structured-development/SKILL.md#6-reconcile-and-adapt). It is an orientation activity, not an implementation or verification protocol.
 
 Use the branch, comparison base, available history, and any stated goal. Return the [situation report](#output-format) with evidence-backed changes, likely intent clearly separated from known requirements, and questions that affect the next decision. The enclosing procedure uses that context to choose investigation, implementation, or review work.
 

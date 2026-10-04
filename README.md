@@ -30,7 +30,9 @@ To support reliable composition, each skill should explain:
 - **Results:** what it produces and what those results establish.
 - **Boundaries:** what it does not decide or prove, and what must return to the enclosing procedure.
 
-These are design expectations, not a mandatory document template or a claim that every existing skill has already been assessed. Cohesion comes from compatible concepts and explicit handoffs, not identical workflows or duplicated contract requirements.
+These are design expectations, not a mandatory document template or a guarantee of whole-procedure conformance. Cohesion comes from compatible concepts and explicit handoffs, not identical workflows or duplicated contract requirements.
+
+The [skill composition assessment](docs/skill-composition-assessment.md) records the reviewed baseline, contribution evidence, corrected conflicts, and remaining evaluation limits. Each skill's relationship section links to the authoritative obligations it supports.
 
 Each installable skill is a direct child of `skills/`. A skill contains `SKILL.md` and only the support files that its instructions use.
 

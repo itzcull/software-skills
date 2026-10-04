@@ -12,7 +12,7 @@ Provide a reference catalog of software design patterns with implementation guid
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this catalog supplies design options while preparing, executing, or reviewing an increment. Consult it for an observed design problem, not to introduce a pattern as a goal in itself.
+Within [structured development](../structured-development/SKILL.md), this catalog supplies design options while [preparing](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment), [executing](../structured-development/SKILL.md#4-execute-the-increment), or [evaluating](../structured-development/SKILL.md#5-evaluate-the-result) an increment. Consult it for an observed design problem, not to introduce a pattern as a goal in itself.
 
 Use the intended behavior, existing structure, constraints, and concrete change pressure to compare a pattern with simpler alternatives. Return a recommendation and its trade-offs, or an explanation of why no pattern is warranted. When implementation is requested, keep changes within the agreed scope and return verification evidence to the enclosing procedure.
 

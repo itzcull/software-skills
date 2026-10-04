@@ -543,7 +543,7 @@ Integration tests are slower than unit tests. Optimize where possible:
 | Reuse containers across tests | 10-100x faster |
 | Use in-memory databases only when semantics do not matter | 10-50x faster |
 | Parallelize independent test files | Linear with worker count |
-| Skip integration tests on fast commits | Faster feedback loop |
+| Defer integration checks only when the agreed verification boundary permits | Faster local feedback without waiving required evidence |
 
 ```typescript
 // Reuse container across test suite
@@ -571,7 +571,7 @@ describe("Integration tests", () => {
 
 ## When to Skip Integration Tests
 
-Integration tests add complexity. Skip when:
+Integration tests add complexity. Consider omission only when other evidence covers the dependency-boundary risks and the enclosing procedure permits it. These factors inform that decision; they do not independently waive a required check:
 
 - The adapter is trivial (e.g., HTTP client wrapper)
 - The external system has comprehensive integration tests

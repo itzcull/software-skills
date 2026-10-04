@@ -568,13 +568,13 @@ test("soft assertions collect all failures", async ({ page }) => {
 - **Use Playwright's test runner** (not manual browser automation)
 - **Parallelize across browsers**
 - **Shard across CI workers**
-- **Skip E2E on fast commits**, run on PR merge
+- **Schedule E2E at the agreed verification boundary**; defer on fast commits only when a later gate is permitted. Required pre-merge evidence must be obtained before merging.
 - **Stub expensive API calls** when possible
 - **Use smaller test data**
 
 ## When to Skip E2E Tests
 
-E2E tests are slow and brittle. Skip when:
+E2E tests can be costly. Consider omission when sufficient evidence exists at another test level and the enclosing procedure permits it. The following factors prompt a coverage decision, not an automatic waiver of a required check:
 
 - Unit/integration tests already cover the behavior
 - The test is for an edge case rarely hit by users

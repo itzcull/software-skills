@@ -14,7 +14,7 @@ Use C4 to communicate structure, responsibilities, and relationships. Do not use
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies architecture views for establishing system boundaries, preparing changes, and reconciling implementation with intended structure. C4 abstraction levels describe the system, not a prescribed hierarchy of development loops.
+Within [structured development](../structured-development/SKILL.md), this skill supplies architecture views for [establishing system boundaries](../structured-development/SKILL.md#1-establish-intent-and-boundaries), [preparing changes](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment), and [reconciling implementation with intended structure](../structured-development/SKILL.md#6-reconcile-and-adapt). C4 abstraction levels describe the system, not a prescribed hierarchy of development loops.
 
 Use the [expected inputs](#inputs-expected) to select the audience, scope, and evidence. Make clear whether a view describes the current system or a proposed design. Return the [model or review report](#output-format) with its evidence, assumptions, and gaps, so the enclosing procedure can identify dependencies and decisions affecting the work.
 

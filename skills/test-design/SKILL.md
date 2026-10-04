@@ -18,7 +18,7 @@ Provide an authoritative resource on writing great tests, grounded in the princi
 
 ## Relationship to structured development
 
-Within [structured development](../structured-development/SKILL.md), this skill supplies verification design when preparing increments and evaluating results. It helps decide what evidence is needed and how to obtain it; [test-driven-development](../test-driven-development/SKILL.md) separately owns test-first sequencing when that protocol is selected.
+Within [structured development](../structured-development/SKILL.md), this skill supplies verification design when [preparing increments](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment) and [evaluating results](../structured-development/SKILL.md#5-evaluate-the-result). It helps decide what evidence is needed and how to obtain it; [test-driven-development](../test-driven-development/SKILL.md) separately owns test-first sequencing when that protocol is selected.
 
 Start from the intended observable behavior, acceptance criteria, relevant risks, public interfaces, and dependency boundaries. Explain why the chosen test level and interface can demonstrate the promised behavior. Return the test strategy, tests, or test-quality findings requested, with coverage limits; when tests are executed, distinguish observed results from checks only proposed.
 

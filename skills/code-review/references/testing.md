@@ -2,6 +2,8 @@
 
 Category 13 -- Are changes adequately tested?
 
+Use [test-design](../../test-design/SKILL.md) as the authority for test levels, doubles, and application-owned test data. Assess whether the chosen tests demonstrate the intended behavior and inherited evaluation criteria; do not require a test per code unit or reject deliberate integration tests merely for using real dependencies.
+
 ## Subcategories
 
 - **Missing unit tests** -- new behaviour without corresponding test coverage
@@ -10,7 +12,7 @@ Category 13 -- Are changes adequately tested?
 - **Missing integration tests** -- new external service interactions or database operations without integration tests
 - **Incorrect assertions** -- assertions that do not actually verify the intended behaviour
 - **Test logic errors** -- bugs in the test itself (setup that does not match the scenario description)
-- **Missing mocks/stubs** -- tests that hit real external services, databases, or filesystems
+- **Uncontrolled external dependencies** -- tests that contact shared or production services, depend on undeclared environment state, or lack deliberate isolation at the chosen test level
 - **Flaky tests** -- tests with timing dependencies, shared mutable state, or non-deterministic behaviour
 - **Tests not covering the changed code** -- new tests exist but do not exercise the code that was modified
 - **Test structure issues** -- missing arrange/act/assert separation, multiple assertions per test without clear reason
@@ -18,14 +20,14 @@ Category 13 -- Are changes adequately tested?
 
 ## What to Look For
 
-- New functions or branches without corresponding test cases
-- Tests that assert on internal method calls (`.toHaveBeenCalled`) rather than observable output
-- Tests that share mutable state via `let` variables and `beforeEach` instead of using factory functions
+- Changed observable behavior without meaningful coverage through the appropriate public interface
+- Assertions on internal collaborator calls rather than domain outcomes or observable outgoing effects
+- Shared mutable state or setup hooks that leak between tests or hide behavior-specific preconditions
 - Tests where the description says one thing but the assertion checks something else
 - Tests that rely on execution order (test B depends on state created by test A)
 - Missing tests for error paths (what happens when the API returns 500? when the input is empty?)
 - Tests that assert on the exact structure of a log message or console output (fragile)
-- Test data created with production constructors instead of test factories
+- Fixtures that bypass authoritative application definitions or duplicate domain constraints instead of reusing application-owned constructors, schemas, or factories
 - `expect(result).toBeTruthy()` where `expect(result).toEqual(expectedValue)` would be more precise
 - Tests that mock the module under test instead of its dependencies
 - Large test files with no logical grouping (missing `describe` blocks)
@@ -84,7 +86,7 @@ it("should call repo with correct params", async () => {
 });
 ```
 
-Tests the interaction with the repository (implementation detail) rather than the observable outcome. Will break on any internal refactoring.
+This is a negative example when `save` is an internal implementation choice rather than the behavior promised by `processOrder`. In that case, the assertions couple the test to internal collaboration. If persistence through an application-owned role is the observable outgoing effect, interaction verification can be appropriate; establish that boundary before reporting a finding.
 
 ## Common False Positives
 
@@ -92,6 +94,9 @@ Tests the interaction with the repository (implementation detail) rather than th
 - Tests that appear to share state but actually reset it correctly via framework mechanisms
 - Snapshot tests that are appropriate for the use case (e.g. verifying serialised output format)
 - Tests for code that is being deleted in the same diff
+- Integration tests deliberately using isolated real databases, filesystems, or service instances
+- Fixtures built with application-owned constructors or factories
+- Assertions on outgoing interactions that are the observable behavior through an application-owned role
 
 ## Severity Guide
 
