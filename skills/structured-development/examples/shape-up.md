@@ -21,6 +21,12 @@ This is our interpretation using the [contract and evidence labels](../SKILL.md#
 | [6. Reconcile and adapt](../SKILL.md#6-reconcile-and-adapt) | **Supported:** inspect stalled scopes, resolve unknowns, split mixed scopes, and distinguish essential work from nice-to-haves. |
 | [7. Close the scope](../SKILL.md#7-close-the-agreed-scope) | **Not established:** these chapters do not establish the overall acceptance and handoff procedure. Do not infer it from scopes being marked complete. |
 
+## Loops and concern placement
+
+- **Supported — scopes and feedback:** teams discover and finish scopes within a project, inspect uncertainty, and redraw scope boundaries when they obscure progress. Several scopes can advance independently.
+- **Partial — loop structure:** we interpret project-level scope revision and scope-level problem solving as related feedback loops. Scopes are units of work; calling each a loop additionally requires entry, evaluation, adaptation, and completion provisions. The reviewed chapters do not establish all of those provisions or the wider shaping and betting relationships.
+- **Partial — concern placement:** uncertainty is examined for individual scopes and used to sequence project work. **Not established:** placement of operational observability or behavioural analytics. Hill charts describe development progress, not production diagnostic evidence or product-use measurements.
+
 ## What remains implementation-specific
 
 Scope maps and hill charts are particular mechanisms for organising work and communicating uncertainty. These chapters allow progress on several scopes and recommend resolving critical unknowns before finishing routine details. They do not imply strict completion of one atomic behaviour before any other work begins.

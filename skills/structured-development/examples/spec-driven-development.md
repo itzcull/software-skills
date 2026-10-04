@@ -22,6 +22,12 @@ This is our interpretation using the [contract and evidence labels](../SKILL.md#
 | [6. Reconcile and adapt](../SKILL.md#6-reconcile-and-adapt) | **Partial:** convergence provides a named reconciliation step. Its exact handling of changed requirements and failed checks needs the detailed protocol. |
 | [7. Close the scope](../SKILL.md#7-close-the-agreed-scope) | **Not established:** the overview alone does not define sufficient acceptance, unresolved-work accounting, or release criteria. |
 
+## Loops and concern placement
+
+- **Partial — loop structure:** the overview carries feature intent through specification, planning, tasks, implementation, and convergence. We can map that to a feature-level procedure, but the named steps are not themselves nesting levels; task lists do not establish behaviour-level loops.
+- **Not established — boundary relationships:** the overview alone does not specify a full hierarchy of loops, their decision authority, or triggers for reopening an enclosing commitment. Independent bug-fixing and assessment entry points are not automatically child loops of feature delivery.
+- **Partial — concern placement:** quality checklists and cross-artifact analysis support consistency across the procedure. **Not established:** where operational observability or behavioural analytics decisions, implementation, and evaluation occur. A specification could address them, but the artifact's existence does not prove those placements.
+
 ## What remains implementation-specific
 
 Markdown artifacts, command names, and the core sequence belong to this implementation. They are not required by the abstract contract. An assessment's decision to proceed also does not automatically authorise implementation.

@@ -20,6 +20,12 @@ This is our interpretation using the [contract and evidence labels](../SKILL.md#
 | [6. Reconcile and adapt](../SKILL.md#6-reconcile-and-adapt) | **Partial:** repeat the cycle and revise the roadmap as necessary. Scope changes and escalation need explicit authority. |
 | [7. Close the scope](../SKILL.md#7-close-the-agreed-scope) | **Not established:** the reviewed definition does not provide a complete feature acceptance or handoff protocol. |
 
+## Loops and concern placement
+
+- **Supported — local loop:** the test–implementation–refactoring cycle repeats for successive aspects of behaviour. A revisable test roadmap connects those cycles to larger features.
+- **Partial — enclosing relationships:** interpreting the roadmap as input to a feature-delivery loop is our mapping. The source does not specify that loop's authority, completion criteria, or escalation rules.
+- **Partial — concern placement:** correctness checks and internal design improvement occur within the programming cycle. **Not established:** placement of operational observability or behavioural analytics, including when diagnostic needs or learning questions are defined. An adaptation must declare those placements and any external handoffs rather than equating passing tests with readiness.
+
 ## What remains implementation-specific
 
 Test-first ordering, single-test cycles, and refactoring are TDD rules, not requirements of the abstract contract. An enclosing implementation must supply outcome selection, broader evaluation, exception handling, and closure.

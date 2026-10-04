@@ -20,6 +20,12 @@ This is our interpretation using the [contract and evidence labels](../SKILL.md#
 | [6. Reconcile and adapt](../SKILL.md#6-reconcile-and-adapt) | **Supported:** move back to discovery when more information is needed, evolve shared understanding, and respond to feedback after each example. |
 | [7. Close the scope](../SKILL.md#7-close-the-agreed-scope) | **Partial:** accumulated examples preserve an executable account of behaviour. Overall acceptance and handoff remain responsibilities of the enclosing process. |
 
+## Loops and concern placement
+
+- **Supported — scopes and feedback:** stories are explored through examples, examples are automated and implemented, and missing understanding can send work back to discovery.
+- **Partial — loop structure:** treating story-level discovery and example-level implementation as nested loops is our interpretation. Discovery, formulation, and automation are activities, not automatically three nesting levels. The surrounding agile process must define authority and overall completion.
+- **Partial — concern placement:** shared understanding is developed through discovery and formulation; behavioural evidence is produced through automation. **Not established:** where operational observability or behavioural analytics are governed, implemented, and evaluated. Expressing either as an example would not by itself establish its cross-loop placement.
+
 ## What remains implementation-specific
 
 Collaborative discovery, executable examples, and test-first automation are the source's practices. They need not be imposed on every structured-development implementation. Gherkin and Cucumber are not requirements of the abstract contract.

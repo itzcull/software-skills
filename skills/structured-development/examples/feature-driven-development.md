@@ -20,6 +20,12 @@ This is our interpretation using the [contract and evidence labels](../SKILL.md#
 | [6. Reconcile and adapt](../SKILL.md#6-reconcile-and-adapt) | **Partial:** the model gains detail as learning occurs, and oversized features are split. Replanning after failed checks needs a concrete protocol. |
 | [7. Close the scope](../SKILL.md#7-close-the-agreed-scope) | **Partial:** promotion marks a feature checkpoint. Acceptance of the combined feature set and incomplete-work accounting need an enclosing closure policy. |
 
+## Loops and concern placement
+
+- **Supported — scopes and checkpoints:** an overall model and feature list frame repeated feature design/build work. Design review and testing, inspection, and approval precede promotion to the main build.
+- **Partial — loop structure:** we map that repeated work to feature-level loops within a broader development scope. The reviewed overview does not establish a complete enclosing feedback loop or rules for reopening shared model decisions.
+- **Partial — concern placement:** design review belongs to feature design, and verification gates feature promotion. **Not established:** the levels, triggers, evidence, and authority for operational observability or behavioural analytics. Class ownership alone does not supply those concern-specific provisions.
+
 ## What remains implementation-specific
 
 The described class ownership, chief-programmer role, design reviews, and feature-size limit belong to FDD, not the abstract contract. Do not infer that those roles cover every decision-authority or escalation requirement.

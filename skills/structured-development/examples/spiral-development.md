@@ -22,6 +22,12 @@ This is our interpretation using the [contract and evidence labels](../SKILL.md#
 | [6. Reconcile and adapt](../SKILL.md#6-reconcile-and-adapt) | **Partial:** iteration and incremental commitment support repeated decisions. Exact replanning and escalation rules require fuller guidance. |
 | [7. Close the scope](../SKILL.md#7-close-the-agreed-scope) | **Partial:** anchor-point milestones are mentioned, but their criteria and their relation to final acceptance are not established by the abstract. |
 
+## Loops and concern placement
+
+- **Supported — recurrence:** the report abstract describes repeated development activities and incremental commitment, with active risk reduction.
+- **Not established — nesting:** recurrence does not demonstrate a particular hierarchy of product, feature, or behaviour loops. The abstract does not specify such levels, their authority, or how evidence crosses their boundaries.
+- **Partial — concern placement:** risk is an explicit concern of the repeated process, but its precise decisions, checks, and milestones are not detailed in the reviewed abstract. **Not established:** specific placements for operational observability or behavioural analytics. An adaptation must supply them where relevant, rather than assuming that a general commitment to risk reduction covers them.
+
 ## What remains implementation-specific
 
 Spiral development is itself a process family, not a ready-to-execute protocol in the reviewed material. A concrete adaptation must specify its risk assessment, commitment decisions, engineering practices, and evidence requirements.
