@@ -1,15 +1,17 @@
 # Integration Testing
 
-Integration tests verify that your code honors contracts with things you don't control: databases, APIs, third-party libraries, queues, filesystems, and platform services. They complete the "don't double what you don't own directly" pattern.
+Integration tests verify application-owned behavior at boundaries with databases, APIs, third-party libraries, queues, filesystems, and platform services. They complete the "don't double what you don't own directly" pattern without making the dependency itself the test subject.
+
+The [ownership boundary](./testing-guidelines.md#ownership-boundary) governs every integration test: exercise an application-owned public interface, assume the dependency honors its documented contract, and assert only what our adapter or boundary code promises.
 
 ## Purpose and Scope
 
-Unit tests use test doubles at architectural boundaries. Integration tests use real dependencies to prove your adapters work:
+Unit tests use test doubles at architectural boundaries. Integration tests use real dependencies to prove application-owned adapters work:
 
 | Test Level | What It Tests | What It Doubles |
 |------------|---------------|---------------|
-| Unit | Behavioral contracts within your system | External dependencies |
-| Integration | Your code's contract with external systems | Prefer nothing; use protocol stubs only when real dependencies are impractical |
+| Unit | Behavioral contracts exposed by application-owned public interfaces | External dependencies |
+| Integration | An application-owned adapter's public contract while using an external system | Prefer nothing; use protocol stubs only when real dependencies are impractical |
 
 ```typescript
 // Unit test: use a spy for your abstraction
@@ -26,21 +28,21 @@ describe("PaymentProcessor (unit)", () => {
   });
 });
 
-// Integration test: prove the adapter works
+// Integration test: prove our adapter's public result
 describe("StripePaymentGateway (integration)", () => {
-  it("should charge card via real Stripe API", async () => {
+  it("should return a successful charge result when the provider accepts payment", async () => {
     const gateway = new StripePaymentGateway(stripeTestKey);
     const result = await gateway.charge(100, testCardToken);
 
     expect(result.success).toBe(true);
-    expect(result.chargeId).toMatch(/^ch_/);
+    expect(result.chargeId).toBeDefined();
   });
 });
 ```
 
 ## The Adapter Testing Pattern
 
-Create an interface that belongs to your application, then prove your adapter implements it correctly:
+Create an interface that belongs to your application, then prove your adapter implements it correctly. Assert the adapter's public result or effect, not whether the dependency behaves according to its own specification:
 
 ```typescript
 // 1. Define the interface in YOUR code
@@ -83,7 +85,7 @@ describe("OrderProcessor with gateway spy", () => {
   });
 });
 
-// 4. Integration tests: prove the adapter
+// 4. Integration tests: prove the adapter's public contract
 describe("StripePaymentGateway integration", () => {
   it("should complete charge flow", async () => {
     const gateway = new StripePaymentGateway(process.env.STRIPE_TEST_KEY);
@@ -103,7 +105,7 @@ describe("StripePaymentGateway integration", () => {
 
 Testcontainers provides real Docker containers for integration testing.
 
-Use containers when dependency behavior matters: SQL constraints, transaction isolation, migrations, broker semantics, Redis expiry, object storage behavior, or version-specific quirks. Prefer a fake only when its behavior is intentionally small and contract-tested against the real adapter.
+Use containers when application-owned behavior relies on documented dependency semantics that a fake cannot faithfully provide, such as SQL constraints, transaction isolation, migrations, broker delivery, Redis expiry, or object storage operations. The test should still assert only the public result or effect promised by our code. Prefer a fake only when its behavior is intentionally small and checked against the same application-owned contract as the real adapter.
 
 ### Core Principles
 
@@ -574,7 +576,6 @@ describe("Integration tests", () => {
 Integration tests add complexity. Consider omission only when other evidence covers the dependency-boundary risks and the enclosing procedure permits it. These factors inform that decision; they do not independently waive a required check:
 
 - The adapter is trivial (e.g., HTTP client wrapper)
-- The external system has comprehensive integration tests
 - The cost of infrastructure outweighs the risk
 - A unit test with a stub or spy provides sufficient coverage
 - A consumer-driven contract test already verifies the remote protocol risk

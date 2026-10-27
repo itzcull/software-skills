@@ -442,6 +442,8 @@ test.describe("Checkout flow", () => {
 
 ## Handling Third-Party Dependencies
 
+Keep the test subject and assertions inside the application-owned boundary. Verify that our public interface initiates or handles the handoff correctly; do not continue into a provider's interface or assert that the provider behaves correctly.
+
 Don't test external sites:
 
 ```typescript

@@ -20,7 +20,7 @@ Provide an authoritative resource on writing great tests, grounded in the princi
 
 Within [structured development](../structured-development/SKILL.md), this skill supplies verification design when [preparing increments](../structured-development/SKILL.md#3-select-and-prepare-the-next-increment) and [evaluating results](../structured-development/SKILL.md#5-evaluate-the-result). It helps decide what evidence is needed and how to obtain it; [test-driven-development](../test-driven-development/SKILL.md) separately owns test-first sequencing when that protocol is selected.
 
-Start from the intended observable behavior, acceptance criteria, relevant risks, public interfaces, and dependency boundaries. Explain why the chosen test level and interface can demonstrate the promised behavior. Return the test strategy, tests, or test-quality findings requested, with coverage limits; when tests are executed, distinguish observed results from checks only proposed.
+Start from the intended observable behavior, acceptance criteria, relevant risks, application-owned public interfaces, and dependency boundaries. Explain why the chosen test level and interface can demonstrate the promised behavior. Return the test strategy, tests, or test-quality findings requested, with coverage limits; when tests are executed, distinguish observed results from checks only proposed.
 
 Test design does not authorize changing acceptance criteria to fit convenient assertions. Return ambiguous expected outcomes and untestable obligations to the enclosing procedure for a decision. Passing the selected tests provides bounded evidence, not automatic feature acceptance or proof that every relevant concern is covered.
 
@@ -42,7 +42,13 @@ Test design does not authorize changing acceptance criteria to fit convenient as
 - Tests are executable specifications of observable behavior
 - A test should fail if and only if the code no longer does what it promises
 - Test the unit of behavior, not the unit of code
-- Test through public APIs; internals should be invisible to tests
+- Before writing a test, identify the maintained production module and application-owned public interface whose behavior it specifies; if neither can be identified, do not create the test
+- Limit test subjects to maintained production application code, normally under `src/` or the repository's equivalent production-code location
+- Ownership is necessary but not sufficient: do not test static configuration values, manifests, framework setup, generated code, test helpers, or wiring details merely because they live in the repository
+- Test through application-owned public interfaces; internals should be invisible to tests
+- When configuration or wiring affects a public promise, test the observable application behavior rather than asserting the underlying setting
+- Assume libraries, frameworks, runtimes, and external services honor their documented contracts; never write tests whose subject is dependency behavior
+- A dependency may participate in an integration test, but assertions must prove our adapter, translation, error handling, or other maintained application behavior
 - Prefer sociable tests with real in-process collaborators; use solitary tests when a boundary is awkward, slow, non-deterministic, or still being designed
 - Use test doubles at architectural boundaries, not between internal collaborators inside the same behavioral unit
 - Do not double what you do not own directly; define your own role or port, double that role in unit tests, and prove adapters with integration or contract tests
@@ -92,8 +98,8 @@ Mocks are not general-purpose isolation tools. In their original design role, mo
 
 | Question | Preferred Test Level |
 | --- | --- |
-| Does a behavioral rule still hold inside our system? | Unit test |
-| Does our adapter honor a dependency contract? | Integration test |
+| Does an application-owned public interface still honor a behavioral rule? | Unit test |
+| Does our adapter correctly implement our public contract when using a dependency? | Integration test |
 | Does a service still satisfy a consumer-provider protocol? | Contract test |
 | Does a UI component behave the way a user experiences it? | Component/browser test |
 | Does the whole system complete a critical user journey? | E2E test |

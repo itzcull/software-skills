@@ -6,6 +6,23 @@ Tests encode intent, not implementation. A test should fail if and only if the c
 
 Tests are executable specifications—living documentation that verifies your system honors its contracts.
 
+## Ownership Boundary
+
+Before creating a test, identify the maintained production module and application-owned public interface whose behavior the test will specify. If neither can be identified, do not create the test.
+
+Every test must exercise observable behavior implemented by maintained production application code, through a public interface the application exposes. This is normally code under `src/`, or the repository's equivalent production-code location. Application code outside that directory remains eligible when the team maintains it as part of the product's public behavior. Private helpers may receive coverage through a public interface, but they are not separate test subjects.
+
+Ownership is necessary but not sufficient. Do not create tests solely to assert static configuration values, package manifests, framework setup, generated code, test helpers, file placement, or exact wiring. Those are implementation details even when they live in the repository. If configuration or wiring affects a public promise, test the resulting observable behavior through the application interface instead of asserting the setting itself.
+
+Do not write tests whose purpose is to prove the behavior of a library, framework, runtime, database, browser, or external service. Assume dependencies honor their documented contracts. A dependency may participate in an integration or end-to-end test, but the subject and assertions must remain maintained application behavior such as adapter mapping, orchestration, persistence semantics promised by our repository, or translation of dependency failures into our public contract.
+
+Useful checks:
+
+- If the test would still be meaningful after removing our source code and calling the dependency directly, it tests code we do not own.
+- If the test can pass by inspecting a configuration value or internal structure without exercising a public behavior, it tests implementation rather than a product promise.
+
+Neither test belongs in the suite.
+
 **Coverage targets**: 100% coverage through business behavior, not implementation details.
 
 ## The Two Test Failures
@@ -34,7 +51,7 @@ Each level tests contracts at a different boundary.
 Specify contracts between behavioral units within your system.
 
 - **"Unit" = unit of behavior, not unit of code** - test the behavior a caller depends on, not individual functions
-- Test through the public API exclusively - internals should be invisible to tests
+- Test through application-owned public interfaces exclusively - internals should be invisible to tests
 - Prefer sociable tests with real in-process collaborators
 - Use test doubles at architectural boundaries, not between internal collaborators inside the same behavioral unit
 - Should survive refactoring that preserves observable behavior
@@ -55,17 +72,17 @@ describe("Payment processing", () => {
 
 ### Integration Tests
 
-Specify that your code honors contracts with things you don't control—databases, APIs, third-party libraries.
+Specify that application-owned boundary code honors the public contract it exposes while collaborating with databases, APIs, or third-party libraries. The dependency provides the environment; its behavior is not the test subject.
 
-- Verify your adapters work against real dependencies
-- Complete the "don't double what you don't own" pattern: use stubs or spies for your abstraction in unit tests, prove the abstraction works here
-- Test at the boundary between your code and external systems
+- Verify your adapters work against real dependencies without re-testing those dependencies
+- Complete the "don't double what you don't own" pattern: use stubs or spies for your abstraction in unit tests, then prove your adapter implements that abstraction here
+- Test your code's observable behavior at the boundary with external systems
 - Prefer high-fidelity test infrastructure when practical: real databases, real queues, containerized services, or protocol-level HTTP stubs
 
 See [Integration Testing](./integration-testing.md) for Testcontainers patterns, MSW setup, and database testing strategies.
 
 ```typescript
-// Integration test - proves our adapter works with real database
+// Integration test - proves our repository's public persistence behavior
 describe("PaymentRepository", () => {
   it("should persist payment to database", async () => {
     const payment = getTestPayment({ amount: 100 });
@@ -151,7 +168,7 @@ const paymentGatewayStub: PaymentGateway = {
 
 // In integration tests: prove StripePaymentGateway implements PaymentGateway correctly
 describe("StripePaymentGateway", () => {
-  it("should charge card via Stripe API", async () => {
+  it("should return a successful charge result when the provider accepts payment", async () => {
     const gateway = new StripePaymentGateway(stripeTestKey);
     const result = await gateway.charge(1000, testCardToken);
     expect(result.success).toBe(true);
@@ -162,7 +179,7 @@ describe("StripePaymentGateway", () => {
 ### Where to Use Test Doubles
 
 - **Unit tests**: Stub or spy on application-owned roles or ports at architectural boundaries
-- **Integration tests**: Use real dependencies, containers, or faithful protocol stubs to prove adapters work
+- **Integration tests**: Use real dependencies, containers, or faithful protocol stubs to prove application-owned adapters honor their public contracts
 - **Contract tests**: Capture consumer-provider expectations when mocks could drift from a remote service
 - **Never double**: Internal collaborators within the same behavioral unit
 
@@ -382,7 +399,7 @@ interface HttpClient {
 }
 
 // Unit test: stub or spy on HttpClient
-// Integration test: prove AxiosHttpClient works with real HTTP
+// Integration test: prove AxiosHttpClient honors our HttpClient contract over real HTTP
 ```
 
 ## Achieving 100% Coverage Through Business Behavior

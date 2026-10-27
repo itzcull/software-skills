@@ -270,7 +270,7 @@ it("should notify warehouse after purchase", () => {
 
 Use mocks for roles owned by your application, not for arbitrary objects. A role is a narrow collaboration need expressed from the system's perspective, such as `PaymentGateway`, `OrderEvents`, or `EmailSender`.
 
-Do not mock fixed third-party APIs, runtime types, database clients, or concrete classes directly. Wrap external systems in an application-owned port, test application behavior against the port with a stub or spy, and prove the adapter with integration or contract tests.
+Do not mock fixed third-party APIs, runtime types, database clients, or concrete classes directly. Wrap external systems in an application-owned port, test application behavior against the port with a stub or spy, and use integration or contract tests to prove the adapter's public contract—not the dependency's behavior.
 
 ### Header Interfaces
 
